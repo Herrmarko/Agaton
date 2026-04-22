@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>För stora sällskap — Agaton Ristorante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agaton.css">
+<script src="agaton-chrome.js?v=2" data-active="news"></script>
+<style>
+/* HERO — full-bleed photo */
+.s-hero{
+  position: relative; min-height: 78vh;
+  display: flex; align-items: flex-end;
+  background: var(--wood); color: var(--cream);
+  overflow: hidden; padding: 140px 48px 70px;
+}
+.s-hero::before{
+  content:""; position: absolute; inset: 0;
+  background: url('photos/interior-05.jpg') center/cover no-repeat;
+  filter: brightness(.5) saturate(1.05);
+  z-index: 0;
+}
+.s-hero::after{
+  content:""; position:absolute; inset:0; z-index: 1;
+  background: linear-gradient(180deg, rgba(46,26,16,.45) 0%, rgba(46,26,16,.05) 40%, rgba(46,26,16,.75) 100%);
+}
+.s-hero-inner{ position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; width: 100%; }
+.s-hero .script{ font-family: var(--script); font-size: clamp(44px, 5vw, 72px); color: var(--candle); display: block; transform: rotate(-4deg); margin-bottom: 8px; text-shadow: 0 3px 20px rgba(0,0,0,.4); }
+.s-hero h1{
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(64px, 10vw, 160px); line-height: .92;
+  letter-spacing: -0.025em; color: var(--cream); margin-bottom: 22px;
+  max-width: 14ch;
+}
+.s-hero p{
+  max-width: 46ch; font-size: 17px; line-height: 1.7;
+  color: color-mix(in oklab, var(--cream) 88%, transparent);
+}
+
+/* INTRO strip — merged with includes */
+.intro-strip{
+  padding: 70px 48px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+.intro-strip-inner{
+  max-width: 1180px; margin: 0 auto;
+}
+.intro-strip-top{
+  display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start;
+  margin-bottom: 52px;
+  padding-bottom: 52px;
+  border-bottom: 1px solid var(--line);
+}
+.intro-strip h2{
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1;
+  color: var(--wood); letter-spacing: -0.015em;
+}
+.intro-strip p{ font-size: 15px; line-height: 1.7; color: var(--ink-soft); max-width: 54ch; }
+.intro-strip-includes h3{
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--brick); margin-bottom: 28px;
+}
+.includes-grid{
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+}
+.inc-item{ border-top: 1px solid var(--line); padding: 20px 24px 20px 0; }
+.inc-item .n{ font-family: var(--display); font-style: italic; font-size: 16px; color: var(--brick); margin-bottom: 4px; }
+.inc-item h4{ font-family: var(--display); font-weight: 500; font-size: 17px; margin-bottom: 6px; color: var(--wood); }
+.inc-item p{ font-size: 13px; line-height: 1.55; color: var(--ink-soft); }
+
+/* OPTIONS — 3 scenarios */
+.opts{ padding: 100px 48px; background: var(--cream); }
+.opts-head{ text-align: center; margin-bottom: 60px; }
+.opts-head .script{ font-family: var(--script); font-size: 42px; color: var(--brick); display: block; transform: rotate(-3deg); margin-bottom: 8px; }
+.opts-head h2{ font-family: var(--display); font-style: italic; font-size: clamp(38px, 4.4vw, 56px); color: var(--wood); }
+
+.opts-grid{
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.opt{
+  background: var(--white); border: 1px solid var(--line-faint);
+  border-radius: var(--r-md); overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.opt:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.opt-img{ aspect-ratio: 16/10; overflow: hidden; position: relative; }
+.opt-img img{ width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.opt:hover .opt-img img{ transform: scale(1.04); }
+.opt-img .count{
+  position: absolute; top: 16px; left: 16px;
+  background: var(--brick); color: var(--cream);
+  padding: 5px 12px; border-radius: var(--r-pill);
+  font-size: 10px; letter-spacing: .26em; text-transform: uppercase; font-weight: 600;
+}
+.opt-body{ padding: 28px 26px 30px; flex: 1; display: flex; flex-direction: column; }
+.opt-body .num{ font-family: var(--display); font-style: italic; font-size: 22px; color: var(--brick); margin-bottom: 10px; }
+.opt-body h3{ font-family: var(--display); font-weight: 500; font-size: 28px; color: var(--wood); line-height: 1.15; margin-bottom: 12px; letter-spacing: -0.005em; }
+.opt-body p{ font-size: 14.5px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 20px; flex: 1; }
+.opt-body ul{ list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.opt-body li{
+  font-size: 13px; color: var(--wood-2);
+  padding-left: 20px; position: relative; line-height: 1.5;
+}
+.opt-body li::before{
+  content: "·"; position: absolute; left: 4px; top: 0;
+  color: var(--brick); font-size: 22px; line-height: 1;
+}
+
+/* INCLUDED bar */
+.includes{
+  padding: 80px 48px; background: var(--wood); color: var(--cream);
+}
+.includes-inner{ max-width: 1180px; margin: 0 auto; }
+.includes h2{
+  font-family: var(--display); font-style: italic; font-size: clamp(32px, 3.8vw, 46px);
+  margin-bottom: 44px; max-width: 20ch;
+  color: var(--cream);
+}
+.includes-grid{
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.inc-item{ border-top: 1px solid var(--line); padding-top: 20px; }
+.inc-item .n{ font-family: var(--display); font-style: italic; font-size: 22px; color: var(--brick); margin-bottom: 6px; }
+.inc-item h4{ font-family: var(--display); font-weight: 500; font-size: 20px; margin-bottom: 6px; color: var(--wood); }
+.inc-item p{ font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+
+/* CONTACT FORM */
+.s-form-wrap{
+  padding: 110px 48px 130px; background: var(--cream);
+}
+.s-form-inner{
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; align-items: start;
+}
+.s-form-intro .eyebrow{ font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brick); font-weight: 500; margin-bottom: 16px; }
+.s-form-intro h2{ font-family: var(--display); font-style: italic; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.03; color: var(--wood); margin-bottom: 24px; letter-spacing: -0.015em; }
+.s-form-intro p{ font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 32px; max-width: 46ch; }
+.s-form-intro .tiny{
+  display: flex; flex-direction: column; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--line-faint);
+}
+.s-form-intro .tiny-row{ display: flex; gap: 16px; align-items: baseline; }
+.s-form-intro .tiny-row .lbl{ font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; min-width: 68px; }
+.s-form-intro .tiny-row .v{ font-family: var(--display); font-size: 18px; color: var(--wood); }
+.s-form-intro .tiny-row .v a{ color: var(--wood); }
+.s-form-intro .tiny-row .v a:hover{ color: var(--brick); }
+
+.s-form{
+  background: var(--white); border: 1px solid var(--line-faint);
+  padding: 44px; border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+.s-form h3{ font-family: var(--display); font-style: italic; font-size: 30px; color: var(--wood); margin-bottom: 6px; }
+.s-form > .sub{ font-size: 13.5px; color: var(--ink-soft); margin-bottom: 26px; }
+.field{ display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+.field label{ font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--brick); font-weight: 500; }
+.field input, .field select, .field textarea{
+  font-family: var(--sans); font-size: 14px; padding: 11px 14px;
+  background: var(--cream); border: 1px solid var(--line-faint);
+  border-radius: var(--r-sm); color: var(--wood); outline: none;
+  transition: border-color .2s var(--ease), background .2s var(--ease);
+}
+.field input:focus, .field select:focus, .field textarea:focus{ border-color: var(--brick); background: var(--white); }
+.field textarea{ min-height: 120px; resize: vertical; }
+.f-2col{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.f-3col{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.s-form button{
+  width: 100%; padding: 14px; background: var(--brick); color: var(--cream);
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; margin-top: 12px;
+  border-radius: var(--r-pill); cursor: pointer;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.s-form button:hover{ background: var(--brick-deep); transform: translateY(-1px); }
+
+/* Responsive */
+@media (max-width: 900px){
+  .s-hero{ padding: 120px 20px 50px; min-height: 60vh; }
+  .intro-strip{ padding: 60px 20px; }
+  .intro-strip-top{ grid-template-columns: 1fr; gap: 22px; margin-bottom: 50px; padding-bottom: 50px; }
+  .includes-grid{ grid-template-columns: 1fr 1fr; gap: 22px; }
+  .s-form-wrap{ padding: 70px 20px 90px; }
+  .s-form-inner{ grid-template-columns: 1fr; gap: 40px; }
+  .s-form{ padding: 28px; }
+  .f-3col{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px){
+  .s-hero{ padding: 100px 20px 44px; min-height: 50vh; }
+  .s-hero h1{ font-size: clamp(44px, 13vw, 72px); }
+  .intro-strip{ padding: 50px 20px; }
+  .intro-strip-top{ gap: 18px; margin-bottom: 36px; padding-bottom: 36px; }
+  .intro-strip h2{ font-size: clamp(28px, 9vw, 44px); }
+  .includes-grid{ grid-template-columns: 1fr; }
+  .s-form-wrap{ padding: 50px 20px 70px; }
+  .s-form-inner{ grid-template-columns: 1fr; gap: 36px; }
+  .f-2col{ grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body data-force-scrolled="true">
+
+<div id="agaton-nav" data-on-dark="true"></div>
+
+<!-- HERO -->
+<section class="s-hero">
+  <div class="s-hero-inner">
+    <span class="script">per i grandi gruppi</span>
+    <h1>För stora sällskap</h1>
+    <p>Bröllop, företagsmiddagar, födelsedagar eller en kväll med hela vängänget — vi gör plats. Upp till 60 personer, alltid med ärlig italiensk mat och stora delningsfat mitt på bordet.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro-strip">
+  <div class="intro-strip-inner">
+    <div class="intro-strip-top">
+      <h2>Ett bord, mycket vin,<br>och mat som går runt.</h2>
+      <p>Vi älskar att få laga för större sällskap. Det är så man äter i Italien — långa bord, tagliere med charkuterier som skickas runt, pastagrytor i mitten och någon som alltid vill höja glaset. Säg hur många ni är, vad ni tycker om att äta, och vi tar hand om resten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="s-form-wrap" id="kontakt">
+  <div class="s-form-inner">
+
+    <div class="s-form-intro">
+      <div class="eyebrow">Skicka förfrågan</div>
+      <h2>Berätta om ert sällskap.</h2>
+      <p>Fyll i formuläret så återkommer vi inom en dag med förslag på datum, meny och pris. Eller ring — vi svarar helst i luren.</p>
+
+      <div class="tiny">
+        <div class="tiny-row"><span class="lbl">Telefon</span><span class="v"><a href="tel:+4608207299">+46 08 20 72 99</a></span></div>
+        <div class="tiny-row"><span class="lbl">E-post</span><span class="v"><a href="mailto:info@restaurangagaton.se">info@restaurangagaton.se</a></span></div>
+        <div class="tiny-row"><span class="lbl">Besök</span><span class="v">Västerlånggatan 72, Stockholm</span></div>
+      </div>
+    </div>
+
+    <form class="s-form" onsubmit="event.preventDefault(); this.innerHTML='<h3>Tack!</h3><p class=\'sub\'>Vi har tagit emot er förfrågan och återkommer inom en dag.</p>';">
+      <h3>Förfrågan — stora sällskap</h3>
+      <p class="sub">Vi återkommer inom en dag med förslag på datum, meny och pris.</p>
+
+      <div class="f-2col">
+        <div class="field"><label>Namn *</label><input type="text" required></div>
+        <div class="field"><label>Tillfälle</label><input type="text" placeholder="t.ex. 40-årsfest, kickoff"></div>
+      </div>
+
+      <div class="f-2col">
+        <div class="field"><label>E-post *</label><input type="email" required></div>
+        <div class="field"><label>Telefon *</label><input type="tel" required></div>
+      </div>
+
+      <div class="f-2col">
+        <div class="field"><label>Antal gäster *</label>
+          <select required><option>8 – 16</option><option>16 – 30</option><option>30 – 60</option><option>60+</option></select>
+        </div>
+        <div class="field"><label>Önskat datum</label><input type="date"></div>
+      </div>
+
+      <div class="field"><label>Önskemål & allergier</label>
+        <textarea placeholder="Berätta vad ni drömmer om — tema, mat, dryck, tal, allergier, särskilda önskemål…"></textarea>
+      </div>
+
+      <button type="submit">Skicka förfrågan</button>
+    </form>
+
+  </div>
+</section>
+
+<div id="agaton-footer"></div>
+
+</body>
+</html>

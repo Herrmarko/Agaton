@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Menù — Agaton Ristorante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agaton.css">
+<script src="agaton-chrome.js?v=2" data-active="menu"></script>
+<style>
+/* ============ SPLIT HERO ============ */
+.m-hero{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 92vh;
+  background: var(--cream);
+}
+.m-hero-left{
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 140px 8vw 80px 8vw;
+}
+.m-hero-eyebrow{
+  font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--brick); font-weight: 500; margin-bottom: 28px;
+}
+.m-hero-left h1{
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(64px, 7.2vw, 128px); line-height: .95;
+  color: var(--wood); letter-spacing: -0.02em;
+  margin-bottom: 30px;
+}
+.m-hero-lede{
+  font-size: 16px; line-height: 1.75; color: var(--ink-soft);
+  max-width: 44ch; margin-bottom: 56px;
+}
+
+/* Tabs inside hero */
+.m-tabs{
+  display: flex; flex-wrap: wrap; gap: 24px;
+  padding-top: 40px; border-top: 1px solid var(--line);
+}
+.m-tab{
+  background: transparent; border: none; padding: 0 0 10px 0;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ink-faint); cursor: pointer;
+  position: relative; transition: color .3s var(--ease);
+}
+.m-tab::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1.5px; background: var(--brick);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s var(--ease);
+}
+.m-tab:hover{ color: var(--wood); }
+.m-tab.active{ color: var(--wood); }
+.m-tab.active::after{ transform: scaleX(1); }
+
+.m-hero-right{
+  position: relative; overflow: hidden;
+  background: var(--wood);
+  z-index: 0;
+}
+.m-hero-right img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* ============ STICKY TABBAR (on scroll) ============ */
+.m-tabbar{
+  position: fixed;
+  top: 68px; left: 0; right: 0;
+  z-index: 40;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  display: flex; justify-content: center; gap: 48px;
+  padding: 0 24px;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-100%);
+  transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.m-tabbar.visible{
+  opacity: 1; pointer-events: auto;
+  transform: translateY(0);
+}
+.m-tabbar .m-tab{
+  padding: 18px 0;
+  font-size: 11px; letter-spacing: .22em;
+}
+.m-tabbar .m-tab::after{
+  bottom: 0;
+}
+
+/* ============ SECTIONS ============ */
+.m-sections{
+  background: var(--white);
+  padding: 80px 24px 140px;
+}
+.m-section{
+  max-width: 1080px; margin: 0 auto 40px;
+  background: var(--cream);
+  padding: 70px 80px 80px;
+  border-radius: 2px;
+  scroll-margin-top: 140px;
+}
+.m-section-head{
+  text-align: center; margin-bottom: 56px;
+}
+.m-section-head h2{
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(36px, 4vw, 54px); color: var(--wood);
+  letter-spacing: -0.01em;
+}
+.m-section-head .script{
+  font-family: var(--script); font-size: 32px;
+  color: var(--brick); display: block;
+  transform: rotate(-3deg); margin-bottom: 10px;
+}
+
+/* Menu item — dotted leader row */
+.m-item{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "title leader price"
+    "desc  desc   desc";
+  column-gap: 18px;
+  padding: 16px 0 20px;
+  align-items: baseline;
+}
+.m-item + .m-item{ border-top: 1px solid color-mix(in oklab, var(--wood) 8%, transparent); }
+.m-item-title{
+  grid-area: title;
+  font-family: var(--display); font-weight: 500;
+  font-size: 21px; color: var(--wood);
+  line-height: 1.25;
+  letter-spacing: -0.002em;
+}
+.m-item-leader{
+  grid-area: leader;
+  height: 1px;
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--wood) 35%, transparent) 1px, transparent 1.2px);
+  background-size: 5px 5px;
+  background-repeat: repeat-x;
+  background-position: 0 center;
+  align-self: center;
+  min-width: 60px;
+  opacity: .55;
+}
+.m-item-price{
+  grid-area: price;
+  font-family: var(--sans); font-size: 14px; font-weight: 500;
+  color: var(--wood-2); white-space: nowrap;
+  letter-spacing: .02em;
+}
+.m-item-desc{
+  grid-area: desc;
+  font-size: 13.5px; line-height: 1.6; color: var(--ink-soft);
+  max-width: 64ch; margin-top: 6px;
+}
+
+/* Footer note (allergens / klassad vin osv) */
+.m-note{
+  text-align: center; padding: 50px 24px 100px;
+  background: var(--white);
+  font-size: 12.5px; color: var(--ink-faint);
+  max-width: 56ch; margin: 0 auto;
+  line-height: 1.7;
+}
+.m-note em{ font-family: var(--display); font-style: italic; color: var(--brick); }
+
+/* Responsive */
+@media (max-width: 960px){
+  .m-hero{ grid-template-columns: 1fr; min-height: auto; }
+  .m-hero-left{ padding: 100px 24px 48px; }
+  .m-hero-right{ aspect-ratio: 4/3; min-height: 260px; }
+  .m-tabs{ gap: 16px 20px; }
+  .m-tabbar{ gap: 20px; overflow-x: auto; justify-content: flex-start; padding: 0 20px; }
+  .m-tabbar::-webkit-scrollbar{ display: none; }
+  .m-section{ padding: 48px 20px 56px; }
+  .m-section-head{ margin-bottom: 32px; }
+  .m-item{ grid-template-columns: 1fr auto; grid-template-areas: "title price" "desc desc"; }
+  .m-item-leader{ display: none; }
+  .m-sections{ padding: 60px 10px 80px; }
+}
+@media (max-width: 520px){
+  .m-hero-left h1{ font-size: clamp(52px, 14vw, 80px); }
+  .m-tabbar{ gap: 16px; }
+  .m-section{ padding: 36px 16px 44px; }
+  .m-section-head h2{ font-size: clamp(28px, 8vw, 42px); }
+  .m-item-title{ font-size: 18px; }
+}
+</style>
+</head>
+<body data-force-scrolled="true">
+
+<div id="agaton-nav" data-force-scrolled="true"></div>
+
+<!-- ============ SPLIT HERO ============ -->
+<section class="m-hero">
+  <div class="m-hero-left">
+    <div class="m-hero-eyebrow">Menù</div>
+    <h1>Vår Meny</h1>
+    <p class="m-hero-lede">
+      Våra rätter växer fram mellan vedugnen, pastarullen och årstiderna. Klassikerna bor här året runt — resten byter vi ut efter vad som är bäst just nu på marknaden.
+    </p>
+    <div class="m-tabs" data-tabs>
+      <button class="m-tab active" data-target="antipasti">Antipasti</button>
+      <button class="m-tab" data-target="pizza">Pizza</button>
+      <button class="m-tab" data-target="pasta">Pasta</button>
+      <button class="m-tab" data-target="secondi">Secondi</button>
+      <button class="m-tab" data-target="dolci">Dolci</button>
+      <button class="m-tab" data-target="vini">Vini</button>
+    </div>
+  </div>
+  <div class="m-hero-right">
+    <img src="photos/food-10.jpg" alt="Vedugnspizza med mozzarella och basilika">
+  </div>
+</section>
+
+<!-- Sticky duplicate tabs once hero is gone -->
+<div class="m-tabbar" data-tabs>
+  <button class="m-tab active" data-target="antipasti">Antipasti</button>
+  <button class="m-tab" data-target="pizza">Pizza</button>
+  <button class="m-tab" data-target="pasta">Pasta</button>
+  <button class="m-tab" data-target="secondi">Secondi</button>
+  <button class="m-tab" data-target="dolci">Dolci</button>
+  <button class="m-tab" data-target="vini">Vini</button>
+</div>
+
+<!-- ============ SECTIONS ============ -->
+<div class="m-sections">
+
+  <section class="m-section" id="antipasti">
+    <div class="m-section-head">
+      <span class="script">per cominciare</span>
+      <h2>Antipasti</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Bruschetta al pomodoro</div><div class="m-item-leader"></div><div class="m-item-price">145 kr</div><div class="m-item-desc">Rostat surdegsbröd, tomater från Piennolo, basilika och extra vergine från Puglia.</div></div>
+    <div class="m-item"><div class="m-item-title">Burrata di Puglia</div><div class="m-item-leader"></div><div class="m-item-price">185 kr</div><div class="m-item-desc">Krämig burrata, inlagda röda lökar, taggigt bröd och tomatpesto.</div></div>
+    <div class="m-item"><div class="m-item-title">Carpaccio di manzo</div><div class="m-item-leader"></div><div class="m-item-price">195 kr</div><div class="m-item-desc">Tunnskivad nötinnanlår, ruccola, parmigiano-flakes, kapris och citron.</div></div>
+    <div class="m-item"><div class="m-item-title">Tagliere del giorno</div><div class="m-item-leader"></div><div class="m-item-price">245 kr</div><div class="m-item-desc">Dagens urval av italienska charkuterier och ostar med honung och fikonkompott.</div></div>
+    <div class="m-item"><div class="m-item-title">Vitello tonnato</div><div class="m-item-leader"></div><div class="m-item-price">175 kr</div><div class="m-item-desc">Rosa kalvfilé, tonfisk-majonnäs, kapris och salladslök.</div></div>
+    <div class="m-item"><div class="m-item-title">Zuppa del giorno</div><div class="m-item-leader"></div><div class="m-item-price">145 kr</div><div class="m-item-desc">Dagens soppa — fråga värden vad den lagar i dag.</div></div>
+  </section>
+
+  <section class="m-section" id="pizza">
+    <div class="m-section-head">
+      <span class="script">al forno a legna</span>
+      <h2>Pizza</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Margherita</div><div class="m-item-leader"></div><div class="m-item-price">185 kr</div><div class="m-item-desc">Tomat, fior di latte, färsk basilika och extra vergine.</div></div>
+    <div class="m-item"><div class="m-item-title">Marinara</div><div class="m-item-leader"></div><div class="m-item-price">165 kr</div><div class="m-item-desc">Tomat, vitlök, oregano, olivolja. Utan ost — så som den ursprungligen gjordes.</div></div>
+    <div class="m-item"><div class="m-item-title">Diavola</div><div class="m-item-leader"></div><div class="m-item-price">215 kr</div><div class="m-item-desc">Tomat, mozzarella, kryddig 'nduja och stekt chilipeppar.</div></div>
+    <div class="m-item"><div class="m-item-title">Prosciutto e funghi</div><div class="m-item-leader"></div><div class="m-item-price">235 kr</div><div class="m-item-desc">Tomat, mozzarella, parmaskinka och marinerade champinjoner.</div></div>
+    <div class="m-item"><div class="m-item-title">Quattro formaggi</div><div class="m-item-leader"></div><div class="m-item-price">225 kr</div><div class="m-item-desc">Fior di latte, gorgonzola, pecorino och taleggio.</div></div>
+    <div class="m-item"><div class="m-item-title">Tartufo bianco</div><div class="m-item-leader"></div><div class="m-item-price">295 kr</div><div class="m-item-desc">Fior di latte, vit tryffelpaté, färsk tryffel, parmigiano och svartpeppar.</div></div>
+  </section>
+
+  <section class="m-section" id="pasta">
+    <div class="m-section-head">
+      <span class="script">fatta in casa</span>
+      <h2>Pasta</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Spaghetti Cacio e Pepe</div><div class="m-item-leader"></div><div class="m-item-price">215 kr</div><div class="m-item-desc">Handgjord spaghetti, pecorino romano och nykvarnad svartpeppar.</div></div>
+    <div class="m-item"><div class="m-item-title">Tagliatelle al Ragù</div><div class="m-item-leader"></div><div class="m-item-price">245 kr</div><div class="m-item-desc">Bred tagliatelle med långkokt köttragu, rödvin och tomat.</div></div>
+    <div class="m-item"><div class="m-item-title">Rigatoni alla Carbonara</div><div class="m-item-leader"></div><div class="m-item-price">235 kr</div><div class="m-item-desc">Guanciale, äggula, pecorino och svartpeppar — som i Roma.</div></div>
+    <div class="m-item"><div class="m-item-title">Ravioli di Ricotta</div><div class="m-item-leader"></div><div class="m-item-price">255 kr</div><div class="m-item-desc">Färsk ravioli med ricotta och spenat, smörbrynt salvia och rivad parmigiano.</div></div>
+    <div class="m-item"><div class="m-item-title">Risotto ai Funghi</div><div class="m-item-leader"></div><div class="m-item-price">265 kr</div><div class="m-item-desc">Krämig carnaroli-risotto med skogssvamp och taleggio.</div></div>
+    <div class="m-item"><div class="m-item-title">Linguine alle Vongole</div><div class="m-item-leader"></div><div class="m-item-price">275 kr</div><div class="m-item-desc">Färska vongole, vitt vin, vitlök, chili och persilja.</div></div>
+  </section>
+
+  <section class="m-section" id="secondi">
+    <div class="m-section-head">
+      <span class="script">carne & pesce</span>
+      <h2>Secondi</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Bistecca alla Fiorentina</div><div class="m-item-leader"></div><div class="m-item-price">485 kr</div><div class="m-item-desc">400 g grillad oxfilé, rosmarin, grov havssalt och vår egen salsa verde.</div></div>
+    <div class="m-item"><div class="m-item-title">Pollo al Forno</div><div class="m-item-leader"></div><div class="m-item-price">295 kr</div><div class="m-item-desc">Ugnsbakad kyckling med citron, timjan och rostade medelhavsgrönsaker.</div></div>
+    <div class="m-item"><div class="m-item-title">Branzino al Sale</div><div class="m-item-leader"></div><div class="m-item-price">365 kr</div><div class="m-item-desc">Saltbakad havsabborre, bakad citron och friterad kapris. Serveras för två.</div></div>
+    <div class="m-item"><div class="m-item-title">Parmigiana di Melanzane</div><div class="m-item-leader"></div><div class="m-item-price">245 kr</div><div class="m-item-desc">Ugnsbakade auberginer i lager med tomat, basilika och mozzarella. Vegetariskt.</div></div>
+    <div class="m-item"><div class="m-item-title">Osso Buco alla Milanese</div><div class="m-item-leader"></div><div class="m-item-price">325 kr</div><div class="m-item-desc">Långkokt kalvlägg med saffransrisotto och gremolata.</div></div>
+  </section>
+
+  <section class="m-section" id="dolci">
+    <div class="m-section-head">
+      <span class="script">per finire</span>
+      <h2>Dolci</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Tiramisù della Casa</div><div class="m-item-leader"></div><div class="m-item-price">125 kr</div><div class="m-item-desc">Vår egen tiramisù — savoiardi, mascarpone och espresso.</div></div>
+    <div class="m-item"><div class="m-item-title">Panna Cotta ai Frutti di Bosco</div><div class="m-item-leader"></div><div class="m-item-price">115 kr</div><div class="m-item-desc">Krämig panna cotta med skogsbär och sirap av vanilj.</div></div>
+    <div class="m-item"><div class="m-item-title">Cannoli Siciliani</div><div class="m-item-leader"></div><div class="m-item-price">125 kr</div><div class="m-item-desc">Friterade kanneloner fyllda med sötad ricotta och kanderad frukt.</div></div>
+    <div class="m-item"><div class="m-item-title">Affogato al Caffè</div><div class="m-item-leader"></div><div class="m-item-price">95 kr</div><div class="m-item-desc">Vaniljglass dränkt i en shot färskbryggd espresso.</div></div>
+    <div class="m-item"><div class="m-item-title">Formaggi italiani</div><div class="m-item-leader"></div><div class="m-item-price">165 kr</div><div class="m-item-desc">Utvalda italienska ostar med honung, fikon och kex.</div></div>
+  </section>
+
+  <section class="m-section" id="vini">
+    <div class="m-section-head">
+      <span class="script">la cantina</span>
+      <h2>Vini &amp; Bevande</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Chianti Classico DOCG</div><div class="m-item-leader"></div><div class="m-item-price">125 / 595 kr</div><div class="m-item-desc">Toscana — rund, bärig sangiovese med toner av körsbär och läder.</div></div>
+    <div class="m-item"><div class="m-item-title">Barbera d'Asti</div><div class="m-item-leader"></div><div class="m-item-price">115 / 545 kr</div><div class="m-item-desc">Piemonte — frisk syra, mörka bär och hint av lakrits.</div></div>
+    <div class="m-item"><div class="m-item-title">Vermentino di Sardegna</div><div class="m-item-leader"></div><div class="m-item-price">115 / 525 kr</div><div class="m-item-desc">Sardinien — citrus, vita blommor och en lätt mineralisk ton.</div></div>
+    <div class="m-item"><div class="m-item-title">Prosecco Superiore</div><div class="m-item-leader"></div><div class="m-item-price">125 / 565 kr</div><div class="m-item-desc">Valdobbiadene — torr, krispig och med fina bubblor.</div></div>
+    <div class="m-item"><div class="m-item-title">Aperol Spritz</div><div class="m-item-leader"></div><div class="m-item-price">145 kr</div><div class="m-item-desc">Klassikern — Aperol, prosecco, sodavatten och apelsin.</div></div>
+    <div class="m-item"><div class="m-item-title">Caffè espresso / Cappuccino</div><div class="m-item-leader"></div><div class="m-item-price">45 / 55 kr</div><div class="m-item-desc">Mörkrostat italienskt kaffe från vår husrostare.</div></div>
+  </section>
+
+</div>
+
+<div class="m-note">
+  Fråga oss gärna om <em>allergier</em> eller <em>specialkost</em> — vi gör vårt bästa för att anpassa. Alla priser inkluderar moms.
+</div>
+
+<div id="agaton-footer"></div>
+
+<script>
+  const hero = document.querySelector('.m-hero');
+  const tabbar = document.querySelector('.m-tabbar');
+  const allTabs = Array.from(document.querySelectorAll('.m-tab'));
+  const sections = Array.from(document.querySelectorAll('.m-section'));
+
+  // Show sticky tabbar when scrolled past hero
+  window.addEventListener('scroll', () => {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    if (window.scrollY > heroBottom - 100) {
+      tabbar.classList.add('visible');
+    } else {
+      tabbar.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  // Click: smooth scroll with offset
+  allTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.target;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const offset = 72;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  // Active state on scroll via IntersectionObserver
+  const setActive = (id) => {
+    allTabs.forEach(t => t.classList.toggle('active', t.dataset.target === id));
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) setActive(e.target.id);
+    });
+  }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>

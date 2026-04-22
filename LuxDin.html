@@ -1,0 +1,1665 @@
+<!DOCTYPE html><html lang="sv"><head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LuxDin — Fine Dining Stockholm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   LuxDin — tokens
+   ========================================================= */
+:root{
+  --dark:#321D1D;
+  --dark-2:#4A2E2A;
+  --gold:#D3A574;
+  --gold-dark:#A46C32;
+  --gold-soft:#E9CFA9;
+  --cream:#FBF8F4;
+  --cream-2:#F4EFE6;
+  --white:#FFFFFF;
+  --ink-soft: color-mix(in oklab, var(--dark) 72%, transparent);
+  --ink-faint: color-mix(in oklab, var(--dark) 38%, transparent);
+  --line: color-mix(in oklab, var(--dark) 14%, transparent);
+  --line-faint: color-mix(in oklab, var(--dark) 7%, transparent);
+  --display:'Cormorant Garamond', serif;
+  --sans:'Inter', sans-serif;
+  --r-md:8px;
+  --r-lg:24px;
+  --r-pill:999px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --shadow-sm: 0 2px 10px rgba(50,29,29,.06);
+  --shadow-md: 0 10px 40px rgba(50,29,29,.10);
+  --shadow-lg: 0 30px 80px rgba(50,29,29,.16);
+}
+
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family: var(--sans);
+  font-weight: 400;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img{ display:block; max-width:100%; }
+a{ color:inherit; }
+button{ font: inherit; background:none; border:0; cursor:pointer; color:inherit; }
+
+/* =========================================================
+   Typography
+   ========================================================= */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:14px;
+  font-family: var(--sans);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color: var(--gold-dark);
+  white-space: nowrap;
+}
+.eyebrow::before{
+  content:""; width:32px; height:1px; background: currentColor;
+  display:inline-block;
+}
+.eyebrow.center::after{
+  content:""; width:32px; height:1px; background: currentColor;
+  display:inline-block;
+}
+.display-xxl{
+  font-family: var(--display);
+  font-size: clamp(56px, 9vw, 156px);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.display-xl{
+  font-family: var(--display);
+  font-size: clamp(44px, 6.5vw, 104px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.display-lg{
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.008em;
+  text-wrap: balance;
+}
+.display-md{
+  font-family: var(--display);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 500;
+  line-height: 1.18;
+}
+em{
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-dark);
+}
+.lead{
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+.small{
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn{
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 17px 40px;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease), background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  will-change: transform;
+}
+.btn::after{
+  content:""; width:6px; height:6px; border-radius:50%; background: currentColor; opacity:.35;
+  transition: transform .5s var(--ease), opacity .3s var(--ease);
+}
+.btn:hover::after{ transform: translateX(4px); opacity:.85; }
+
+.btn-cream{ background: var(--cream); color: var(--dark); }
+.btn-cream:hover{ background: var(--white); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.btn-dark{ background: var(--dark); color: var(--cream); }
+.btn-dark:hover{ background: var(--dark-2); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.btn-outline{ background: transparent; color: var(--dark); border: 1px solid var(--dark); }
+.btn-outline:hover{ background: var(--dark); color: var(--cream); transform: translateY(-2px); }
+
+.btn-ghost-light{ background: transparent; color: var(--cream); border: 1px solid rgba(251,248,244,.45); }
+.btn-ghost-light:hover{ background: var(--cream); color: var(--dark); border-color: var(--cream); transform: translateY(-2px); }
+
+.btn-sm{ padding: 12px 26px; font-size: 16px; }
+.btn-lg{ padding: 20px 46px; font-size: 20px; }
+
+/* =========================================================
+   Navbar
+   ========================================================= */
+.navbar{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 26px clamp(20px, 5vw, 80px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  transition: background .4s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease), color .4s var(--ease);
+}
+.navbar.scrolled{
+  background: color-mix(in oklab, var(--cream) 94%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 14px clamp(20px, 5vw, 80px);
+  box-shadow: var(--shadow-sm);
+  color: var(--dark);
+}
+.logo{
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--cream);
+  text-decoration: none;
+  display: inline-flex; align-items: baseline; gap: 2px;
+  transition: color .3s var(--ease);
+  justify-self: start;
+}
+.logo .dot{
+  display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  margin: 0 2px 4px 2px;
+}
+.navbar.scrolled .logo{ color: var(--dark); }
+
+.nav-links{
+  display: flex; gap: 4px; list-style: none;
+  justify-self: center;
+}
+.nav-links a{
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--cream);
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  transition: color .3s var(--ease), background .3s var(--ease);
+  position: relative;
+}
+.nav-links a::before{
+  content:""; position: absolute; left: 50%; bottom: 4px;
+  width: 0; height: 1px; background: currentColor;
+  transition: width .35s var(--ease), left .35s var(--ease);
+}
+.nav-links a:hover::before{ width: 20px; left: calc(50% - 10px); }
+.navbar.scrolled .nav-links a{ color: var(--dark); }
+
+.nav-actions{ display: flex; gap: 12px; align-items: center; justify-self: end; }
+.nav-cta{ padding: 11px 24px; font-size: 14px; font-family: var(--display); font-weight: 600; border-radius: var(--r-pill); text-decoration: none; transition: all .3s var(--ease); }
+.nav-cta{ background: var(--cream); color: var(--dark); white-space: nowrap; }
+.nav-cta:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.16); }
+.navbar.scrolled .nav-cta{ background: var(--dark); color: var(--cream); }
+.navbar.scrolled .nav-cta:hover{ background: var(--dark-2); }
+
+.mobile-menu-btn{
+  display: none;
+  width: 40px; height: 40px;
+  color: inherit;
+}
+@media (max-width: 968px){
+  .navbar{ grid-template-columns: 1fr auto; }
+  .nav-links, .nav-cta{ display: none; }
+  .mobile-menu-btn{ display: inline-flex; align-items: center; justify-content: center; color: var(--cream); }
+  .navbar.scrolled .mobile-menu-btn{ color: var(--dark); }
+}
+
+/* Mobile menu panel */
+.mobile-panel{
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--dark);
+  color: var(--cream);
+  padding: 100px 32px 40px;
+  transform: translateY(-100%);
+  transition: transform .5s var(--ease);
+  display: flex; flex-direction: column; gap: 0;
+}
+.mobile-panel.open{ transform: translateY(0); }
+.mobile-panel a{
+  display: block;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(211,165,116,.18);
+  font-family: var(--display);
+  font-size: 24px;
+  color: var(--cream);
+  text-decoration: none;
+}
+.mobile-panel .btn{ margin-top: 32px; align-self: flex-start; }
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  position: relative;
+  min-height: min(100vh, 920px);
+  height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  color: var(--cream);
+  padding: 0 24px;
+}
+.hero-bg{ position: absolute; inset: 0; z-index: 0; }
+.hero-bg img{
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.08);
+  animation: kenBurns 18s ease-out forwards;
+}
+@keyframes kenBurns{
+  0%{ transform: scale(1.12); }
+  100%{ transform: scale(1.0); }
+}
+.hero-bg::after{
+  content:""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(30,15,15,.55) 0%, rgba(30,15,15,.35) 40%, rgba(30,15,15,.75) 100%);
+}
+.hero-corner{
+  position: absolute; top: 110px; left: clamp(20px, 5vw, 80px);
+  z-index: 2;
+  display: flex; flex-direction: column; gap: 10px;
+  font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--gold) 80%, transparent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.hero-corner-r{
+  position: absolute; top: 110px; right: clamp(20px, 5vw, 80px);
+  z-index: 2;
+  display: flex; flex-direction: column; gap: 10px;
+  text-align: right;
+  font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--cream) 70%, transparent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.hero-corner em, .hero-corner-r em{ color: var(--gold); font-style: normal; font-family: var(--display); font-size: 14px; letter-spacing: .08em; }
+
+.hero-content{
+  position: relative; z-index: 1;
+  text-align: center;
+  max-width: 1100px;
+}
+.hero-content .eyebrow{ color: var(--gold); margin-bottom: 28px; }
+.hero-content h1{ margin-bottom: 32px; color: var(--cream); }
+.hero-content h1 em{ color: var(--gold-soft); font-weight: 300; }
+.hero-content .lead{
+  color: color-mix(in oklab, var(--cream) 88%, transparent);
+  margin: 0 auto 44px;
+  max-width: 580px;
+}
+.hero-actions{
+  display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+}
+.hero-scroll{
+  position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%);
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--cream) 70%, transparent);
+}
+.hero-scroll-line{
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, rgba(251,248,244,.6), transparent);
+  position: relative; overflow: hidden;
+}
+.hero-scroll-line::after{
+  content:""; position: absolute; top: 0; left: 0; width: 100%; height: 12px;
+  background: var(--gold);
+  animation: scrollPulse 2.4s ease-in-out infinite;
+}
+@keyframes scrollPulse{
+  0%{ transform: translateY(-12px); opacity: 0; }
+  40%{ opacity: 1; }
+  100%{ transform: translateY(48px); opacity: 0; }
+}
+
+/* =========================================================
+   Marquee ribbon under hero
+   ========================================================= */
+.ribbon{
+  background: var(--dark);
+  color: var(--cream);
+  padding: 22px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(211,165,116,.2);
+  border-bottom: 1px solid rgba(211,165,116,.2);
+}
+.ribbon-inner{
+  display: flex;
+  white-space: nowrap;
+  animation: ribbonScroll 40s linear infinite;
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 400;
+  gap: 48px;
+}
+.ribbon-inner span{
+  display: inline-flex; align-items: center; gap: 48px;
+  padding-right: 48px;
+}
+.ribbon-inner span::after{
+  content: "✦";
+  color: var(--gold);
+  font-size: 16px;
+}
+.ribbon-inner em{ color: var(--gold-soft); font-style: italic; }
+@keyframes ribbonScroll{
+  0%{ transform: translateX(0); }
+  100%{ transform: translateX(-50%); }
+}
+
+/* =========================================================
+   Menu split section
+   ========================================================= */
+section{ position: relative; }
+
+.menu-section{
+  padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 80px);
+  background: var(--cream);
+}
+.menu-header{
+  display: grid;
+  grid-template-columns: 1.4fr auto;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: clamp(56px, 7vw, 96px);
+  max-width: 1440px;
+  margin-left: auto; margin-right: auto;
+}
+.menu-header-text .eyebrow{ margin-bottom: 22px; }
+.menu-header-text h2{ margin-bottom: 28px; }
+.menu-header-text .lead{ max-width: 560px; }
+
+.menu-featured{
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 24px;
+}
+.menu-featured-main{
+  position: relative;
+  height: clamp(440px, 56vw, 720px);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: pointer;
+}
+.menu-featured-main img{
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--ease);
+}
+.menu-featured-main:hover img{ transform: scale(1.04); }
+.menu-featured-main-overlay{
+  position: absolute; inset: auto 0 0 0;
+  padding: 36px 40px;
+  background: linear-gradient(to top, rgba(30,15,15,.72) 0%, transparent 100%);
+  color: var(--cream);
+}
+.menu-featured-main-overlay .cat{
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(251,248,244,.14);
+  backdrop-filter: blur(10px);
+  font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  border-radius: var(--r-pill);
+  margin-bottom: 16px;
+  color: var(--gold-soft);
+}
+.menu-featured-main-overlay h3{
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+.menu-featured-main-overlay h3 em{ color: var(--gold-soft); }
+.menu-featured-side{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+}
+.menu-featured-side-item{
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 220px;
+}
+.menu-featured-side-item img{
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--ease);
+}
+.menu-featured-side-item:hover img{ transform: scale(1.06); }
+.menu-featured-side-item-overlay{
+  position: absolute; inset: auto 0 0 0;
+  padding: 20px 24px;
+  background: linear-gradient(to top, rgba(30,15,15,.75) 0%, transparent 100%);
+  color: var(--cream);
+  font-family: var(--display);
+  font-size: 22px; font-weight: 500;
+}
+.menu-featured-side-item-overlay em{ color: var(--gold-soft); }
+
+/* Signature dishes — editorial index */
+.dishes-index{
+  max-width: 1200px;
+  margin: clamp(72px, 9vw, 120px) auto 0;
+}
+.dishes-index-header{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 28px; margin-bottom: 16px;
+}
+.dishes-index-header .eyebrow{ color: var(--ink-faint); }
+.dishes-index-header span.count{ font-family: var(--display); font-size: 18px; color: var(--ink-faint); }
+.dish-row{
+  display: grid;
+  grid-template-columns: 48px 1.2fr 2fr auto;
+  gap: 32px;
+  align-items: baseline;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding .4s var(--ease), background .4s var(--ease);
+  cursor: pointer;
+}
+.dish-row:hover{ padding-left: 16px; padding-right: 16px; background: var(--cream-2); border-radius: var(--r-md); border-bottom-color: transparent; margin-bottom: 1px; }
+.dish-row .num{
+  font-family: var(--display);
+  font-size: 18px;
+  color: var(--gold-dark);
+  font-style: italic;
+  font-weight: 400;
+}
+.dish-row h4{
+  font-family: var(--display);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+.dish-row h4 em{ color: var(--gold-dark); font-style: italic; font-weight: 400; }
+.dish-row p{
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  max-width: 50ch;
+}
+.dish-row .price{
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.dish-row .price-sub{
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 2px;
+  text-align: right;
+  font-style: normal;
+  font-weight: 500;
+}
+@media (max-width:760px){
+  .dish-row{ grid-template-columns: 40px 1fr; gap: 16px; }
+  .dish-row p, .dish-row .price, .dish-row .price-sub{ grid-column: 2; }
+  .dish-row .price-sub{ text-align: left; }
+}
+
+/* =========================================================
+   About — round portrait
+   ========================================================= */
+.about-section{
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: clamp(48px, 7vw, 120px);
+  padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 80px);
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: center;
+  position: relative;
+}
+.about-section::before{
+  content: "";
+  position: absolute;
+  left: clamp(0px, 4vw, 60px); top: 20%;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, var(--gold-soft) 0%, transparent 70%);
+  opacity: .25;
+  z-index: 0;
+  pointer-events: none;
+}
+.about-image-wrap{ position: relative; z-index: 1; }
+.about-image{
+  width: 100%; height: 600px;
+  border-radius: 300px;
+  overflow: hidden;
+  position: relative;
+}
+.about-image img{
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.about-image:hover img{ transform: scale(1.05); }
+.about-image-badge{
+  position: absolute; bottom: 20px; right: 20px;
+  background: var(--cream);
+  padding: 20px 24px;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  font-family: var(--display);
+  font-size: 14px;
+  line-height: 1.4;
+  font-style: italic;
+  max-width: 220px;
+}
+.about-image-badge strong{
+  display: block;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 8px;
+  font-style: normal;
+}
+.about-content{ max-width: 600px; position: relative; z-index: 1; }
+.about-content .eyebrow{ margin-bottom: 22px; }
+.about-content h2{ margin-bottom: 28px; }
+.about-content .lead{ margin-bottom: 40px; }
+
+/* Editorial pull-quote */
+.about-quote{
+  border-left: 1px solid var(--gold-dark);
+  padding: 16px 0 16px 28px;
+  margin-bottom: 48px;
+  font-family: var(--display);
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.about-quote cite{
+  display: block;
+  margin-top: 12px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.stats{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding-top: 44px;
+  border-top: 1px solid var(--line);
+}
+.stat-item .number{
+  font-family: var(--display);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 500;
+  color: var(--gold-dark);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.stat-item .number em{ color: var(--dark); font-style: italic; }
+.stat-item .stat-label{
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+@media (max-width: 968px){
+  .about-section{ grid-template-columns: 1fr; }
+  .about-image{ max-width: 320px; height: 440px; margin: 0 auto; border-radius: 200px; }
+}
+@media (max-width: 560px){
+  .stats{ grid-template-columns: 1fr; gap: 20px; padding-top: 32px; }
+}
+
+/* =========================================================
+   Philosophy strip
+   ========================================================= */
+.philosophy{
+  background: var(--dark);
+  color: var(--cream);
+  padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 80px);
+  position: relative;
+  overflow: hidden;
+}
+.philosophy::before{
+  content: "✦";
+  position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+  color: var(--gold); font-size: 24px; opacity: .6;
+}
+.philosophy-inner{
+  max-width: 920px; margin: 0 auto;
+  text-align: center;
+}
+.philosophy .eyebrow{ color: var(--gold); margin-bottom: 28px; justify-content: center; }
+.philosophy .eyebrow::before, .philosophy .eyebrow::after{ background: var(--gold); }
+.philosophy h2{
+  font-family: var(--display);
+  font-size: clamp(30px, 3.6vw, 52px);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--cream);
+  font-style: italic;
+  text-wrap: balance;
+  margin-bottom: 40px;
+}
+.philosophy h2 em{ color: var(--gold-soft); font-style: italic; }
+.philosophy-pillars{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  margin-top: clamp(48px, 6vw, 80px);
+  text-align: left;
+  border-top: 1px solid rgba(211,165,116,.3);
+  padding-top: clamp(40px, 5vw, 64px);
+}
+.pillar .num{
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--gold);
+  font-style: italic;
+  margin-bottom: 16px;
+  display: block;
+}
+.pillar h4{
+  font-family: var(--display);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 500;
+  margin-bottom: 14px;
+  color: var(--cream);
+}
+.pillar p{
+  font-size: 14px;
+  line-height: 1.65;
+  color: color-mix(in oklab, var(--cream) 72%, transparent);
+}
+@media (max-width: 760px){
+  .philosophy-pillars{ grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* =========================================================
+   Services cards — offset grid
+   ========================================================= */
+.services-section{
+  padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 80px);
+  background: var(--white);
+}
+.services-header{
+  text-align: center;
+  margin-bottom: clamp(56px, 7vw, 80px);
+  max-width: 680px; margin-left: auto; margin-right: auto;
+}
+.services-header .eyebrow{ margin-bottom: 22px; justify-content: center; }
+.services-header h2{ margin-bottom: 20px; }
+.services-header p{ color: var(--ink-soft); font-size: 17px; line-height: 1.7; }
+
+.services-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.service-card{
+  position: relative;
+  height: 560px;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.service-card:nth-child(2){ margin-top: -48px; }
+.service-card:nth-child(3){ margin-top: 24px; }
+.service-card img{
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--ease);
+}
+.service-card:hover img{ transform: scale(1.06); }
+.service-card::after{
+  content:""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(30,15,15,.7) 0%, transparent 55%);
+  transition: opacity .4s var(--ease);
+}
+.service-card:hover::after{ opacity: .85; }
+.service-card-content{
+  position: absolute; inset: auto 24px 24px 24px;
+  z-index: 2;
+  color: var(--cream);
+}
+.service-card-content .tag{
+  display: inline-block;
+  font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.service-card-content h3{
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.service-card-content h3 em{ color: var(--gold-soft); }
+.service-card-content p{
+  font-size: 14px;
+  color: color-mix(in oklab, var(--cream) 85%, transparent);
+  max-width: 36ch;
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+  line-height: 1.55;
+}
+.service-card-content .arrow{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--gold-soft);
+}
+.service-card:hover .service-card-content p{ opacity: 1; transform: translateY(0); }
+
+@media (max-width: 968px){
+  .services-grid{ grid-template-columns: 1fr; max-width: 500px; }
+  .service-card{ height: 440px; margin-top: 0 !important; }
+}
+
+/* =========================================================
+   Press strip
+   ========================================================= */
+.press{
+  padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 80px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--cream);
+}
+.press-grid{
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.press-label{
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 500;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  white-space: nowrap;
+}
+.press-items{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.press-item{
+  font-family: var(--display);
+  font-size: clamp(16px, 1.4vw, 20px);
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
+}
+.press-item:first-child{ border-left: 0; padding-left: 0; }
+.press-item strong{
+  display: block;
+  font-family: var(--sans);
+  font-size: 10px; font-style: normal; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-top: 10px;
+}
+@media (max-width: 900px){
+  .press-grid{ grid-template-columns: 1fr; gap: 24px; }
+  .press-label{ writing-mode: horizontal-tb; transform: none; }
+  .press-items{ grid-template-columns: 1fr 1fr; gap: 28px; }
+  .press-item:nth-child(3){ border-left: 0; padding-left: 0; }
+}
+@media (max-width: 560px){
+  .press-items{ grid-template-columns: 1fr; }
+  .press-item{ border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 20px; }
+  .press-item:first-child{ border-top: 0; padding-top: 0; }
+}
+
+/* =========================================================
+   CTA band
+   ========================================================= */
+.cta-section{
+  position: relative;
+  min-height: 560px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  padding: clamp(60px, 8vw, 120px) 24px;
+  color: var(--cream);
+}
+.cta-bg{ position: absolute; inset: 0; z-index: 0; }
+.cta-bg img{ width: 100%; height: 100%; object-fit: cover; }
+.cta-bg::after{
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(30,15,15,.4) 0%, rgba(30,15,15,.75) 70%);
+}
+.cta-content{
+  position: relative; z-index: 1;
+  text-align: center;
+  max-width: 820px;
+}
+.cta-content .eyebrow{ color: var(--gold); justify-content: center; margin-bottom: 28px; }
+.cta-content .eyebrow::before, .cta-content .eyebrow::after{ background: var(--gold); }
+.cta-content h2{ margin-bottom: 24px; color: var(--cream); }
+.cta-content h2 em{ color: var(--gold-soft); }
+.cta-content p{
+  font-size: 17px; line-height: 1.7;
+  color: color-mix(in oklab, var(--cream) 82%, transparent);
+  max-width: 540px; margin: 0 auto 40px;
+}
+
+/* =========================================================
+   Contact split
+   ========================================================= */
+.contact-section{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 720px;
+}
+.contact-image{ position: relative; overflow: hidden; }
+.contact-image img{ width: 100%; height: 100%; object-fit: cover; }
+.contact-image-overlay{
+  position: absolute; inset: auto 40px 40px 40px;
+  background: var(--cream);
+  padding: 28px 32px;
+  border-radius: var(--r-lg);
+  max-width: 360px;
+  box-shadow: var(--shadow-lg);
+}
+.contact-image-overlay .eyebrow{ margin-bottom: 12px; }
+.contact-image-overlay strong{
+  display: block;
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.contact-image-overlay p{ font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+
+.contact-form-wrapper{
+  padding: clamp(56px, 7vw, 100px) clamp(28px, 5vw, 80px);
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--cream-2);
+}
+.contact-form-wrapper .eyebrow{ margin-bottom: 22px; }
+.contact-form-wrapper h2{ margin-bottom: 24px; }
+.contact-form-wrapper .lead{ margin-bottom: 40px; }
+
+.contact-form{
+  display: flex; flex-direction: column; gap: 20px;
+}
+.form-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.field{ display: flex; flex-direction: column; gap: 8px; }
+.field label{
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 500;
+}
+.contact-form input,
+.contact-form textarea,
+.contact-form select{
+  width: 100%;
+  padding: 16px 18px;
+  font: 400 15px/1.5 var(--sans);
+  color: var(--dark);
+  border: 1px solid var(--line);
+  background: var(--cream);
+  border-radius: var(--r-md);
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus{
+  outline: none;
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 35%, transparent);
+  background: var(--white);
+}
+.contact-form textarea{ resize: vertical; min-height: 120px; }
+
+.field-row-three{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.guest-chip{
+  position: relative;
+}
+.guest-chip input{ position: absolute; opacity: 0; pointer-events: none; }
+.guest-chip label{
+  display: block; text-align: center;
+  padding: 14px 8px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--dark);
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.guest-chip input:checked + label{
+  background: var(--dark);
+  color: var(--cream);
+  border-color: var(--dark);
+}
+.guest-chip label:hover{ border-color: var(--gold-dark); }
+
+@media (max-width: 968px){
+  .contact-section{ grid-template-columns: 1fr; }
+  .contact-image{ min-height: 320px; }
+  .form-row, .field-row-three{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 460px){
+  .form-row{ grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   Footer (dark)
+   ========================================================= */
+.site-footer{
+  background: #1A0E0D;
+  color: color-mix(in oklab, var(--cream) 75%, transparent);
+  padding: clamp(72px, 8vw, 120px) clamp(20px, 5vw, 80px) 40px;
+  position: relative;
+}
+.site-footer::before{
+  content:""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 1px; background: var(--gold);
+}
+.footer-top{
+  max-width: 1280px; margin: 0 auto;
+  text-align: center;
+  padding-bottom: clamp(48px, 6vw, 80px);
+  border-bottom: 1px solid rgba(211,165,116,.14);
+}
+.footer-logo{
+  font-family: var(--display);
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: var(--cream);
+  margin-bottom: 16px;
+  display: inline-flex; align-items: baseline; gap: 2px;
+}
+.footer-logo .dot{ width:8px; height:8px; border-radius:50%; background: var(--gold); margin: 0 4px 6px 4px; }
+.footer-tagline{
+  font-family: var(--display);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.footer-grid{
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) 0 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(32px, 5vw, 64px);
+}
+.footer-col h4{
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+.footer-col a{
+  display: block;
+  font-size: 14px;
+  color: color-mix(in oklab, var(--cream) 75%, transparent);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color .3s var(--ease);
+}
+.footer-col a:hover{ color: var(--gold); }
+.footer-col p{ font-size: 14px; line-height: 1.7; color: color-mix(in oklab, var(--cream) 70%, transparent); }
+.footer-hours .row{
+  display: flex; justify-content: space-between;
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(211,165,116,.08);
+}
+.footer-hours .row:last-child{ border-bottom: 0; }
+.footer-hours .row span:first-child{ color: color-mix(in oklab, var(--cream) 58%, transparent); }
+.footer-hours .row span:last-child{ color: var(--cream); font-weight: 500; }
+.footer-hours .row.lunch{ color: var(--gold); margin-top: 8px; padding-top: 12px; border-top: 1px solid rgba(211,165,116,.18); }
+.footer-hours .row.lunch span{ color: var(--gold); }
+
+.footer-bottom{
+  max-width: 1280px; margin: 0 auto;
+  padding-top: 32px;
+  border-top: 1px solid rgba(211,165,116,.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  color: color-mix(in oklab, var(--cream) 55%, transparent);
+}
+.footer-social{ display: flex; gap: 18px; }
+.footer-social a{
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(211,165,116,.2);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: color-mix(in oklab, var(--cream) 60%, transparent);
+  transition: all .3s var(--ease);
+  margin: 0;
+}
+.footer-social a:hover{ color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
+.footer-social svg{ width: 16px; height: 16px; }
+
+@media (max-width: 968px){
+  .footer-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px){
+  .footer-grid{ grid-template-columns: 1fr; text-align: center; }
+  .footer-bottom{ flex-direction: column; text-align: center; }
+}
+
+/* =========================================================
+   Reveal animations
+   ========================================================= */
+.reveal{
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal.is-in{ opacity: 1; transform: translateY(0); }
+.reveal[data-delay="1"]{ transition-delay: .08s; }
+.reveal[data-delay="2"]{ transition-delay: .16s; }
+.reveal[data-delay="3"]{ transition-delay: .24s; }
+.reveal[data-delay="4"]{ transition-delay: .32s; }
+
+/* Small utility */
+.container{ max-width: 1280px; margin: 0 auto; }
+.divider{ height: 1px; background: var(--line); max-width: 1280px; margin: 0 auto; }
+
+/* Selection */
+::selection{ background: var(--gold); color: var(--dark); }
+
+/* Focus */
+:focus-visible{ outline: 2px solid var(--gold-dark); outline-offset: 3px; border-radius: 4px; }
+</style>
+<style id="fusion-selection-styles">
+  .fusion-element-highlight {
+    outline: 2px solid rgb(26, 115, 235) !important;
+    outline-style: solid !important;
+  }
+
+  .fusion-element-selected {
+    outline: 4px solid rgb(26, 115, 235) !important;
+    outline-style: solid !important;
+    outline-offset: 0px !important;
+  }
+  
+  .fusion-selection-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    z-index: 2147483647 !important;
+    cursor: crosshair !important;
+    pointer-events: none !important;
+  }
+  
+  .fusion-selection-tooltip {
+    position: fixed !important;
+    background: #1f2937 !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    z-index: 2147483648 !important;
+    pointer-events: none !important;
+    transform: translate(-50%, -100%) translateY(-10px) !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .fusion-selection-tooltip::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    border: 5px solid transparent !important;
+    border-top-color: #1f2937 !important;
+  }
+  
+  
+  @keyframes fusion-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fusion-label-bounce {
+    0% { 
+      opacity: 0;
+      transform: translateY(-10px) scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(0) scale(1.05);
+    }
+    100% { 
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style><style>::highlight(cse154bc4ab726a1b2ea1ae377fb2c668dd) { background-color: rgba(171, 108, 254, 0.25); }</style></head>
+<body data-cs-ext-installed="e1fbfe90b6217376f448f5ce3487d05f61747678" data-cc-id="cc-1" style="cursor: crosshair; background-color: rgb(244, 251, 247);">
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar scrolled" id="navbar">
+  <a href="#" class="logo">Lux<span class="dot"></span>Din</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Meny</a></li>
+    <li><a href="#about">Om oss</a></li>
+    <li><a href="#services">Chambre · Jul · Catering</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#contact" class="nav-cta">Boka bord</a>
+    <button class="mobile-menu-btn" id="menuBtn" aria-label="Meny">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile panel -->
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#menu">Meny</a>
+  <a href="#about">Om oss</a>
+  <a href="#services">Chambre · Jul · Catering</a>
+  <a href="#contact">Kontakt</a>
+  <a href="#contact" class="btn btn-cream">Boka bord</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-bg" style="transform: translateY(200px);">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2000&amp;q=85" alt="Matsalen">
+  </div>
+
+  <div class="hero-corner">
+    <span>Stockholm · Riddargatan 12</span>
+    <em>59°33′N · 18°04′E</em>
+  </div>
+  <div class="hero-corner-r">
+    <span>Öppet ikväll</span>
+    <em>17:30 – 23:00</em>
+  </div>
+
+  <div class="hero-content">
+    <span class="eyebrow center">Fine dining · Sedan 2014</span>
+    <h1 class="display-xxl">Smaka på det <em>extraordinära.</em></h1>
+    <p class="lead">En kulinarisk upplevelse där nordiska råvaror och franskt hantverk möts — i en matsal som rymmer 26 och en meny som byts med årstiden.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-cream btn-lg">Boka bord</a>
+      <a href="#menu" class="btn btn-ghost-light btn-lg" style="">Se menyn</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scrolla</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ================= RIBBON ================= -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-inner">
+    <span>Säsongens <em>oktobermeny</em></span>
+    <span>Avsmakning · <em>7 serveringar</em></span>
+    <span>Chambre Séparée · <em>upp till 14</em></span>
+    <span>Julbord serveras <em>från 28 nov</em></span>
+    <span>Lunch <em>tisdag – fredag</em></span>
+    <span>Säsongens <em>oktobermeny</em></span>
+    <span>Avsmakning · <em>7 serveringar</em></span>
+    <span>Chambre Séparée · <em>upp till 14</em></span>
+    <span>Julbord serveras <em>från 28 nov</em></span>
+    <span>Lunch <em>tisdag – fredag</em></span>
+  </div>
+</div>
+
+<!-- ================= MENU SPLIT ================= -->
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <div class="menu-header-text reveal is-in">
+      <span class="eyebrow">Höstens meny</span>
+      <h2 class="display-xl">En måltid <em>skriven av</em> årstiden.</h2>
+      <p class="lead">Menyn byts med skörden. Vi arbetar med bönder och fiskare vi känt länge — det betyder att det ni äter ikväll kan skilja sig från förra veckan. Det är meningen.</p>
+    </div>
+    <a href="#menu" class="btn btn-outline reveal is-in" data-delay="1">Se hela menyn</a>
+  </div>
+
+  <div class="menu-featured">
+    <a class="menu-featured-main reveal is-in" href="#menu">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1400&amp;q=85" alt="Huvudrätt">
+      <div class="menu-featured-main-overlay">
+        <span class="cat">Kökschefens signatur</span>
+        <h3>Rådjur &amp; <em>enbär</em> från Dalarnas skogar.</h3>
+      </div>
+    </a>
+    <div class="menu-featured-side">
+      <a class="menu-featured-side-item reveal is-in" data-delay="1" href="#menu">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&amp;q=85" alt="Förrätt">
+        <div class="menu-featured-side-item-overlay">Rödbeta &amp; <em>chèvre</em></div>
+      </a>
+      <a class="menu-featured-side-item reveal is-in" data-delay="2" href="#menu">
+        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&amp;q=85" alt="Dessert">
+        <div class="menu-featured-side-item-overlay">Crème brûlée · <em>havtorn</em></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Signature dishes index -->
+  <div class="dishes-index">
+    <div class="dishes-index-header reveal is-in">
+      <span class="eyebrow">Fyra signaturer</span>
+      <span class="count">Nr. 01 – 04</span>
+    </div>
+    <div class="dish-row reveal is-in">
+      <span class="num">01</span>
+      <h4>Rödbeta &amp; <em>chèvre</em></h4>
+      <p>Bakad sedan soluppgång, avrundad med kummin och tallhonung från Uppland.</p>
+      <span class="price">195 kr<span class="price-sub">Förrätt</span></span>
+    </div>
+    <div class="dish-row reveal is-in">
+      <span class="num">02</span>
+      <h4>Hälleflundra &amp; <em>beurre blanc</em></h4>
+      <p>Rökt smör, vinterpersilja, rostad kålrot från Grebbestad.</p>
+      <span class="price">365 kr<span class="price-sub">Varmrätt</span></span>
+    </div>
+    <div class="dish-row reveal is-in">
+      <span class="num">03</span>
+      <h4>Rådjur &amp; <em>enbär</em></h4>
+      <p>Från Dalarnas skogar. Serverad rosa med potatispuré och lingon.</p>
+      <span class="price">425 kr<span class="price-sub">Varmrätt</span></span>
+    </div>
+    <div class="dish-row reveal is-in">
+      <span class="num">04</span>
+      <h4>Crème brûlée &amp; <em>havtorn</em></h4>
+      <p>Bränt socker, mjuk kärna, syrlig avslutning från Gotland.</p>
+      <span class="price">165 kr<span class="price-sub">Dessert</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about-section" id="about">
+  <div class="about-image-wrap reveal is-in">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=900&amp;q=85" alt="Kökschef Elin Holm">
+    </div>
+    <div class="about-image-badge">
+      <strong>Kökschef</strong>
+      Elin Holm — sedan 2014. Utbildad i Lyon, formad av Bohuslän.
+    </div>
+  </div>
+  <div class="about-content reveal is-in" data-delay="1">
+    <span class="eyebrow">Vår historia</span>
+    <h2 class="display-lg">En passion för <em>kulinarisk</em> excellens.</h2>
+    <p class="lead">Sedan 2014 har vi serverat måltider skrivna av fälten, skogarna och kusten runt Stockholm. Vår filosofi är enkel: respekt för råvaran, hantverk i varje sås, en gästfrihet som får kvällen att kännas personlig.</p>
+
+    <div class="about-quote">
+      Att laga mat är att översätta en plats, en årstid, ett ögonblick — till något du kan hålla i gaffeln.
+      <cite>— Elin Holm, kökschef</cite>
+    </div>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="number">20<em>14</em></div>
+        <div class="stat-label">Grundat</div>
+      </div>
+      <div class="stat-item">
+        <div class="number">28<em>k+</em></div>
+        <div class="stat-label">Gäster</div>
+      </div>
+      <div class="stat-item">
+        <div class="number">★<em>★</em></div>
+        <div class="stat-label">Gourmet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHILOSOPHY ================= -->
+<section class="philosophy">
+  <div class="philosophy-inner">
+    <span class="eyebrow center">Vår filosofi</span>
+    <h2 class="reveal">Vi jagar inte trender — vi <em>lyssnar</em> på säsongen och låter den skriva menyn åt oss.</h2>
+
+    <div class="philosophy-pillars">
+      <div class="pillar reveal">
+        <span class="num">i.</span>
+        <h4>Råvaran först</h4>
+        <p>Vi köper från små gårdar och fiskare vi känner vid namn. Menyn skrivs om varje vecka. Inte av princip — av nödvändighet.</p>
+      </div>
+      <div class="pillar reveal" data-delay="1">
+        <span class="num">ii.</span>
+        <h4>Hantverk</h4>
+        <p>Varje sås reducerad. Varje bröd jäst över natten. Varje snitt gjort för hand. Det syns inte, men du känner det.</p>
+      </div>
+      <div class="pillar reveal" data-delay="2">
+        <span class="num">iii.</span>
+        <h4>Ett stilla rum</h4>
+        <p>26 platser, mjukt ljus, en konversation ni faktiskt hör. Vi serverar måltider — inte spektakel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services-section" id="services">
+  <div class="services-header reveal">
+    <span class="eyebrow">Grupper &amp; evenemang</span>
+    <h2 class="display-lg">Skräddarsydda upplevelser</h2>
+    <p>Från en privat middag i Chambre Séparée till julbord i matsalen eller catering hem till er — vi utformar kvällen tillsammans med er.</p>
+  </div>
+  <div class="services-grid">
+    <a href="#" class="service-card reveal">
+      <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&amp;q=85" alt="Chambre Séparée">
+      <div class="service-card-content">
+        <span class="tag">Upp till 14 gäster</span>
+        <h3>Chambre <em>Séparée</em></h3>
+        <p>Avskild matsal, egen servitör, meny komponerad med kökschefen.</p>
+        <span class="arrow">Läs mer →</span>
+      </div>
+    </a>
+    <a href="#" class="service-card reveal" data-delay="1">
+      <img src="https://images.unsplash.com/photo-1482275548304-a58859dc31b7?w=900&amp;q=85" alt="Julbord">
+      <div class="service-card-content">
+        <span class="tag">28 nov – 22 dec</span>
+        <h3><em>Julbord</em></h3>
+        <p>Ett svenskt julbord i tolkning — lättare, modernare, men hjärtat kvar.</p>
+        <span class="arrow">Läs mer →</span>
+      </div>
+    </a>
+    <a href="#" class="service-card reveal" data-delay="2">
+      <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=900&amp;q=85" alt="Catering">
+      <div class="service-card-content">
+        <span class="tag">Hem eller kontor</span>
+        <h3><em>Catering</em></h3>
+        <p>Vår matsal ut till er adress. Från 12 gäster, levererat och uppdukat.</p>
+        <span class="arrow">Läs mer →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= PRESS ================= -->
+<section class="press">
+  <div class="press-grid reveal">
+    <span class="press-label">Press · Kritiker</span>
+    <div class="press-items">
+      <p class="press-item">"Ett av stadens mest genomtänkta kök just nu."<strong>Dagens Industri</strong></p>
+      <p class="press-item">"Teknik och självklarhet i samma tugga."<strong>White Guide</strong></p>
+      <p class="press-item">"Matsal med själ — service utan skåderi."<strong>Svenska Dagbladet</strong></p>
+      <p class="press-item">"Nordisk råvara, franskt hantverk, svensk förfining."<strong>Time Out</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section">
+  <div class="cta-bg">
+    <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=2000&amp;q=85" alt="Matsalen">
+  </div>
+  <div class="cta-content reveal">
+    <span class="eyebrow center">Boka ett bord</span>
+    <h2 class="display-xl">Skapa <em>oförglömliga</em> minnen.</h2>
+    <p>En kväll skriven för er. Säg till när ni bokar om ni firar något — vi gör en liten sak av det.</p>
+    <a href="#contact" class="btn btn-cream btn-lg">Reservera bord</a>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact-section" id="contact">
+  <div class="contact-image">
+    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1400&amp;q=85" alt="Matsalen kväll">
+    <div class="contact-image-overlay">
+      <span class="eyebrow">Besök oss</span>
+      <strong>Riddargatan 12<br>114 35 Stockholm</strong>
+      <p>Fem minuter från Östermalmstorg. Parkeringshus i hörnet av Artillerigatan.</p>
+    </div>
+  </div>
+  <div class="contact-form-wrapper">
+    <span class="eyebrow reveal">Boka bord</span>
+    <h2 class="display-lg reveal" data-delay="1">Vi håller ett bord <em>redo för er.</em></h2>
+    <p class="lead reveal" data-delay="2">Välj datum, tid och sällskap. För större sällskap eller särskilda önskemål — skriv några rader, så hör vi av oss personligen.</p>
+    <form class="contact-form reveal" data-delay="3" onsubmit="event.preventDefault(); this.innerHTML='&lt;div style=&quot;text-align:center;padding:40px 0;&quot;&gt;&lt;div style=&quot;font-family:var(--display);font-size:32px;font-weight:500;margin-bottom:12px;&quot;&gt;Tack — vi hör av oss.&lt;/div&gt;&lt;p style=&quot;color:var(--ink-soft);&quot;&gt;En bekräftelse är på väg till er inkorg.&lt;/p&gt;&lt;/div&gt;';">
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Namn</label>
+          <input type="text" id="name" required="">
+        </div>
+        <div class="field">
+          <label for="phone">Telefon</label>
+          <input type="tel" id="phone" required="">
+        </div>
+      </div>
+      <div class="field">
+        <label for="email">E-post</label>
+        <input type="email" id="email" required="">
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="date">Datum</label>
+          <input type="date" id="date" required="" min="2026-04-22">
+        </div>
+        <div class="field">
+          <label for="time">Tid</label>
+          <select id="time" required="">
+            <option>17:30</option><option>18:00</option><option>18:30</option>
+            <option>19:00</option><option>19:30</option><option>20:00</option>
+            <option>20:30</option><option>21:00</option><option>21:30</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Antal gäster</label>
+        <div class="field-row-three">
+          <div class="guest-chip"><input type="radio" name="g" id="g2" checked=""><label for="g2">2</label></div>
+          <div class="guest-chip"><input type="radio" name="g" id="g4"><label for="g4">4</label></div>
+          <div class="guest-chip"><input type="radio" name="g" id="g6"><label for="g6">6+</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="notes">Önskemål eller allergier</label>
+        <textarea id="notes" rows="3" data-csext-root-mirror-id="csext-root-mirror-2c935a7199f68f43c84ffde09a82c17f"></textarea>
+      </div>
+      <button type="submit" class="btn btn-dark" style="align-self:flex-start;">Skicka förfrågan</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-logo">Lux<span class="dot"></span>Din</div>
+    <div class="footer-tagline">Nordisk råvara · Franskt hantverk · Östermalm</div>
+  </div>
+
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Besök</h4>
+      <p>Riddargatan 12<br>114 35 Stockholm</p>
+      <a href="tel:+4681234567" style="margin-top:14px;">+46 8 123 45 67</a>
+      <a href="mailto:bord@luxdin.se">bord@luxdin.se</a>
+    </div>
+    <div class="footer-col">
+      <h4>Menyn</h4>
+      <a href="#menu">À la carte</a>
+      <a href="#menu">Avsmakningsmeny</a>
+      <a href="#menu">Lunch</a>
+      <a href="#menu">Vinkällaren</a>
+    </div>
+    <div class="footer-col">
+      <h4>Upplevelser</h4>
+      <a href="#services">Chambre Séparée</a>
+      <a href="#services">Julbord</a>
+      <a href="#services">Catering</a>
+      <a href="#contact">Presentkort</a>
+    </div>
+    <div class="footer-col footer-hours">
+      <h4>Öppettider</h4>
+      <div class="row"><span>Tis – Tor</span><span>17:30 – 23:00</span></div>
+      <div class="row"><span>Fre – Lör</span><span>17:30 – 00:00</span></div>
+      <div class="row"><span>Sön – Mån</span><span>Stängt</span></div>
+      <div class="row lunch"><span>Lunch Tis – Fre</span><span>11:30 – 14:00</span></div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 LuxDin · Alla rättigheter förbehållna</span>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+    </div>
+    <span>Riddargatan 12 · 114 35 Stockholm</span>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+const nav = document.getElementById('navbar');
+addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Mobile menu
+const menuBtn = document.getElementById('menuBtn');
+const mobilePanel = document.getElementById('mobilePanel');
+menuBtn?.addEventListener('click', () => {
+  mobilePanel.classList.toggle('open');
+});
+mobilePanel.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => mobilePanel.classList.remove('open'));
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => io.observe(r));
+
+// Magnetic buttons (subtle)
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width / 2;
+    const y = e.clientY - r.top - r.height / 2;
+    btn.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px) translateY(-2px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+});
+
+// Hero parallax
+const heroBg = document.querySelector('.hero-bg');
+addEventListener('scroll', () => {
+  if (!heroBg) return;
+  const y = Math.min(window.scrollY, 800);
+  heroBg.style.transform = `translateY(${y * 0.25}px)`;
+}, { passive: true });
+
+// Date input default
+const dateInput = document.getElementById('date');
+if (dateInput){
+  const d = new Date(); d.setDate(d.getDate() + 2);
+  dateInput.value = d.toISOString().slice(0,10);
+  dateInput.min = new Date().toISOString().slice(0,10);
+}
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sala Privata — Agaton Ristorante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agaton.css">
+<script src="agaton-chrome.js?v=2" data-active=""></script>
+<style>
+.cs-hero{
+  position: relative; min-height: 75vh;
+  background: var(--wood); color: var(--cream);
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.cs-hero-bg{ position: absolute; inset: 0; }
+.cs-hero-bg img{ width:100%; height:100%; object-fit: cover; filter: brightness(.5) saturate(1.1); }
+.cs-hero-bg::after{ content:""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(46,26,16,.4), rgba(46,26,16,.85)); }
+.cs-hero-inner{ position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; padding: 180px 48px 80px; width: 100%; }
+.cs-hero .script{ font-size: 64px; color: var(--candle); display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.cs-hero h1{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(60px, 10vw, 160px); line-height: .95; color: var(--cream); max-width: 14ch; }
+.cs-hero .lead{ color: color-mix(in oklab, var(--cream) 82%, transparent); margin-top: 28px; max-width: 52ch; font-size: 17px; line-height: 1.65; }
+
+/* Split intro */
+.cs-intro{
+  padding: 120px 0;
+  background: var(--cream);
+}
+.cs-intro-grid{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 90px;
+  max-width: 1400px; margin: 0 auto; padding: 0 48px;
+  align-items: center;
+}
+.cs-intro .script{ font-size: 60px; color: var(--brick); display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.cs-intro h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(40px, 5vw, 72px); line-height: 1; color: var(--wood); margin-bottom: 30px; }
+.cs-intro p{ font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 16px; max-width: 48ch; }
+.cs-intro-photo{ aspect-ratio: 4/5; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-lg); }
+.cs-intro-photo img{ width:100%; height:100%; object-fit: cover; }
+
+/* Stats strip */
+.cs-stats{
+  background: var(--brick); color: var(--cream);
+  padding: 72px 0;
+}
+.cs-stats-grid{
+  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+  text-align: center;
+}
+.cs-stat .num{ font-family: var(--display); font-style: italic; font-size: clamp(48px, 6vw, 84px); line-height: 1; color: var(--candle); }
+.cs-stat .label{ font-size: 11px; letter-spacing: .28em; text-transform: uppercase; margin-top: 14px; color: color-mix(in oklab, var(--cream) 80%, transparent); }
+
+/* Packages */
+.cs-packages{
+  padding: 140px 0;
+  background: var(--cream);
+}
+.cs-pack-head{ text-align: center; margin-bottom: 80px; padding: 0 20px; }
+.cs-pack-head .script{ color: var(--brick); font-size: 56px; display: block; margin-bottom: 10px; }
+.cs-pack-head h2{ font-family: var(--display); font-style: italic; font-size: clamp(40px, 5vw, 72px); color: var(--wood); }
+.cs-pack-grid{
+  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+}
+.cs-pack{
+  background: var(--cream-2); border-radius: var(--r-md);
+  padding: 40px 34px 44px;
+  display: flex; flex-direction: column;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), background .4s var(--ease);
+  border: 1px solid var(--line-faint);
+}
+.cs-pack:hover{ transform: translateY(-6px); box-shadow: var(--shadow-md); background: var(--white); }
+.cs-pack.feature{ background: var(--wood); color: var(--cream); }
+.cs-pack.feature .cs-pack-price, .cs-pack.feature h3{ color: var(--cream); }
+.cs-pack.feature .cs-pack-desc, .cs-pack.feature li{ color: color-mix(in oklab, var(--cream) 75%, transparent); }
+.cs-pack.feature .label-badge{ background: var(--candle); color: var(--wood); }
+.label-badge{
+  display: inline-block; padding: 4px 12px; border-radius: var(--r-pill);
+  font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  background: var(--brick); color: var(--cream); margin-bottom: 14px; font-weight: 500;
+  align-self: flex-start;
+}
+.cs-pack h3{ font-family: var(--display); font-style: italic; font-weight: 500; font-size: 34px; line-height: 1.05; margin-bottom: 8px; color: var(--wood); }
+.cs-pack-price{ font-family: var(--display); font-size: 22px; color: var(--brick); margin-bottom: 18px; }
+.cs-pack-desc{ font-size: 14.5px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 24px; }
+.cs-pack ul{ list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.cs-pack li{ font-size: 14px; color: var(--ink-soft); padding-left: 22px; position: relative; line-height: 1.5; }
+.cs-pack li::before{ content: "·"; position: absolute; left: 8px; font-size: 22px; color: var(--brick); top: -3px; }
+.cs-pack .btn{ margin-top: 28px; align-self: stretch; justify-content: center; }
+
+/* Inquiry form */
+.inquiry{
+  padding: 140px 0;
+  background: var(--cream-2);
+}
+.inquiry-grid{
+  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+}
+.inquiry h2{ font-family: var(--display); font-style: italic; font-size: clamp(40px, 5vw, 72px); color: var(--wood); margin-bottom: 24px; line-height: 1; }
+.inquiry .script{ font-size: 52px; color: var(--brick); display: block; margin-bottom: 10px; }
+.inquiry p{ font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 16px; max-width: 44ch; }
+.inquiry-form{ background: var(--cream); padding: 40px; border-radius: var(--r-md); box-shadow: var(--shadow-md); }
+.form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-row.single{ grid-template-columns: 1fr; }
+.form-field label{ display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+.form-field input, .form-field select, .form-field textarea{ width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--white); font-family: var(--sans); font-size: 14px; color: var(--wood); transition: border-color .3s var(--ease); }
+.form-field textarea{ min-height: 90px; resize: vertical; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus{ outline: none; border-color: var(--brick); }
+.form-submit{ width: 100%; padding: 16px 0; background: var(--wood); color: var(--cream); font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; border-radius: var(--r-pill); margin-top: 8px; cursor: pointer; transition: background .3s var(--ease); }
+.form-submit:hover{ background: var(--brick); }
+
+@media (max-width: 900px){
+  .cs-hero-inner{ padding: 140px 20px 60px; }
+  .cs-intro-grid, .inquiry-grid{ grid-template-columns: 1fr; gap: 40px; padding: 0 20px; }
+  .cs-stats-grid{ grid-template-columns: 1fr 1fr; gap: 30px; }
+  .cs-pack-grid{ grid-template-columns: 1fr; padding: 0 20px; }
+  .form-row{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px){
+  .cs-hero-inner{ padding: 110px 20px 50px; }
+  .cs-hero h1{ font-size: clamp(44px, 13vw, 72px); }
+  .cs-pack-grid{ grid-template-columns: 1fr; }
+  .inquiry{ padding: 60px 20px; }
+  .inquiry h2{ font-size: clamp(32px, 10vw, 52px); }
+  .inquiry-form{ padding: 24px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div id="agaton-nav" data-on-dark="true"></div>
+
+<section class="cs-hero">
+  <div class="cs-hero-bg"><img src="photos/interior-04.jpg" alt="Privat matsal"></div>
+  <div class="cs-hero-inner">
+    <span class="script">la sala privata</span>
+    <h1>En egen matsal — för er kväll.</h1>
+    <p class="lead">Upp till 24 personer, egen ingång, en tyst matsal för bröllopsmingel, kickoff eller den där födelsedagen som ska firas ordentligt.</p>
+  </div>
+</section>
+
+<section class="cs-intro">
+  <div class="cs-intro-grid">
+    <div>
+      <span class="script">tutti insieme</span>
+      <h2>För era gäster — hela kvällen.</h2>
+      <p>Vår privata matsal ligger en trappa upp i restaurangen med egen bar och ingång. Plats för mellan 10 och 24 sittande, eller 35 vid mingel.</p>
+      <p>Ni väljer meny tillsammans med köksmästaren, vi dukar efter tillfället och ni får en personlig värd hela kvällen.</p>
+      <p>XX — kompletterande info från servern kommer här (avgifter, särskilda regler, eventuell egen bar).</p>
+    </div>
+    <div class="cs-intro-photo"><img src="photos/interior-06.jpg" alt="Matsal"></div>
+  </div>
+</section>
+
+<section class="cs-stats">
+  <div class="cs-stats-grid">
+    <div class="cs-stat"><div class="num">24</div><div class="label">Sittande</div></div>
+    <div class="cs-stat"><div class="num">35</div><div class="label">Stående mingel</div></div>
+    <div class="cs-stat"><div class="num">10+</div><div class="label">Minsta sällskap</div></div>
+    <div class="cs-stat"><div class="num">4h</div><div class="label">Standard-bokning</div></div>
+  </div>
+</section>
+
+<section class="cs-packages">
+  <div class="cs-pack-head">
+    <span class="script">i pacchetti</span>
+    <h2>Tre paket att välja mellan</h2>
+  </div>
+
+  <div class="cs-pack-grid">
+    <div class="cs-pack">
+      <div class="label-badge">Enkelt</div>
+      <h3>La Cena</h3>
+      <div class="cs-pack-price">från — kr / person</div>
+      <p class="cs-pack-desc">Trerätters med valfrihet från à la carte-menyn. Perfekt för mindre sällskap.</p>
+      <ul>
+        <li>3 rätter + bröd</li>
+        <li>Gemensam antipasto-tallrik</li>
+        <li>Egen värd hela kvällen</li>
+        <li>Vin à la carte</li>
+      </ul>
+      <a href="#inquiry" class="btn btn-outline">Skicka förfrågan</a>
+    </div>
+
+    <div class="cs-pack feature">
+      <div class="label-badge">Populärt</div>
+      <h3>La Festa</h3>
+      <div class="cs-pack-price">från — kr / person</div>
+      <p class="cs-pack-desc">Fyrarätters meny som köksmästaren satt ihop, vinpaket och privat bar.</p>
+      <ul>
+        <li>4 rätter — antipasti, primo, secondo, dolce</li>
+        <li>Handplockat vinpaket till</li>
+        <li>Privat bar med bartender</li>
+        <li>Personlig värd hela kvällen</li>
+        <li>Välkomstdrink för alla gäster</li>
+      </ul>
+      <a href="#inquiry" class="btn btn-cream">Skicka förfrågan</a>
+    </div>
+
+    <div class="cs-pack">
+      <div class="label-badge">Stort tillfälle</div>
+      <h3>La Grande</h3>
+      <div class="cs-pack-price">från — kr / person</div>
+      <p class="cs-pack-desc">Hela våningen, fem rätter, sommelier vid bordet och after dinner-drinkar.</p>
+      <ul>
+        <li>5 rätter med vinpairing</li>
+        <li>Sommelier presenterar varje vin</li>
+        <li>Hela privata matsalen (även mingel)</li>
+        <li>Grappa & amaro-bar after dinner</li>
+        <li>Dedicerat team under hela kvällen</li>
+      </ul>
+      <a href="#inquiry" class="btn btn-outline">Skicka förfrågan</a>
+    </div>
+  </div>
+</section>
+
+<section class="inquiry" id="inquiry">
+  <div class="inquiry-grid">
+    <div>
+      <span class="script">prego</span>
+      <h2>Skicka din förfrågan</h2>
+      <p>Vi svarar inom 24 timmar, alla dagar. Om du har bråttom — ring +46 08 20 72 99 och prata direkt med hovmästaren.</p>
+      <p style="margin-top: 30px;"><strong style="color: var(--brick); font-family: var(--display); font-size: 20px;">Typiska tillfällen</strong></p>
+      <ul style="list-style: none; padding: 0; margin-top: 8px;">
+        <li style="padding: 6px 0; color: var(--ink-soft);">· Födelsedagar & årsdagar</li>
+        <li style="padding: 6px 0; color: var(--ink-soft);">· Företagsmiddagar & kickoff</li>
+        <li style="padding: 6px 0; color: var(--ink-soft);">· Bröllopsmingel & efterfester</li>
+        <li style="padding: 6px 0; color: var(--ink-soft);">· Vinprovningar</li>
+        <li style="padding: 6px 0; color: var(--ink-soft);">· Begravningsmottagningar</li>
+      </ul>
+    </div>
+
+    <form class="inquiry-form" onsubmit="event.preventDefault(); alert('Tack! Vi återkommer inom 24h.');">
+      <div class="form-row">
+        <div class="form-field"><label>Datum</label><input type="date" required></div>
+        <div class="form-field"><label>Antal gäster</label><input type="number" min="10" max="35" placeholder="t.ex. 16" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Namn</label><input type="text" placeholder="Ditt namn" required></div>
+        <div class="form-field"><label>Telefon</label><input type="tel" placeholder="070 000 00 00"></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field"><label>E-post</label><input type="email" placeholder="du@exempel.se" required></div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field"><label>Paket (preliminärt)</label>
+          <select>
+            <option>La Cena — enkelt</option>
+            <option selected>La Festa — populärt</option>
+            <option>La Grande — stort tillfälle</option>
+            <option>Vet ej än</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-field"><label>Tillfälle / önskemål</label><textarea placeholder="Berätta kort om tillfället, allergier, önskemål..."></textarea></div>
+      </div>
+      <button type="submit" class="form-submit">Skicka förfrågan</button>
+    </form>
+  </div>
+</section>
+
+<div id="agaton-footer"></div>
+
+</body>
+</html>

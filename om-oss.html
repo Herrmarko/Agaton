@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Om oss — Agaton Ristorante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agaton.css">
+<script src="agaton-chrome.js?v=2" data-active="about"></script>
+<style>
+.om-hero{ position: relative; min-height: 82vh; background: var(--wood); color: var(--cream); display: flex; align-items: flex-end; overflow: hidden; }
+.om-hero-bg{ position: absolute; inset: 0; z-index: 0; }
+.om-hero-bg img{ width:100%; height:100%; object-fit: cover; filter: brightness(.55) saturate(1.05); }
+.om-hero-bg::after{ content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(46,26,16,.5) 0%, rgba(46,26,16,.15) 40%, rgba(46,26,16,.85) 100%); }
+.om-hero-inner{ position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; padding: 180px 48px 90px; width: 100%; }
+.om-hero .script{ font-family: var(--script); font-size: 64px; color: var(--candle); display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.om-hero h1{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(64px, 10vw, 170px); line-height: .92; color: var(--cream); letter-spacing: -0.02em; max-width: 16ch; }
+.om-hero .lead{ color: color-mix(in oklab, var(--cream) 82%, transparent); margin-top: 32px; max-width: 58ch; font-size: 18px; line-height: 1.65; }
+
+.story{ padding: 140px 0 120px; background: var(--cream); }
+.story-grid{ display: grid; grid-template-columns: 1fr 1.1fr; gap: 100px; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 48px; }
+.story-copy .script{ font-family: var(--script); font-size: 68px; color: var(--brick); display: block; margin-bottom: 10px; transform: rotate(-4deg); }
+.story-copy h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(44px, 5.2vw, 78px); line-height: 1; color: var(--wood); margin-bottom: 36px; letter-spacing: -0.015em; }
+.story-copy h2 .bold{ font-style: normal; font-weight: 600; color: var(--brick); }
+.story-copy p{ font-size: 16.5px; line-height: 1.85; color: var(--ink-soft); margin-bottom: 18px; max-width: 52ch; }
+.story-copy p em{ font-style: italic; color: var(--wood); }
+.story-photos{ position: relative; height: 640px; }
+.story-photos .photo{ position: absolute; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-lg); }
+.story-photos .photo img{ width: 100%; height: 100%; object-fit: cover; }
+.story-photos .p1{ width: 72%; aspect-ratio: 4/5; top: 0; left: 0; }
+.story-photos .p2{ width: 54%; aspect-ratio: 4/5; bottom: 0; right: 0; border: 10px solid var(--cream); }
+
+/* Big pullquote */
+.mix{ padding: 120px 24px; background: var(--cream-2); text-align: center; }
+.mix-inner{ max-width: 840px; margin: 0 auto; }
+.mix .script{ font-family: var(--script); color: var(--brick); font-size: 48px; display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.mix h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(34px, 4.4vw, 60px); line-height: 1.15; color: var(--wood); letter-spacing: -0.01em; margin-bottom: 28px; }
+.mix p{ font-size: 17px; line-height: 1.75; color: var(--ink-soft); max-width: 56ch; margin: 0 auto; }
+
+.kuriosa{ padding: 140px 0; background: var(--wood); color: var(--cream); position: relative; overflow: hidden; }
+.kuriosa::before{ content: "Curiosità"; position: absolute; top: 60px; right: -40px; font-family: var(--display); font-style: italic; font-size: clamp(200px, 24vw, 380px); color: color-mix(in oklab, var(--cream) 5%, transparent); line-height: 1; letter-spacing: -0.04em; pointer-events: none; }
+.kuriosa-head{ text-align: center; max-width: 740px; margin: 0 auto 90px; padding: 0 48px; position: relative; z-index: 2; }
+.kuriosa-head .script{ font-family: var(--script); color: var(--candle); font-size: 52px; display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.kuriosa-head h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(40px, 5vw, 72px); color: var(--cream); letter-spacing: -0.015em; }
+.kuriosa-head p{ margin-top: 22px; font-size: 16px; line-height: 1.75; color: color-mix(in oklab, var(--cream) 75%, transparent); }
+
+.timeline{ max-width: 880px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 2; }
+.timeline::before{ content: ""; position: absolute; left: 48px; top: 20px; bottom: 20px; width: 1px; background: color-mix(in oklab, var(--cream) 18%, transparent); }
+.t-item{ display: grid; grid-template-columns: 130px 1fr; gap: 44px; padding: 28px 0; position: relative; }
+.t-item::before{ content: ""; position: absolute; left: -6px; top: 44px; width: 13px; height: 13px; border-radius: 50%; background: var(--candle); border: 3px solid var(--wood); box-shadow: 0 0 0 1px color-mix(in oklab, var(--cream) 30%, transparent); }
+.t-year{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: 32px; color: var(--candle); line-height: 1; padding-top: 32px; font-variant-numeric: tabular-nums; }
+.t-body{ padding-top: 32px; }
+.t-body h3{ font-family: var(--display); font-weight: 500; font-size: 24px; color: var(--cream); margin-bottom: 10px; letter-spacing: -0.005em; }
+.t-body p{ font-size: 15px; line-height: 1.75; color: color-mix(in oklab, var(--cream) 78%, transparent); max-width: 58ch; }
+
+.values{ padding: 140px 0; background: var(--cream); }
+.values-head{ text-align: center; margin-bottom: 80px; padding: 0 48px; }
+.values-head .script{ font-family: var(--script); color: var(--brick); font-size: 52px; display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.values-head h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(40px, 5vw, 72px); color: var(--wood); letter-spacing: -0.015em; }
+.values-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 1280px; margin: 0 auto; padding: 0 48px; border-top: 1px solid var(--line); }
+.value{ padding: 48px 36px 48px 0; border-right: 1px solid var(--line); }
+.value:not(:first-child){ padding-left: 36px; }
+.value:last-child{ border-right: none; }
+.value-num{ font-family: var(--display); font-style: italic; font-size: 26px; color: var(--brick); margin-bottom: 20px; }
+.value h3{ font-family: var(--display); font-weight: 500; font-size: 26px; color: var(--wood); margin-bottom: 14px; line-height: 1.15; }
+.value p{ font-size: 14.5px; line-height: 1.75; color: var(--ink-soft); }
+.value p em{ color: var(--brick); font-style: italic; }
+
+.sig-strip{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; height: 280px; }
+.sig-strip .photo{ height: 100%; overflow: hidden; position: relative; }
+.sig-strip .photo img{ width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+.sig-strip .photo:hover img{ transform: scale(1.06); }
+
+.visit{ padding: 140px 0; background: var(--brick); color: var(--cream); text-align: center; position: relative; }
+.visit .script{ font-family: var(--script); color: var(--candle); font-size: 52px; display: block; margin-bottom: 10px; transform: rotate(-3deg); }
+.visit h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(44px, 6vw, 80px); color: var(--cream); letter-spacing: -0.015em; margin-bottom: 30px; max-width: 18ch; margin-left: auto; margin-right: auto; }
+.visit p{ max-width: 46ch; margin: 0 auto 38px; font-size: 16px; line-height: 1.7; color: color-mix(in oklab, var(--cream) 85%, transparent); }
+.visit .ctas{ display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.visit .btn-cream{ background: var(--cream); color: var(--brick); border: none; padding: 16px 32px; border-radius: var(--r-pill); font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; transition: background .3s var(--ease), transform .3s var(--ease); }
+.visit .btn-cream:hover{ background: var(--candle); transform: translateY(-2px); }
+.visit .btn-ghost{ background: transparent; color: var(--cream); border: 1px solid color-mix(in oklab, var(--cream) 55%, transparent); padding: 16px 32px; border-radius: var(--r-pill); font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; transition: background .3s var(--ease), transform .3s var(--ease); }
+.visit .btn-ghost:hover{ background: color-mix(in oklab, var(--cream) 10%, transparent); transform: translateY(-2px); }
+
+@media (max-width: 1000px){
+  .story-grid{ grid-template-columns: 1fr; gap: 60px; }
+  .story-photos{ height: 500px; }
+  .values-grid{ grid-template-columns: 1fr; }
+  .value{ border-right: none; border-bottom: 1px solid var(--line); padding: 40px 0; }
+  .value:not(:first-child){ padding-left: 0; }
+  .value:last-child{ border-bottom: none; }
+  .sig-strip{ grid-template-columns: repeat(2, 1fr); height: auto; }
+  .sig-strip .photo{ height: 220px; }
+}
+@media (max-width: 600px){
+  .om-hero-inner{ padding: 140px 20px 60px; }
+  .story{ padding: 80px 0; }
+  .story-grid{ padding: 0 20px; gap: 40px; }
+  .story-photos{ height: 400px; }
+  .mix{ padding: 70px 20px; }
+  .kuriosa{ padding: 80px 0; }
+  .kuriosa-head{ padding: 0 20px; margin-bottom: 60px; }
+  .timeline{ padding: 0 20px; }
+  .timeline::before{ left: 20px; }
+  .t-item{ grid-template-columns: 80px 1fr; gap: 20px; padding: 22px 0; }
+  .t-item::before{ left: -32px; }
+  .t-year{ font-size: 22px; padding-top: 26px; }
+  .t-body{ padding-top: 24px; }
+  .values{ padding: 80px 0; }
+  .values-head{ padding: 0 20px; margin-bottom: 50px; }
+  .values-grid{ padding: 0 20px; }
+  .visit{ padding: 80px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="agaton-nav" data-on-dark="true"></div>
+
+<section class="om-hero">
+  <div class="om-hero-bg"><img src="photos/interior-02.jpg" alt="Matsal med tegelvalv i Gamla Stan"></div>
+  <div class="om-hero-inner">
+    <span class="script">la nostra storia</span>
+    <h1>I hjärtat av Gamla Stan.</h1>
+    <p class="lead">Restaurang Agaton — en kärleksfull mix av det svenska och italienska köket, i en varm och ombonad miljö med förstklassig service. I ett hus som nämndes första gången för ett halvt årtusende sedan, på Västerlånggatan 72 sedan 1999.</p>
+  </div>
+</section>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="story-copy">
+      <span class="script">Benvenuti</span>
+      <h2>Där det <span class="bold">gamla</span> omfamnar det nya.</h2>
+      <p>Här i Gamla Stan har det gamla omfamnat det nya sedan urminnes tider. Du kan nästan känna hur historiens vingslag letar sig genom medeltida gränder, över kullersten och vinklar och vrår — och får ljusen på ditt bord att försiktigt flämta till.</p>
+      <p>Sedan just det här huset nämns första gången, för ett halvt årtusende sedan, har otaliga ägare och verksamheter passerat revy. Men av tids- och utrymmesskäl hoppar vi direkt till 1999, då den coola modebutiken <em>Agaton</em> blev restaurang och vår egen historia tar vid.</p>
+      <p>I över 20 år har alltså det godaste från Sverige omfamnat det godaste från Italien på den här adressen.</p>
+    </div>
+
+    <div class="story-photos">
+      <div class="photo p1"><img src="photos/interior-07.jpg" alt="Matsal med tegelvalv"></div>
+      <div class="photo p2"><img src="photos/food-01.jpg" alt="Kocken vid vedugnen"></div>
+    </div>
+  </div>
+</section>
+
+<section class="kuriosa">
+  <div class="kuriosa-head">
+    <span class="script">curiosità</span>
+    <h2>Kuriosa från Gamla Stan</h2>
+    <p>En vandring genom Gamla Stan bjuder på många historier ur historiens gömmor. Varje hus och varje gränd bär på arv och traditioner från <em>Staden mellan broarna</em>, som Stockholm ursprungligen kallades. Så har vårt hus bytt skepnad genom århundradena.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-item"><div class="t-year">1521</div><div class="t-body"><h3>En förfallen stenhusbod</h3><p>År 1521 fanns en gammal, förfallen stenhusbod på platsen — det första omnämnandet av huset vi står i idag.</p></div></div>
+    <div class="t-item"><div class="t-year">1617</div><div class="t-body"><h3>Rådmannen Petter Grönberg</h3><p>När rådmannen Petter Grönberg köpte huset 1617 lär det ha varit väldigt förfallet. Han lät rusta upp det ordentligt.</p></div></div>
+    <div class="t-item"><div class="t-year">1680</div><div class="t-body"><h3>Elisabeth Funck</h3><p>Huset köptes av Elisabeth Funck. I köpet ingick också <em>"stora mellan fruns hus och breda gränden vid Kornhamn"</em>.</p></div></div>
+    <div class="t-item"><div class="t-year">1860</div><div class="t-body"><h3>Handlare Wallin — och tidens nymodighet</h3><p>På 1860-talet kom huset i en handlare Wallins ägo. Han lät sätta in tidens stora nymodighet — gjutjärnsburna skyltfönster i gatuplanet och på första våningen.</p></div></div>
+    <div class="t-item"><div class="t-year">1922</div><div class="t-body"><h3>Firman Robert Ditzinger</h3><p>Huset köptes av firman Robert Ditzinger. 1924 inledde de en mer än tio år lång ombyggnad och stannade i kvarteret ända till 1968, då Kapp-Ahl övertog det mesta av firmans lokaler.</p></div></div>
+    <div class="t-item"><div class="t-year">1980-tal</div><div class="t-body"><h3>Herrekipering i bottenvåningen</h3><p>Hela huset omändrades för kontorsverksamhet — och i bottenvåningen öppnade en elegant herrekipering vid namn <em>Agaton</em>.</p></div></div>
+    <div class="t-item"><div class="t-year">1999</div><div class="t-body"><h3>Kostymbytet</h3><p>Efter 18 år som klassisk herrekipering bytte lokalen kostym — till restaurang, med samma namn. Vår egen historia tar vid här, med vedugnen, pastarullen och de första gästerna.</p></div></div>
+    <div class="t-item"><div class="t-year">Idag</div><div class="t-body"><h3>Ristorante Agaton</h3><p>På samma adress sedan 1999. Fortfarande vedugnspizza, fortfarande handgjord pasta — och fortfarande det godaste från Sverige som omfamnar det godaste från Italien.</p></div></div>
+  </div>
+</section>
+
+<div class="sig-strip">
+  <div class="photo"><img src="photos/interior-04.jpg" alt=""></div>
+  <div class="photo"><img src="photos/interior-06.jpg" alt=""></div>
+  <div class="photo"><img src="photos/interior-08.jpg" alt=""></div>
+  <div class="photo"><img src="photos/interior-11.jpg" alt=""></div>
+</div>
+
+<section class="visit">
+  <span class="script">ci vediamo</span>
+  <h2>Kom och hälsa på.</h2>
+  <p>Västerlånggatan 72 — mitt i Gamla Stan. Öppet alla dagar i veckan. Vi ser fram emot att få laga något gott till dig.</p>
+  <div class="ctas">
+    <a href="Agaton.html#booking" class="btn-cream">Boka bord</a>
+    <a href="menu.html" class="btn-ghost">Se menyn</a>
+  </div>
+</section>
+
+<div id="agaton-footer"></div>
+
+</body>
+</html>

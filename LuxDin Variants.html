@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LuxDin — Designvarianter</title>
+<link rel="stylesheet" href="design-system.css"/>
+<link rel="stylesheet" href="app.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  /* So the canvas fits fine and hero frames look right in their tiles */
+  .dc-artboard-body { overflow: hidden; }
+  .artboard-inner {
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  /* dark theme per-artboard */
+  [data-variant-theme="dark"]{
+    --ld-bg:        #0F0C0B;
+    --ld-bg-2:      #171311;
+    --ld-surface:   #1C1815;
+    --ld-ink:       #F1E7D8;
+    --ld-ink-2:     #CDBEA8;
+    --ld-muted:     #8C7E6D;
+    --ld-line:      rgba(241,231,216,0.14);
+    --ld-line-2:    rgba(241,231,216,0.06);
+    --ld-accent:    #D4A76A;
+    --ld-accent-2:  #B8894D;
+    --ld-highlight: #E7C388;
+    background: var(--ld-bg);
+    color: var(--ld-ink);
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="content.js?v=2"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="pages.jsx"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel">
+const { useState } = React;
+const t = window.LD_CONTENT.sv;
+const noop = () => {};
+
+function Frame({ theme = "light", children }) {
+  return (
+    <div data-variant-theme={theme} className="artboard-inner" style={{
+      background: "var(--ld-bg)",
+      color: "var(--ld-ink)",
+      fontFamily: "var(--ld-sans)"
+    }}>
+      {children}
+    </div>
+  );
+}
+
+// Static mini hero wrappers — just render one section inside artboard
+function EditorialFrame() {
+  return (
+    <Frame>
+      <div style={{ padding: "48px 56px", height: "100%", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 48, alignItems: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <span className="ld-eyebrow">{t.hero.eyebrow}</span>
+          <h1 style={{ fontFamily: "var(--ld-display)", fontSize: 84, lineHeight: 0.92, letterSpacing: "-0.02em", fontWeight: 400, margin: 0 }}>
+            {t.hero.title1} <em style={{ color: "var(--ld-accent-2)", fontStyle: "italic" }}>{t.hero.title1em}</em><br/>
+            {t.hero.title2}<em style={{ color: "var(--ld-accent-2)", fontStyle: "italic" }}>{t.hero.title2em}</em>
+          </h1>
+          <p style={{ color: "var(--ld-ink-2)", fontSize: 16, lineHeight: 1.65, maxWidth: 420, margin: 0 }}>{t.hero.lead}</p>
+          <div style={{ display: "flex", gap: 12 }}>
+            <button className="ld-btn ld-btn-primary">{t.hero.cta1}</button>
+            <button className="ld-btn ld-btn-ghost">{t.hero.cta2}</button>
+          </div>
+        </div>
+        <div style={{ position: "relative", height: "80%" }}>
+          <div style={{ position: "absolute", top: 0, right: 0, width: "72%", height: "68%", borderRadius: 8, boxShadow: "0 24px 60px rgba(42,28,24,.18)", overflow: "hidden" }}>
+            <Placeholder label="Interiör · kväll" style={{ width: "100%", height: "100%", borderRadius: 0, border: 0 }}/>
+          </div>
+          <div style={{ position: "absolute", bottom: 0, left: 0, width: "54%", height: "44%", borderRadius: 8, border: "8px solid var(--ld-bg)", overflow: "hidden", boxShadow: "0 24px 60px rgba(42,28,24,.18)" }}>
+            <Placeholder label="Rätt på tallrik" style={{ width: "100%", height: "100%", borderRadius: 0, border: 0 }}/>
+          </div>
+          <div style={{ position: "absolute", top: 20, left: 20, background: "var(--ld-bg)", padding: "10px 16px", borderRadius: 999, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--ld-accent-2)", boxShadow: "var(--sh-sm)", zIndex: 2 }}>
+            Höstmenyn · Live
+          </div>
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
+function CinemaFrame() {
+  return (
+    <Frame theme="dark">
+      <div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0 }}>
+          <Placeholder label="Kökets eld — sen natt" style={{ width: "100%", height: "100%", borderRadius: 0, border: 0 }}/>
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(15,12,11,.2) 0%, rgba(15,12,11,.45) 50%, rgba(15,12,11,.85) 100%)" }}/>
+        </div>
+        <div style={{ position: "relative", zIndex: 2, height: "100%", padding: "56px 64px", display: "flex", flexDirection: "column", justifyContent: "flex-end", color: "#F6F1E8" }}>
+          <div style={{ color: "#D4A76A", fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", fontWeight: 500, marginBottom: 20 }}>{t.hero.eyebrow}</div>
+          <h1 style={{ fontFamily: "var(--ld-display)", fontSize: 128, lineHeight: 0.88, letterSpacing: "-0.02em", maxWidth: "14ch", margin: 0, fontWeight: 400 }}>
+            {t.hero.title1} <em style={{ fontStyle: "italic", color: "#E7C388" }}>{t.hero.title1em}</em> {t.hero.title2}<em style={{ fontStyle: "italic", color: "#E7C388" }}>{t.hero.title2em}</em>
+          </h1>
+          <div style={{ display: "flex", gap: 12, marginTop: 40 }}>
+            <button className="ld-btn ld-btn-accent">{t.hero.cta1}</button>
+            <button className="ld-btn ld-btn-ghost" style={{ color: "#F6F1E8", borderColor: "rgba(246,241,232,.4)" }}>{t.hero.cta2}</button>
+          </div>
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
+function MinimalFrame() {
+  return (
+    <Frame>
+      <div style={{ padding: "72px 0", textAlign: "center", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 16, fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--ld-accent-2)", margin: "0 auto 36px", justifyContent: "center" }}>
+          <span style={{ width: 40, height: 1, background: "var(--ld-line)" }}/>
+          {t.hero.eyebrow}
+          <span style={{ width: 40, height: 1, background: "var(--ld-line)" }}/>
+        </div>
+        <h1 style={{ fontFamily: "var(--ld-display)", fontSize: 156, lineHeight: 0.9, letterSpacing: "-0.03em", fontWeight: 400, margin: 0 }}>
+          {t.hero.title1} <em style={{ fontStyle: "italic", color: "var(--ld-accent-2)" }}>{t.hero.title1em}</em>
+          <div><em style={{ fontStyle: "italic", color: "var(--ld-accent-2)" }}>{t.hero.title2em}</em></div>
+        </h1>
+        <p style={{ maxWidth: 560, margin: "40px auto 36px", fontSize: 17, lineHeight: 1.7, color: "var(--ld-ink-2)" }}>{t.hero.lead}</p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+          <button className="ld-btn ld-btn-primary ld-btn-lg">{t.hero.cta1}</button>
+          <button className="ld-btn ld-btn-ghost ld-btn-lg">{t.hero.cta2}</button>
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
+// Accent color variants (minimal layout, different hues)
+function AccentFrame({ hue, label }) {
+  return (
+    <div className="artboard-inner" style={{
+      "--ld-accent": `oklch(0.67 0.10 ${hue})`,
+      "--ld-accent-2": `oklch(0.50 0.10 ${hue})`,
+      "--ld-highlight": `oklch(0.80 0.10 ${hue})`,
+      background: "var(--ld-bg)",
+      height: "100%",
+      padding: "40px 48px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      textAlign: "center"
+    }}>
+      <span className="ld-eyebrow" style={{ marginBottom: 20 }}>{label}</span>
+      <h2 style={{ fontFamily: "var(--ld-display)", fontSize: 92, lineHeight: 0.92, letterSpacing: "-0.02em", margin: 0 }}>
+        Smaker <em style={{ color: "var(--ld-accent-2)", fontStyle: "italic" }}>burna</em><br/>av <em style={{ color: "var(--ld-accent-2)", fontStyle: "italic" }}>årstiden.</em>
+      </h2>
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 32 }}>
+        <button className="ld-btn" style={{ background: "var(--ld-accent)", color: "#fff" }}>Boka bord</button>
+      </div>
+    </div>
+  );
+}
+
+function TypeFrame({ font, label }) {
+  const map = {
+    cormorant: `'Cormorant Garamond', Georgia, serif`,
+    fraunces:  `'Fraunces', Georgia, serif`,
+    ppneue:    `'Instrument Serif', Georgia, serif`
+  };
+  return (
+    <div className="artboard-inner" style={{
+      background: "var(--ld-bg)",
+      height: "100%",
+      padding: "40px 48px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      fontFamily: "var(--ld-sans)"
+    }}>
+      <span className="ld-eyebrow" style={{ marginBottom: 16 }}>{label}</span>
+      <h1 style={{ fontFamily: map[font], fontSize: 104, lineHeight: 0.95, letterSpacing: "-0.02em", margin: 0, fontWeight: 400 }}>
+        Smaker <em style={{ fontStyle: "italic", color: "var(--ld-accent-2)" }}>burna av årstiden</em>.
+      </h1>
+      <p style={{ marginTop: 20, color: "var(--ld-ink-2)", fontSize: 16, maxWidth: 500 }}>
+        {t.hero.lead}
+      </p>
+    </div>
+  );
+}
+
+function MenuFrame() {
+  const items = window.LD_MENU_ITEMS.slice(0, 4);
+  return (
+    <Frame>
+      <div style={{ padding: "48px 64px", height: "100%" }}>
+        <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <span className="ld-eyebrow">Förrätter</span>
+          <h2 style={{ fontFamily: "var(--ld-display)", fontSize: 48, margin: "12px 0", fontStyle: "italic" }}>Från köket</h2>
+        </div>
+        {items.map((it,i) => (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 20, padding: "20px 0", borderBottom: "1px dashed var(--ld-line)" }}>
+            <div>
+              <h4 style={{ fontFamily: "var(--ld-display)", fontSize: 22, margin: "0 0 6px", fontWeight: 500 }}>{it.sv.n}</h4>
+              <p style={{ margin: 0, color: "var(--ld-ink-2)", fontSize: 14, fontStyle: "italic" }}>{it.sv.desc}</p>
+            </div>
+            <span style={{ fontFamily: "var(--ld-display)", fontSize: 22 }}>{it.price}</span>
+          </div>
+        ))}
+      </div>
+    </Frame>
+  );
+}
+
+function BookingFrame() {
+  return (
+    <Frame>
+      <div style={{ padding: "40px 48px", height: "100%" }}>
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
+          <span className="ld-eyebrow">Boka bord</span>
+          <h2 style={{ fontFamily: "var(--ld-display)", fontSize: 48, margin: "12px 0", fontWeight: 400 }}>Boka ert besök</h2>
+        </div>
+        <div style={{ background: "var(--ld-surface)", border: "1px solid var(--ld-line)", borderRadius: 16, padding: 36, boxShadow: "var(--sh-md)" }}>
+          <div style={{ display: "flex", gap: 4, marginBottom: 24 }}>
+            {["Datum","Tid","Gäster","Detaljer","Bekräftelse"].map((s,i) => (
+              <div key={s} style={{ flex: 1, display: "flex", alignItems: "center", gap: 10, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: i===1 ? "var(--ld-ink)" : "var(--ld-muted)" }}>
+                <span style={{ width: 24, height: 24, borderRadius: 12, background: i<1 ? "var(--ld-accent)" : i===1 ? "var(--ld-ink)" : "var(--ld-bg-2)", color: i<=1?"var(--ld-bg)":"var(--ld-muted)", fontSize: 11, display: "inline-flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--ld-display)" }}>
+                  {i<1?"✓":i+1}
+                </span>
+                {s}
+              </div>
+            ))}
+          </div>
+          <h4 style={{ fontFamily: "var(--ld-display)", fontSize: 22, margin: "6px 0 4px", fontWeight: 500 }}>Välj tid</h4>
+          <p style={{ fontSize: 12, color: "var(--ld-muted)", margin: "0 0 20px" }}>Vi serverar avsmakningsmenyn hela kvällen.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 8 }}>
+            {["17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00"].map((tm,i) => (
+              <div key={tm} style={{
+                padding: "14px 8px",
+                fontFamily: "var(--ld-display)", fontSize: 20,
+                border: "1px solid var(--ld-line)", borderRadius: 4,
+                background: i===3 ? "var(--ld-ink)" : "var(--ld-bg)",
+                color: i===3 ? "var(--ld-bg)" : "var(--ld-ink)",
+                opacity: (i===1 || i===6) ? 0.35 : 1,
+                textAlign: "center"
+              }}>{tm}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
+function CanvasRoot() {
+  return (
+    <DesignCanvas title="LuxDin — Designvarianter" subtitle="Tre hero-riktningar · tre accentfärger · tre typografier">
+      <DCSection id="hero" title="Startsida — 3 hero-varianter">
+        <DCArtboard id="hero-a" label="A · Editorial split" width={1440} height={900}><EditorialFrame/></DCArtboard>
+        <DCArtboard id="hero-b" label="B · Cinematic full-bleed" width={1440} height={900}><CinemaFrame/></DCArtboard>
+        <DCArtboard id="hero-c" label="C · Minimal type-forward" width={1440} height={900}><MinimalFrame/></DCArtboard>
+      </DCSection>
+      <DCSection id="accent" title="Accentfärger">
+        <DCArtboard id="acc-brass" label="Mässing (default)" width={1200} height={760}><AccentFrame hue={32} label="Accent · Mässing"/></DCArtboard>
+        <DCArtboard id="acc-sage"  label="Sage" width={1200} height={760}><AccentFrame hue={140} label="Accent · Sage"/></DCArtboard>
+        <DCArtboard id="acc-wine"  label="Vin" width={1200} height={760}><AccentFrame hue={0} label="Accent · Vin"/></DCArtboard>
+      </DCSection>
+      <DCSection id="type" title="Typografi">
+        <DCArtboard id="type-cormorant" label="Cormorant Garamond" width={1200} height={720}><TypeFrame font="cormorant" label="Cormorant Garamond"/></DCArtboard>
+        <DCArtboard id="type-fraunces"  label="Fraunces" width={1200} height={720}><TypeFrame font="fraunces" label="Fraunces"/></DCArtboard>
+        <DCArtboard id="type-instrument"label="Instrument Serif" width={1200} height={720}><TypeFrame font="ppneue" label="Instrument Serif"/></DCArtboard>
+      </DCSection>
+      <DCSection id="features" title="Övriga sidor">
+        <DCArtboard id="menu" label="Meny" width={900} height={800}><MenuFrame/></DCArtboard>
+        <DCArtboard id="booking" label="Bokningsflöde — Tid" width={1200} height={800}><BookingFrame/></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<CanvasRoot/>);
+</script>
+</body>
+</html>
