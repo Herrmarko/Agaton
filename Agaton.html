@@ -631,9 +631,51 @@
   letter-spacing: .08em;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 1100px){
-  .hero-bottom{ grid-template-columns: 1fr; gap: 32px; }
+/* Hamburger + drawer (mobil) */
+.nav-burger{
+  display: none; flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 44px; height: 44px; background: transparent; border: none;
+  cursor: pointer; padding: 4px; margin-left: auto;
+}
+.nav-burger span{
+  display: block; width: 24px; height: 2px; background: currentColor;
+  border-radius: 2px; transition: transform .3s ease, opacity .3s ease;
+  transform-origin: center;
+}
+.nav-burger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2){ opacity: 0; }
+.nav-burger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.nav-drawer{
+  position: fixed; inset: 0; z-index: 90;
+  background: var(--wood); transform: translateX(100%);
+  transition: transform .38s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column; overflow-y: auto;
+}
+.nav-drawer.open{ transform: translateX(0); }
+.nav-drawer-inner{
+  display: flex; flex-direction: column;
+  padding: 100px 32px 60px; min-height: 100%; gap: 0;
+}
+.nav-drawer-links{
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid color-mix(in oklab, var(--cream) 12%, transparent);
+  margin-bottom: 40px;
+}
+.nav-drawer-link{
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: 38px; color: var(--cream); text-decoration: none; line-height: 1;
+  padding: 22px 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--cream) 10%, transparent);
+  transition: color .2s ease; display: block;
+}
+.nav-drawer-link:hover, .nav-drawer-link.active{ color: var(--candle); }
+.nav-drawer-ctas{ display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px; }
+.nav-drawer-info{ margin-top: auto; font-size: 13px; line-height: 1.8; color: color-mix(in oklab, var(--cream) 55%, transparent); }
+@media (max-width: 900px){
+  .nav-burger{ display: flex; }
+  .nav-ctas{ display: none; }
+  .nav-links{ display: none; }
+}
   .hero-ctas{ justify-self: start; }
   .hero-scroll, .hero-stamps{ display: none; }
   .intro-grid, .exp-grid, .booking-grid, .menu-grid{ grid-template-columns: 1fr; gap: 48px; }
@@ -649,6 +691,22 @@
   .footer-top{ grid-template-columns: 1fr; }
   .booking-form{ padding: 28px; }
   .form-row{ grid-template-columns: 1fr; }
+}
+@media (max-width: 520px){
+  .intro-grid{ grid-template-columns: 1fr; gap: 40px; }
+  .intro-photos{ height: 400px; }
+  .intro-photos .p1{ width: 70%; }
+  .intro-photos .p2{ width: 55%; }
+  .intro-photos .stamp-wrap{ right: 0; width: 110px; height: 110px; }
+  .mp-grid{ grid-template-columns: 1fr; gap: 48px; }
+  .mp-right{ min-height: 380px; max-width: 100%; }
+  .mp-photo-small{ display: none; }
+  .mp-stamp{ width: 90px; height: 90px; left: -10px; }
+  .mp-left h2{ font-size: clamp(44px, 12vw, 72px); }
+  .booking-grid{ grid-template-columns: 1fr; gap: 40px; }
+  .booking-form{ padding: 24px 16px; }
+  .booking h2{ font-size: clamp(44px, 12vw, 72px); }
+  .intro-copy h2{ font-size: clamp(36px, 10vw, 56px); }
 }
 </style>
 </head>
@@ -672,7 +730,50 @@
     <a href="menu.html" class="nav-cta nav-cta-ghost">Se menyn</a>
     <a href="#booking" class="nav-cta">Boka bord</a>
   </div>
+  <button class="nav-burger" id="nav-burger" aria-label="Öppna meny">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-inner">
+    <div class="nav-drawer-links">
+      <a href="Agaton.html" class="nav-drawer-link active">Hem</a>
+      <a href="menu.html" class="nav-drawer-link">Meny</a>
+      <a href="lunch.html" class="nav-drawer-link">Lunch</a>
+      <a href="om-oss.html" class="nav-drawer-link">Om oss</a>
+      <a href="stora-sallskap.html" class="nav-drawer-link">Stora Sällskap</a>
+      <a href="faq.html" class="nav-drawer-link">Kontakt</a>
+    </div>
+    <div class="nav-drawer-ctas">
+      <a href="#booking" class="btn btn-brick btn-lg" style="text-align:center;">Boka bord</a>
+      <a href="menu.html" class="nav-drawer-link" style="text-align:center; margin-top:8px; font-size:18px;">Se menyn</a>
+    </div>
+    <div class="nav-drawer-info">
+      <p>Västerlånggatan 72, Stockholm</p>
+      <p>+46 08 20 72 99</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  burger?.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
 
 <!-- ============ HERO ============ -->
 <section class="hero">

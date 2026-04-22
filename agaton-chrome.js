@@ -32,8 +32,43 @@
             <a href="menu.html" class="nav-cta nav-cta-ghost">Se menyn</a>
             <a href="Agaton.html#booking" class="nav-cta">Boka bord</a>
           </div>
+          <button class="nav-burger" id="nav-burger" aria-label="Öppna meny">
+            <span></span><span></span><span></span>
+          </button>
         </nav>
+        <div class="nav-drawer" id="nav-drawer">
+          <div class="nav-drawer-inner">
+            <div class="nav-drawer-links">
+              ${LINKS.map(l => `<a href="${l.href}" class="nav-drawer-link ${l.key === active ? 'active' : ''}">${l.label}</a>`).join('')}
+            </div>
+            <div class="nav-drawer-ctas">
+              <a href="Agaton.html#booking" class="btn btn-brick btn-lg">Boka bord</a>
+              <a href="menu.html" class="nav-drawer-link" style="text-align:center; margin-top: 8px;">Se menyn</a>
+            </div>
+            <div class="nav-drawer-info">
+              <p>Västerlånggatan 72, Stockholm</p>
+              <p>+46 08 20 72 99</p>
+            </div>
+          </div>
+        </div>
       `;
+
+      // Burger toggle
+      const burger = document.getElementById('nav-burger');
+      const drawer = document.getElementById('nav-drawer');
+      burger?.addEventListener('click', () => {
+        const open = drawer.classList.toggle('open');
+        burger.classList.toggle('open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // Close on link click
+      drawer?.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          burger.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
     }
 
     const foot = document.getElementById('agaton-footer');
@@ -195,7 +230,73 @@
       @media (max-width: 600px){
         .footer-top{ grid-template-columns: 1fr; }
       }
-    `;
+
+      /* ---- Hamburger button ---- */
+      .nav-burger{
+        display: none;
+        flex-direction: column; justify-content: center; align-items: center;
+        gap: 5px; width: 44px; height: 44px;
+        background: transparent; border: none; cursor: pointer;
+        padding: 4px; margin-left: auto;
+      }
+      .nav-burger span{
+        display: block; width: 24px; height: 2px;
+        background: currentColor; border-radius: 2px;
+        transition: transform .3s ease, opacity .3s ease;
+        transform-origin: center;
+      }
+      .nav-burger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+      .nav-burger.open span:nth-child(2){ opacity: 0; }
+      .nav-burger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+      /* ---- Mobile drawer ---- */
+      .nav-drawer{
+        position: fixed; inset: 0; z-index: 90;
+        background: var(--wood, #2E1A10);
+        transform: translateX(100%);
+        transition: transform .38s cubic-bezier(.4,0,.2,1);
+        display: flex; flex-direction: column;
+        overflow-y: auto;
+      }
+      .nav-drawer.open{ transform: translateX(0); }
+      .nav-drawer-inner{
+        display: flex; flex-direction: column;
+        padding: 100px 32px 60px;
+        min-height: 100%;
+        gap: 0;
+      }
+      .nav-drawer-links{
+        display: flex; flex-direction: column;
+        gap: 0;
+        border-top: 1px solid color-mix(in oklab, var(--cream, #FBF8F4) 12%, transparent);
+        margin-bottom: 40px;
+      }
+      .nav-drawer-link{
+        font-family: var(--display, 'Cormorant Garamond', serif);
+        font-style: italic; font-weight: 400;
+        font-size: 38px; color: var(--cream, #FBF8F4);
+        text-decoration: none; line-height: 1;
+        padding: 22px 0;
+        border-bottom: 1px solid color-mix(in oklab, var(--cream, #FBF8F4) 10%, transparent);
+        transition: color .2s ease;
+      }
+      .nav-drawer-link:hover, .nav-drawer-link.active{ color: var(--candle, #D3A574); }
+      .nav-drawer-ctas{
+        display: flex; flex-direction: column; gap: 12px;
+        margin-bottom: 48px;
+      }
+      .nav-drawer-ctas .btn{ text-align: center; }
+      .nav-drawer-info{
+        margin-top: auto;
+        font-size: 13px; line-height: 1.8;
+        color: color-mix(in oklab, var(--cream, #FBF8F4) 55%, transparent);
+      }
+
+      @media (max-width: 900px){
+        .nav-burger{ display: flex; }
+        .nav-ctas{ display: none; }
+      }
+    
     document.head.appendChild(css);
   }
 
