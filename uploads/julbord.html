@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julbord - LuxDin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .jul-intro { max-width: 800px; margin: 0 auto; text-align: center; padding: 100px 24px 80px; }
+        .jul-intro .label { margin-bottom: 16px; display: block; }
+        .jul-intro p { margin-top: 24px; opacity: 0.7; font-size: 18px; line-height: 1.7; }
+
+        .jul-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 0 80px 100px; max-width: 1440px; margin: 0 auto; }
+        .jul-gallery-item { position: relative; cursor: pointer; overflow: hidden; border-radius: 8px; height: 400px; }
+        .jul-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .jul-gallery-item:hover img { transform: scale(1.05); }
+        .jul-gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(50,29,29,0.6) 0%, transparent 50%); }
+        .jul-gallery-caption { position: absolute; bottom: 24px; left: 24px; z-index: 2; color: var(--cream); }
+        .jul-gallery-caption h4 { font-family: var(--serif); font-size: 28px; font-weight: 500; }
+
+        .jul-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 100px 80px; max-width: 1440px; margin: 0 auto; background: var(--white); }
+        .jul-text .label { margin-bottom: 16px; display: block; }
+        .jul-text h2 { font-family: var(--serif); font-size: 48px; margin-bottom: 24px; }
+        .jul-text p { opacity: 0.7; line-height: 1.8; margin-bottom: 24px; }
+        .jul-text ul { list-style: none; margin-bottom: 32px; }
+        .jul-text li { padding: 12px 0; border-bottom: 1px solid rgba(50,29,29,0.1); font-size: 17px; }
+        .jul-text li:last-child { border: none; }
+        .jul-image { border-radius: 8px; overflow: hidden; cursor: pointer; }
+        .jul-image img { width: 100%; height: 500px; object-fit: cover; transition: transform 0.5s ease; }
+        .jul-image:hover img { transform: scale(1.03); }
+
+        /* Lightbox */
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(50,29,29,0.95); z-index: 9999; align-items: center; justify-content: center; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 4px; }
+        .lightbox-close { position: absolute; top: 30px; right: 30px; font-size: 32px; color: var(--cream); cursor: pointer; background: none; border: none; }
+
+        .contact-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 550px; }
+        .contact-image img { width: 100%; height: 100%; object-fit: cover; }
+        .contact-form-wrap { padding: 80px; display: flex; flex-direction: column; justify-content: center; background: var(--cream); }
+        .contact-form-wrap .label { margin-bottom: 16px; display: block; }
+        .contact-form-wrap h2 { font-family: var(--serif); font-size: 42px; margin-bottom: 32px; }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+        @media (max-width: 968px) {
+            .jul-gallery { grid-template-columns: 1fr; padding: 0 24px 60px; }
+            .jul-gallery-item { height: 280px; }
+            .jul-content { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+            .jul-image img { height: 300px; }
+            .contact-section { grid-template-columns: 1fr; }
+            .contact-image { height: 280px; }
+            .contact-form-wrap { padding: 48px 24px; }
+        }
+
+        @media (max-width: 600px) {
+            .jul-gallery { padding: 0 20px 48px; }
+            .jul-gallery-item { height: 220px; }
+            .jul-content { padding: 48px 20px; gap: 32px; }
+            .jul-content h2 { font-size: 28px; }
+            .jul-content p { font-size: 14px; }
+            .jul-image img { height: 250px; }
+            .contact-image { height: 220px; }
+            .contact-form-wrap { padding: 32px 20px; }
+            .contact-form-wrap h2 { font-size: 28px; }
+        }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+    <section class="page-hero">
+        <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1482275548304-a58859dc31b7?w=1920&h=800&fit=crop&q=85" alt="Julbord"></div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">LuxDin</a>
+            <ul class="nav-links">
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="menu.html">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="faq.html">Kontakt</a></li>
+            </ul>
+            <a href="index.html#kontakt" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </nav>
+        <div class="page-hero-content fade-in">
+            <span class="label">Säsong</span>
+            <h1>Vårt <em>Julbord</em></h1>
+        </div>
+    </section>
+
+    <div class="jul-intro">
+        <span class="label">Tradition & Elegans</span>
+        <h2 class="heading-lg">En Minnesvärd <em>Julupplevelse</em></h2>
+        <p>Fira julen med oss och njut av traditionella svenska julrätter tillagade med kärlek och de finaste råvarorna. Vårt julbord kombinerar klassiska smaker med modern gastronomi i en elegant miljö.</p>
+    </div>
+
+    <div class="jul-gallery">
+        <div class="jul-gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&h=500&fit=crop&q=85" alt="Sillbordet">
+            <div class="jul-gallery-caption"><h4>Sillbordet</h4></div>
+        </div>
+        <div class="jul-gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&h=500&fit=crop&q=85" alt="Julskinka">
+            <div class="jul-gallery-caption"><h4>Julskinka</h4></div>
+        </div>
+        <div class="jul-gallery-item" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=600&h=500&fit=crop&q=85" alt="Desserter">
+            <div class="jul-gallery-caption"><h4>Desserter</h4></div>
+        </div>
+    </div>
+
+    <section class="jul-content">
+        <div class="jul-text">
+            <span class="label">Om Julbordet</span>
+            <h2>En Riktig <em>Julklassiker</em></h2>
+            <p>Vårt julbord dukas med omsorg och respekt för traditionerna. Från det klassiska sillbordet till den varmrökta laxen, från julskinkans sötma till köttbullarnas hemlagade smak.</p>
+            <ul>
+                <li>Klassiskt sillbord med tre sorters sill</li>
+                <li>Gravad och varmrökt lax</li>
+                <li>Husets julskinka med Janssons frestelse</li>
+                <li>Hemlagade köttbullar med lingon</li>
+                <li>Traditionella juldesserter</li>
+            </ul>
+            <a href="#kontakt" class="btn btn-dark">Boka Julbord</a>
+        </div>
+        <div class="jul-image" onclick="openLightbox(this)">
+            <img src="https://images.unsplash.com/photo-1482275548304-a58859dc31b7?w=700&h=600&fit=crop&q=85" alt="Julbord">
+        </div>
+    </section>
+
+    <section class="contact-section" id="kontakt">
+        <div class="contact-image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=700&fit=crop&q=85" alt="Restaurant"></div>
+        <div class="contact-form-wrap">
+            <span class="label">Boka Julbord</span>
+            <h2>Skicka <em>Förfrågan</em></h2>
+            <form class="contact-form">
+                <div class="form-row"><input type="text" placeholder="Namn" required><input type="email" placeholder="E-post" required></div>
+                <div class="form-row"><input type="tel" placeholder="Telefon"><input type="number" placeholder="Antal gäster" min="1"></div>
+                <div class="form-row"><input type="text" placeholder="Önskat datum"><input type="text" placeholder="Lunch eller Middag"></div>
+                <textarea placeholder="Övriga önskemål eller allergier" rows="4"></textarea>
+                <button type="submit" class="btn btn-dark" style="align-self:flex-start;">Skicka Förfrågan</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer-classic">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-logo">LuxDin</div><p>En kulinarisk destination i hjärtat av Stockholm.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Hem</a></li><li><a href="menu.html">Meny</a></li><li><a href="om-oss.html">Om Oss</a></li></ul></div>
+            <div class="footer-col"><h4>Tjänster</h4><ul><li><a href="chambre-separee.html">Chambre Séparée</a></li><li><a href="julbord.html">Julbord</a></li><li><a href="catering.html">Catering</a></li><li><a href="faq.html">Kontakt</a></li></ul></div>
+            <div class="footer-col"><h4>Kontakt</h4><p>Storgatan 123<br>111 22 Stockholm<br>+46 8 123 456 78</p></div>
+            <div class="footer-col"><h4>Öppettider</h4><p>Mån - Tors: 17:00 - 22:00<br>Fre - Lör: 17:00 - 23:00<br>Söndag: 12:00 - 20:00</p></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Modern Version</button></div>
+    </footer>
+    <section class="pre-footer" id="footer-modern" style="display:none;">
+        <div class="pre-footer-content">
+            <div class="pre-footer-logo">LuxDin</div>
+            <p class="pre-footer-tagline">En kulinarisk destination i hjärtat av Stockholm</p>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-grid">
+                <div class="pre-footer-col"><h4>Besök Oss</h4><a href="https://maps.google.com" target="_blank" class="pre-footer-address">Storgatan 123<br>111 22 Stockholm</a></div>
+                <div class="pre-footer-col"><h4>Öppettider</h4><div class="hours-list"><div class="hours-row"><span>Måndag - Torsdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Fredag - Lördag</span><span>17:00 - 23:00</span></div><div class="hours-row"><span>Söndag</span><span>12:00 - 20:00</span></div><div class="hours-row hours-lunch"><span>Lunch (Mån - Fre)</span><span>11:30 - 14:00</span></div></div></div>
+                <div class="pre-footer-col"><h4>Kontakt</h4><a href="tel:+4681234567" class="pre-footer-link">+46 8 123 456 78</a><a href="mailto:info@luxdin.se" class="pre-footer-link">info@luxdin.se</a><a href="faq.html" class="pre-footer-link pre-footer-cta">Boka Bord →</a></div>
+            </div>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-social">
+                <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <nav class="pre-footer-nav"><a href="index.html">Hem</a><a href="om-oss.html">Om Oss</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a><a href="chambre-separee.html">Chambre Séparée</a><a href="julbord.html">Julbord</a><a href="catering.html">Catering</a><a href="faq.html">Kontakt</a></nav>
+        </div>
+    </section>
+    <footer class="footer-minimal" id="footer-modern-bottom" style="display:none;"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Klassisk Version</button></footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() { document.querySelector('.nav-links').classList.toggle('active'); });
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => { new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }); }, { threshold: 0.1 }).observe(el); });
+        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        function openLightbox(el) { const img = el.querySelector('img'); document.getElementById('lightbox-img').src = img.src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+        document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+        function toggleVersion() {
+            const classic = document.getElementById('footer-classic');
+            const modern = document.getElementById('footer-modern');
+            const modernBottom = document.getElementById('footer-modern-bottom');
+            if (classic.style.display === 'none') { classic.style.display = 'block'; modern.style.display = 'none'; modernBottom.style.display = 'none'; document.body.classList.remove('modern-theme'); localStorage.setItem('siteVersion', 'classic'); }
+            else { classic.style.display = 'none'; modern.style.display = 'block'; modernBottom.style.display = 'flex'; document.body.classList.add('modern-theme'); localStorage.setItem('siteVersion', 'modern'); }
+        }
+        document.addEventListener('DOMContentLoaded', function() { const saved = localStorage.getItem('siteVersion'); if (saved === 'modern') { document.body.classList.add('modern-theme'); document.getElementById('footer-classic').style.display = 'none'; document.getElementById('footer-modern').style.display = 'block'; document.getElementById('footer-modern-bottom').style.display = 'flex'; } });
+    </script>
+</body>
+</html>

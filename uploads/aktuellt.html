@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktuellt - LuxDin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="page-hero">
+        <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=800&fit=crop&q=85" alt="Aktuellt"></div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">LuxDin</a>
+            <ul class="nav-links">
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="menu.html">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="faq.html">Kontakt</a></li>
+            </ul>
+            <a href="index.html#kontakt" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </nav>
+        <div class="page-hero-content">
+            <span class="label">Nyheter</span>
+            <h1>Aktuellt & <em>Event</em></h1>
+        </div>
+    </section>
+
+    <section class="section section-cream">
+        <div class="container">
+            <div class="section-header center">
+                <span class="label">Kommande</span>
+                <h2 class="heading-lg">Evenemang</h2>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-image"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=280&fit=crop&q=85" alt="Vinprovning"></div>
+                    <div class="card-content">
+                        <span class="label" style="font-size:12px;">22 Nov 2026</span>
+                        <h3>Vinprovning - Italien</h3>
+                        <p>Upptäck Italiens bästa viner med vår sommelier. 6 viner, ostbricka & tilltugg.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=280&fit=crop&q=85" alt="Jazz"></div>
+                    <div class="card-content">
+                        <span class="label" style="font-size:12px;">Varje Lördag</span>
+                        <h3>Live Jazz</h3>
+                        <p>Njut av live jazzmusik varje lördag med lokala artister.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image"><img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&h=280&fit=crop&q=85" alt="Matlagning"></div>
+                    <div class="card-content">
+                        <span class="label" style="font-size:12px;">15 Nov 2026</span>
+                        <h3>Kockens Hemligheter</h3>
+                        <p>Matlagningskurs med vår huvudkock. Begränsade platser!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-bg"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=600&fit=crop&q=85" alt="Restaurant"></div>
+        <div class="cta-content">
+            <h2>Missa inte våra <em>event</em></h2>
+            <a href="faq.html" class="btn btn-light">Kontakta Oss</a>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer-classic">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-logo">LuxDin</div><p>En kulinarisk destination i hjärtat av Stockholm.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Hem</a></li><li><a href="menu.html">Meny</a></li><li><a href="om-oss.html">Om Oss</a></li></ul></div>
+            <div class="footer-col"><h4>Tjänster</h4><ul><li><a href="chambre-separee.html">Chambre Séparée</a></li><li><a href="julbord.html">Julbord</a></li><li><a href="catering.html">Catering</a></li><li><a href="faq.html">Kontakt</a></li></ul></div>
+            <div class="footer-col"><h4>Kontakt</h4><p>Storgatan 123<br>111 22 Stockholm<br>+46 8 123 456 78</p></div>
+            <div class="footer-col"><h4>Öppettider</h4><p>Mån - Tors: 17:00 - 22:00<br>Fre - Lör: 17:00 - 23:00<br>Söndag: 12:00 - 20:00</p></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Modern Version</button></div>
+    </footer>
+    <section class="pre-footer" id="footer-modern" style="display:none;">
+        <div class="pre-footer-content">
+            <div class="pre-footer-logo">LuxDin</div><p class="pre-footer-tagline">En kulinarisk destination i hjärtat av Stockholm</p>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-grid">
+                <div class="pre-footer-col"><h4>Besök Oss</h4><a href="https://maps.google.com" target="_blank" class="pre-footer-address">Storgatan 123<br>111 22 Stockholm</a></div>
+                <div class="pre-footer-col"><h4>Öppettider</h4><div class="hours-list"><div class="hours-row"><span>Måndag - Torsdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Fredag - Lördag</span><span>17:00 - 23:00</span></div><div class="hours-row"><span>Söndag</span><span>12:00 - 20:00</span></div><div class="hours-row hours-lunch"><span>Lunch (Mån - Fre)</span><span>11:30 - 14:00</span></div></div></div>
+                <div class="pre-footer-col"><h4>Kontakt</h4><a href="tel:+4681234567" class="pre-footer-link">+46 8 123 456 78</a><a href="mailto:info@luxdin.se" class="pre-footer-link">info@luxdin.se</a><a href="faq.html" class="pre-footer-link pre-footer-cta">Boka Bord →</a></div>
+            </div>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-social">
+                <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <nav class="pre-footer-nav"><a href="index.html">Hem</a><a href="om-oss.html">Om Oss</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a><a href="chambre-separee.html">Chambre Séparée</a><a href="julbord.html">Julbord</a><a href="catering.html">Catering</a><a href="faq.html">Kontakt</a></nav>
+        </div>
+    </section>
+    <footer class="footer-minimal" id="footer-modern-bottom" style="display:none;"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Klassisk Version</button></footer>
+    <script>
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() { document.querySelector('.nav-links').classList.toggle('active'); });
+        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        function toggleVersion() {
+            const classic = document.getElementById('footer-classic'), modern = document.getElementById('footer-modern'), modernBottom = document.getElementById('footer-modern-bottom');
+            if (classic.style.display === 'none') { classic.style.display = 'block'; modern.style.display = 'none'; modernBottom.style.display = 'none'; document.body.classList.remove('modern-theme'); localStorage.setItem('siteVersion', 'classic'); }
+            else { classic.style.display = 'none'; modern.style.display = 'block'; modernBottom.style.display = 'flex'; document.body.classList.add('modern-theme'); localStorage.setItem('siteVersion', 'modern'); }
+        }
+        document.addEventListener('DOMContentLoaded', function() { const saved = localStorage.getItem('siteVersion'); if (saved === 'modern') { document.body.classList.add('modern-theme'); document.getElementById('footer-classic').style.display = 'none'; document.getElementById('footer-modern').style.display = 'block'; document.getElementById('footer-modern-bottom').style.display = 'flex'; } });
+    </script>
+</body>
+</html>

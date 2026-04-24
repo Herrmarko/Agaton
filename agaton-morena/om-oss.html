@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Om oss — Agaton Ristorante</title>
+<link rel="stylesheet" href="style.css?v=13">
+<style>
+/* Header */
+.site-header { background: var(--primary); border-bottom: none; }
+.site-nav a { color: rgba(255,255,255,.82); }
+.site-nav a:hover, .site-nav a.active { color: #fff; }
+.nav-burger { color: #fff; }
+.site-header .btn { color: #fff; border-color: rgba(255,255,255,.7); }
+.site-header .btn:hover { background: #fff; color: var(--primary); }
+
+/* Hero */
+.about-hero { min-height: 50vh; }
+
+/* INTRO */
+.ao-intro {
+  max-width: 860px; margin: 0 auto;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+.ao-intro__eyebrow {
+  font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.25rem; display: block;
+}
+.ao-intro__title {
+  font-family: var(--display); font-style: italic;
+  color: var(--primary);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1; margin-bottom: 1.75rem;
+}
+.ao-intro__title::after { content: "."; }
+.ao-intro__text {
+  font-size: 1rem; line-height: 1.85;
+  color: var(--text); max-width: 58ch; margin: 0 auto;
+}
+
+/* STORY SPLIT */
+.ao-story {
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--off-white);
+  min-height: 520px;
+}
+.ao-story__img { overflow: hidden; }
+.ao-story__img img { width:100%; height:100%; object-fit:cover; display:block; }
+.ao-story__text {
+  padding: 4.5rem 4rem;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 1.25rem;
+}
+.ao-story__eyebrow {
+  font-size: .72rem; letter-spacing: .26em; text-transform: uppercase;
+  color: var(--muted);
+}
+.ao-story__title {
+  font-family: var(--display); font-style: italic;
+  color: var(--primary); font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1;
+}
+.ao-story__title::after { content: "."; }
+.ao-story__text p { font-size: .95rem; line-height: 1.85; color: var(--text); }
+.ao-story__text p em { color: var(--primary); font-style: italic; }
+@media(max-width:780px){ .ao-story { grid-template-columns:1fr; } .ao-story__img { aspect-ratio:16/9; } .ao-story__text { padding:2.5rem 1.5rem; } }
+
+/* TIMELINE */
+.ao-timeline {
+  background: var(--black); color: #fff;
+  padding: 5rem 2rem; position: relative; overflow: hidden;
+}
+.ao-tl-head { max-width: 680px; margin: 0 auto 3rem; text-align: center; }
+.ao-tl-head h2 { font-family: var(--display); font-style: italic; color: var(--primary); font-size: clamp(2rem,4vw,3rem); }
+.ao-tl-head h2::after { content: "."; }
+.ao-tl-head p { color: rgba(255,255,255,.45); font-size: .9rem; margin-top: .75rem; line-height: 1.7; }
+.ao-tl-inner { max-width: 760px; margin: 0 auto; position: relative; }
+.ao-tl-inner::before { content:""; position:absolute; left:72px; top:0; bottom:0; width:1px; background:rgba(255,255,255,.1); }
+.ao-ti { display: grid; grid-template-columns: 72px 1fr; gap: 2rem; padding: 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,.05); position: relative; }
+.ao-ti:last-child { border-bottom: none; }
+.ao-ti::before { content:""; position:absolute; left:66px; top:1.6rem; width:12px; height:12px; border-radius:50%; background:var(--primary); border:2px solid #000; }
+.ao-ti__year { font-family: var(--display); font-style:italic; color:var(--primary); font-size:1.2rem; padding-top:1.4rem; line-height:1; }
+.ao-ti__body { padding-top: 1.2rem; }
+.ao-ti__body h3 { font-family: var(--display); font-style:italic; font-size:1.05rem; margin-bottom:.3rem; }
+.ao-ti__body p { font-size:.85rem; line-height:1.65; color:rgba(255,255,255,.55); }
+/* lemon decor */
+.ao-timeline svg.decor { position:absolute; bottom:-10px; right:-10px; width:clamp(180px,25vw,360px); opacity:.09; pointer-events:none; }
+@media(max-width:560px){ .ao-tl-inner::before { left:56px; } .ao-ti { grid-template-columns:56px 1fr; gap:1.25rem; } .ao-ti::before { left:50px; } }
+
+/* IMAGE STRIP */
+.ao-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; }
+.ao-strip div { aspect-ratio:1/1; overflow:hidden; }
+.ao-strip div img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.ao-strip div:hover img { transform:scale(1.05); }
+@media(max-width:680px){ .ao-strip { grid-template-columns:repeat(2,1fr); } }
+
+/* VALUES */
+.ao-values { padding: 5rem 2rem; background: var(--white); }
+.ao-values__inner { max-width: var(--maxw); margin: 0 auto; }
+.ao-values__head { text-align:center; margin-bottom: 3rem; }
+.ao-values__head h2 { font-family: var(--display); font-style:italic; color:var(--primary); font-size: clamp(2rem,4vw,3rem); }
+.ao-values__head h2::after { content: "."; }
+.ao-values__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); }
+.ao-value { padding: 2.5rem 2.5rem 2.5rem 0; border-right: 1px solid var(--line); }
+.ao-value:not(:first-child) { padding-left: 2.5rem; }
+.ao-value:last-child { border-right: none; }
+.ao-value__num { font-family: var(--display); font-style:italic; color:var(--primary); font-size:1.5rem; margin-bottom:.75rem; }
+.ao-value h3 { font-family: var(--display); font-style:italic; font-size:1.3rem; margin-bottom:.75rem; }
+.ao-value p { font-size:.88rem; line-height:1.8; color:var(--muted); }
+@media(max-width:780px){ .ao-values__grid { grid-template-columns:1fr; } .ao-value { border-right:none; border-bottom:1px solid var(--line); padding: 2rem 0; } .ao-value:not(:first-child) { padding-left:0; } }
+
+/* CTA */
+.ao-cta { background: var(--primary); color:#fff; text-align:center; padding:5rem 2rem; position:relative; overflow:hidden; }
+.ao-cta h2 { font-family:var(--display); font-style:italic; font-size:clamp(2.2rem,5vw,4rem); margin-bottom:1rem; }
+.ao-cta p { max-width:44ch; margin:.75rem auto 2rem; opacity:.85; line-height:1.7; font-size:.95rem; }
+.ao-cta__btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+/* lemon decor */
+.ao-cta svg.decor { position:absolute; bottom:-10px; right:-10px; width:clamp(200px,30vw,420px); opacity:.14; pointer-events:none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <nav class="site-nav">
+      <a href="index.html">Hem</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a>
+      <a href="om-oss.html" class="active">Om oss</a>
+      <a href="stora-sallskap.html">Stora Sällskap</a><a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a href="index.html" class="site-header__logo">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton" style="height:34px;width:auto;">
+    </a>
+    <div class="site-header__cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-drawer" id="drawer">
+  <a href="index.html">Hem</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a>
+  <a href="om-oss.html">Om oss</a><a href="stora-sallskap.html">Stora Sällskap</a><a href="kontakt.html">Kontakt</a>
+  <div class="drawer-cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+  <div class="drawer-info">Västerlånggatan 72 · +46 08 20 72 99</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero about-hero">
+  <div class="hero__bg" style="background-image:url('../luxdin/photos/interior-02.jpg')"></div>
+  <div class="hero__content">
+    <img src="../luxdin/agaton_logo.svg" alt="Agaton" class="hero__logo">
+    <p class="hero__sub">I hjärtat av Gamla Stan sedan 1999.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<div class="ao-intro">
+  <span class="ao-intro__eyebrow">La nostra storia</span>
+  <h1 class="ao-intro__title">Vår Historia</h1>
+  <p class="ao-intro__text">Restaurang Agaton — en kärleksfull mix av det svenska och italienska köket, i en varm och ombonad miljö med förstklassig service. I ett hus som nämndes för ett halvt årtusende sedan, på Västerlånggatan 72 sedan 1999.</p>
+</div>
+
+<hr class="divider">
+
+<!-- STORY SPLIT -->
+<section class="ao-story">
+  <div class="ao-story__img">
+    <img src="../luxdin/photos/interior-07.jpg" alt="Agatons matsal med tegelvalv">
+  </div>
+  <div class="ao-story__text">
+    <div class="ao-story__eyebrow">Benvenuti</div>
+    <h2 class="ao-story__title">Där det gamla omfamnar det nya</h2>
+    <p>Mitt på Västerlånggatan, i ett hus som stått här i ett halvt årtusende, har Agaton serverat ärlig italiensk mat sedan 1999. Före det var det en modebutik — och innan dess mycket annat. Vi har bara tagit vid.</p>
+    <p>Tänk flaxande ljus mot kullersten, en skiva nybakat bröd med olivolja, och en värd som hellre säger <em>"kom igen"</em> än "har ni bokat?".</p>
+    <p>I över 25 år har det godaste från Sverige omfamnat det godaste från Italien på den här adressen.</p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="ao-timeline">
+  <svg class="decor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20,200 C60,180 100,160 150,140 C200,120 250,110 310,105 C350,102 390,108 410,115"/><path d="M80,175 C70,150 65,125 72,100 C78,78 90,62 105,55"/><ellipse cx="108" cy="52" rx="22" ry="15" transform="rotate(-20,108,52)"/><path d="M155,138 C148,118 152,98 168,92 C172,108 168,127 155,138Z"/><path d="M240,108 C248,90 262,82 275,85 C270,100 258,110 240,108Z"/><path d="M340,105 C355,88 372,84 385,90 C378,106 362,112 340,105Z"/></svg>
+  <div class="ao-tl-head">
+    <h2>Kuriosa från Gamla Stan</h2>
+    <p>En vandring genom Gamla Stan bjuder på många historier. Så har vårt hus bytt skepnad genom århundradena.</p>
+  </div>
+  <div class="ao-tl-inner">
+    <div class="ao-ti"><div class="ao-ti__year">1521</div><div class="ao-ti__body"><h3>En förfallen stenhusbod</h3><p>Det första omnämnandet av huset — en gammal, förfallen stenhusbod på platsen.</p></div></div>
+    <div class="ao-ti"><div class="ao-ti__year">1617</div><div class="ao-ti__body"><h3>Rådmannen Petter Grönberg</h3><p>Köpte huset och lät rusta upp det ordentligt.</p></div></div>
+    <div class="ao-ti"><div class="ao-ti__year">1680</div><div class="ao-ti__body"><h3>Elisabeth Funck</h3><p>Huset köptes av Elisabeth Funck — i köpet ingick "stora mellan fruns hus och breda gränden vid Kornhamn".</p></div></div>
+    <div class="ao-ti"><div class="ao-ti__year">1860</div><div class="ao-ti__body"><h3>Handlare Wallin</h3><p>Lät sätta in tidens nymodighet — gjutjärnsburna skyltfönster i gatuplanet.</p></div></div>
+    <div class="ao-ti"><div class="ao-ti__year">1980-tal</div><div class="ao-ti__body"><h3>Herrekipering Agaton</h3><p>I bottenvåningen öppnade en elegant herrekipering vid namn Agaton.</p></div></div>
+    <div class="ao-ti"><div class="ao-ti__year">1999</div><div class="ao-ti__body"><h3>Kostymbytet</h3><p>Efter 18 år som herrekipering bytte lokalen kostym — till restaurang, med samma namn. Vår historia tar vid.</p></div></div>
+    <div class="ao-ti"><div class="ao-ti__year">Idag</div><div class="ao-ti__body"><h3>Ristorante Agaton</h3><p>Fortfarande vedugnspizza, fortfarande handgjord pasta — fortfarande det godaste från Sverige som omfamnar det godaste från Italien.</p></div></div>
+  </div>
+</section>
+
+<!-- IMAGE STRIP -->
+<div class="ao-strip">
+  <div><img src="../luxdin/photos/interior-04.jpg" alt=""></div>
+  <div><img src="../luxdin/photos/food-35.jpg" alt=""></div>
+  <div><img src="../luxdin/photos/interior-08.jpg" alt=""></div>
+  <div><img src="../luxdin/photos/food-22.jpg" alt=""></div>
+</div>
+
+<!-- VALUES -->
+<section class="ao-values">
+  <div class="ao-values__inner">
+    <div class="ao-values__head">
+      <h2>Våra Värderingar</h2>
+    </div>
+    <div class="ao-values__grid">
+      <div class="ao-value"><div class="ao-value__num">I.</div><h3>Äkthet</h3><p>Vi kompromissar aldrig med råvarornas ursprung. Mjölet från Neapel, olivoljan från Puglia och vinet från producenter vi träffar personligen.</p></div>
+      <div class="ao-value"><div class="ao-value__num">II.</div><h3>Gästfrihet</h3><p>Varje gäst är välkommen som om det vore första gången — och vi hoppas ni kommer tillbaka som om det vore hemma.</p></div>
+      <div class="ao-value"><div class="ao-value__num">III.</div><h3>Hantverk</h3><p>Pastan rullas för hand varje morgon. Pizzadegen vilar i 48 timmar. Det tar tid att göra saker rätt — det är exakt den tid vi lägger ner.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ao-cta">
+  <svg class="decor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20,200 C60,180 100,160 150,140 C200,120 250,110 310,105 C350,102 390,108 410,115"/><path d="M155,138 C148,118 152,98 168,92 C172,108 168,127 155,138Z"/><path d="M240,108 C248,90 262,82 275,85 C270,100 258,110 240,108Z"/><ellipse cx="108" cy="52" rx="22" ry="15" transform="rotate(-20,108,52)"/></svg>
+  <h2>Kom och hälsa på.</h2>
+  <p>Västerlånggatan 72 — mitt i Gamla Stan. Vi ser fram emot att få laga något gott till dig.</p>
+  <div class="ao-cta__btns">
+    <a href="kontakt.html" class="btn btn-light">Boka Bord</a>
+    <a href="menu.html" class="btn btn-light">Se Menyn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton Ristorante">
+      <p>Vedugnspizza, handgjord pasta och ärlig italiensk mat i hjärtat av Gamla Stan — sedan 1999.</p>
+      <div class="site-footer__social">
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </div>
+    </div>
+    <div class="site-footer__col"><h4>Meny</h4><ul><li><a href="menu.html">À La Carte</a></li><li><a href="lunch.html">Veckans Lunch</a></li><li><a href="stora-sallskap.html">Stora Sällskap</a></li><li><a href="kontakt.html">Boka Bord</a></li></ul></div>
+    <div class="site-footer__col"><h4>Om Agaton</h4><ul><li><a href="om-oss.html">Vår Historia</a></li><li><a href="om-oss.html">Våra Värderingar</a></li><li><a href="stora-sallskap.html">Privata Event</a></li></ul></div>
+    <div class="site-footer__col"><h4>Hitta hit</h4><address>Västerlånggatan 72<br>111 29 Stockholm<br><br><a href="tel:+46082072099">+46 08 20 72 99</a><br><a href="mailto:info@restaurangagaton.se">info@restaurangagaton.se</a><br><br>Mån–Tor: 17–22<br>Fre–Lör: 17–23<br>Lunch Mån–Fre: 11–14</address></div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© Agaton Ristorante — Mandato di cucinare bene.</span>
+    <span>Gamla Stan, Stockholm · Dal 1999</span>
+  </div>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => { const open = drawer.classList.toggle('open'); burger.classList.toggle('open', open); document.body.style.overflow = open ? 'hidden' : ''; });
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { drawer.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }));
+</script>
+</body>
+</html>

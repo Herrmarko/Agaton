@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxDin - Fine Dining Stockholm</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #321D1D;
+            --gold: #D3A574;
+            --gold-dark: #A46C32;
+            --cream: #FBF8F4;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        .label {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+        }
+
+        .heading-xl {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 400;
+            line-height: 1;
+            color: var(--dark);
+        }
+
+        .heading-lg {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 500;
+            line-height: 1.1;
+            color: var(--dark);
+        }
+
+        .heading-md {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .body-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(30,15,15,0.5) 0%, rgba(40,20,20,0.7) 100%);
+        }
+
+        .hero-content h1 { text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+        .hero-content .label { text-shadow: 0 1px 10px rgba(0,0,0,0.3); }
+        .hero-content p { text-shadow: 0 1px 10px rgba(0,0,0,0.3); }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: var(--cream);
+            padding: 16px 80px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 500;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .navbar.scrolled .logo { color: var(--dark); }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--cream);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover { opacity: 0.7; }
+        .navbar.scrolled .nav-links a { color: var(--dark); }
+
+        .nav-cta {
+            padding: 14px 32px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            background: var(--cream);
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover { transform: translateY(-2px); }
+        .navbar.scrolled .nav-cta { background: var(--dark); color: var(--cream); }
+
+        .mobile-menu-btn { display: none; }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--cream);
+            max-width: 900px;
+            padding: 0 24px;
+        }
+
+        .hero-content .label { color: var(--gold); margin-bottom: 24px; }
+        .hero-content h1 { color: var(--cream); margin-bottom: 24px; }
+        .hero-content h1 em { font-style: italic; font-weight: 300; }
+        .hero-content p { color: var(--cream); opacity: 0.85; max-width: 600px; margin: 0 auto 40px; }
+
+        .btn-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 48px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            background: var(--cream);
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 120px 80px;
+            background: var(--cream);
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+        }
+
+        .menu-header-text { max-width: 700px; }
+        .menu-header .label { margin-bottom: 16px; display: block; }
+        .menu-header p { margin-top: 24px; max-width: 500px; }
+
+        .btn-outline {
+            padding: 16px 40px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            background: transparent;
+            border: 1px solid var(--dark);
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover { background: var(--dark); color: var(--cream); }
+
+        .menu-image {
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .menu-image:hover img { transform: scale(1.03); }
+
+        /* About Section */
+        .about-section {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 100px;
+            padding: 120px 110px;
+            max-width: 1440px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 600px;
+            border-radius: 300px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-content { max-width: 600px; }
+        .about-content .label { margin-bottom: 20px; display: block; }
+        .about-content h2 { margin-bottom: 32px; }
+        .about-content p { margin-bottom: 48px; }
+
+        .stats {
+            display: flex;
+            gap: 48px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(50,29,29,0.1);
+        }
+
+        .stat-item .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 64px;
+            font-weight: 500;
+            color: var(--gold-dark);
+            line-height: 1;
+        }
+
+        .stat-item .stat-label {
+            font-size: 13px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 8px;
+            opacity: 0.7;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 120px 80px;
+            background: var(--white);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .services-header .label { margin-bottom: 16px; display: block; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            position: relative;
+            height: 520px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .service-card:nth-child(2) { margin-top: -40px; }
+
+        .service-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover img { transform: scale(1.05); }
+
+        .service-card-content {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            padding: 20px 28px;
+            background: var(--cream);
+        }
+
+        .service-card-content span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .cta-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(50,29,29,0.65);
+        }
+
+        .cta-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--cream);
+        }
+
+        .cta-content h2 {
+            color: var(--cream);
+            margin-bottom: 40px;
+        }
+
+        .cta-content h2 em { font-style: italic; font-weight: 400; }
+
+        .btn-light {
+            display: inline-block;
+            padding: 18px 48px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            background: var(--cream);
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-light:hover { transform: translateY(-3px); }
+
+        /* Contact Section */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 700px;
+        }
+
+        .contact-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-form-wrapper {
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--cream);
+        }
+
+        .contact-form-wrapper .label { margin-bottom: 16px; display: block; }
+        .contact-form-wrapper h2 { margin-bottom: 40px; }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 18px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            border: 1px solid rgba(50,29,29,0.15);
+            background: var(--white);
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .contact-form textarea { resize: vertical; min-height: 120px; }
+
+        .btn-dark {
+            padding: 18px 48px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cream);
+            background: var(--dark);
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+
+        .btn-dark:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Modern Pre-Footer */
+        .pre-footer {
+            background: #131625;
+            color: rgba(255,255,255,0.9);
+            padding: 100px 40px 60px;
+        }
+
+        .pre-footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pre-footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .pre-footer-tagline {
+            font-size: 16px;
+            opacity: 0.6;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .pre-footer-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            margin: 48px auto;
+        }
+
+        .pre-footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            text-align: left;
+        }
+
+        .pre-footer-col h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 20px;
+        }
+
+        .pre-footer-address {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 15px;
+            line-height: 1.8;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .pre-footer-address:hover {
+            color: var(--gold);
+        }
+
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .hours-row span:first-child {
+            opacity: 0.7;
+        }
+
+        .hours-lunch {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .pre-footer-link {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 15px;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+
+        .pre-footer-link:hover {
+            color: var(--gold);
+        }
+
+        .pre-footer-cta {
+            margin-top: 20px;
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .pre-footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .pre-footer-social a {
+            color: rgba(255,255,255,0.5);
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .pre-footer-social a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .pre-footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pre-footer-nav a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        .pre-footer-nav a:hover {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Minimal Footer */
+        .footer-minimal {
+            background: #0d0f1a;
+            color: rgba(255,255,255,0.4);
+            padding: 24px 40px;
+            text-align: center;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .navbar { padding: 24px 40px; }
+            .menu-section { padding: 80px 40px; }
+            .about-section { padding: 80px 40px; gap: 60px; }
+            .services-section { padding: 80px 40px; }
+            .footer { padding: 60px 40px 32px; }
+        }
+
+        @media (max-width: 968px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 28px;
+                color: var(--cream);
+                cursor: pointer;
+            }
+            .navbar.scrolled .mobile-menu-btn { color: var(--dark); }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cream);
+                padding: 24px;
+                gap: 16px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.active a { color: var(--dark); }
+
+            .hero { min-height: 600px; }
+            .menu-header { flex-direction: column; align-items: flex-start; gap: 32px; }
+            .menu-image { height: 400px; }
+            .about-section { grid-template-columns: 1fr; gap: 48px; }
+            .about-image { max-width: 300px; height: 400px; margin: 0 auto; }
+            .services-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; }
+            .service-card { height: 400px; }
+            .service-card:nth-child(2) { margin-top: 0; }
+            .contact-section { grid-template-columns: 1fr !important; }
+            .contact-image { height: 300px; }
+            .contact-form-wrapper { padding: 48px 24px; }
+            .form-row { grid-template-columns: 1fr; }
+            .cta-section { height: 400px; }
+            .pre-footer-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+            .hours-row { justify-content: center; gap: 24px; }
+            .pre-footer-nav { gap: 24px; flex-wrap: wrap; justify-content: center; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .navbar { padding: 16px 20px; }
+            .logo { font-size: 24px; }
+            .nav-cta { display: none; }
+            .hero { min-height: 500px; }
+            .hero-content h1 { font-size: 36px; }
+            .hero-content p { font-size: 15px; }
+            .btn-hero { padding: 14px 32px; font-size: 16px; }
+            .menu-section { padding: 48px 20px; }
+            .menu-header h2 { font-size: 32px; }
+            .menu-image { height: 280px; }
+            .btn-outline { padding: 12px 28px; font-size: 15px; }
+            .about-section { padding: 48px 20px; gap: 32px; }
+            .about-image { max-width: 250px; height: 350px; border-radius: 200px; }
+            .about-content h2 { font-size: 28px; }
+            .stat-item .number { font-size: 48px; }
+            .stats { flex-direction: column; gap: 24px; }
+            .services-section { padding: 48px 20px; }
+            .services-header h2 { font-size: 28px; }
+            .service-card { height: 320px; }
+            .service-card-content { padding: 14px 20px; }
+            .service-card-content span { font-size: 18px; }
+            .cta-section { height: 350px; padding: 0 20px; }
+            .cta-content h2 { font-size: 28px; }
+            .btn-light { padding: 14px 32px; font-size: 16px; }
+            .contact-image { height: 220px; }
+            .contact-form-wrapper { padding: 40px 20px; }
+            .contact-form-wrapper h2 { font-size: 28px; }
+            .btn-dark { padding: 14px 32px; font-size: 16px; }
+            .pre-footer { padding: 48px 20px 32px; }
+            .pre-footer-logo { font-size: 32px; }
+            .pre-footer-divider { margin: 32px auto; }
+            .pre-footer-grid { gap: 36px; }
+            .pre-footer-nav { flex-direction: column; gap: 12px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop&q=85" alt="Fine dining experience">
+        </div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">LuxDin</a>
+            <ul class="nav-links">
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="menu.html">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="faq.html">Kontakt</a></li>
+            </ul>
+            <a href="faq.html" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </nav>
+        <div class="hero-content fade-in">
+            <span class="label">Fine Dining Stockholm</span>
+            <h1 class="heading-xl">Smaka på det <em>extraordinära</em></h1>
+            <p class="body-text">En kulinarisk upplevelse där nordiska traditioner möter modern gastronomi i en elegant miljö.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="faq.html" class="btn-hero">Boka Bord</a>
+                <a href="menu.html" class="btn-hero" style="background: transparent; border: 2px solid var(--cream); color: var(--cream);">Se Meny</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <div class="menu-header">
+            <div class="menu-header-text fade-in">
+                <span class="label">Vår Meny</span>
+                <h2 class="heading-lg">Upplev en <em>säsongsbetonad</em> meny</h2>
+                <p class="body-text">Varje rätt är noggrant komponerad med de finaste lokala råvarorna från svenska producenter.</p>
+            </div>
+            <a href="menu.html" class="btn-outline">Se Hela Menyn</a>
+        </div>
+        <div class="menu-image fade-in">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1440&h=600&fit=crop&q=85" alt="Gourmet rätt">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=500&h=700&fit=crop&q=85" alt="Vår kock">
+        </div>
+        <div class="about-content fade-in">
+            <span class="label">Vår Historia</span>
+            <h2 class="heading-lg">En passion för kulinarisk excellens</h2>
+            <p class="body-text">Sedan 2005 har vi skapat minnesvärda matupplevelser för våra gäster. Vår filosofi bygger på respekt för råvarorna, hantverksskicklighet och en genuin gästfrihet som får varje besök att kännas speciellt.</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number">2005</div>
+                    <div class="stat-label">Grundat</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">28k+</div>
+                    <div class="stat-label">Nöjda Gäster</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">12+</div>
+                    <div class="stat-label">Utmärkelser</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="services-header">
+            <span class="label">Grupper & Evenemang</span>
+            <h2 class="heading-lg">Skräddarsydda upplevelser</h2>
+        </div>
+        <div class="services-grid">
+            <a href="chambre-separee.html" class="service-card fade-in stagger-1">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=500&h=600&fit=crop&q=85" alt="Chambre Séparée">
+                <div class="service-card-content">
+                    <span>Chambre Séparée</span>
+                </div>
+            </a>
+            <a href="julbord.html" class="service-card fade-in stagger-2">
+                <img src="https://images.unsplash.com/photo-1482275548304-a58859dc31b7?w=500&h=600&fit=crop&q=85" alt="Julbord">
+                <div class="service-card-content">
+                    <span>Julbord</span>
+                </div>
+            </a>
+            <a href="catering.html" class="service-card fade-in stagger-3">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=500&h=600&fit=crop&q=85" alt="Catering">
+                <div class="service-card-content">
+                    <span>Catering</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-bg">
+            <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1920&h=600&fit=crop&q=85" alt="Restaurant atmosphere">
+        </div>
+        <div class="cta-content">
+            <h2 class="heading-lg">Skapa <em>oförglömliga</em> minnen</h2>
+            <a href="faq.html" class="btn-light">Reservera Bord</a>
+        </div>
+    </section>
+
+    <!-- Classic Footer -->
+    <footer class="footer footer-classic" id="footer-classic">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">LuxDin</div>
+                <p>En kulinarisk destination där nordiska smaker möter internationell elegans i hjärtat av Stockholm.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Hem</a></li>
+                    <li><a href="om-oss.html">Om Oss</a></li>
+                    <li><a href="menu.html">Meny</a></li>
+                    <li><a href="lunch.html">Lunch</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Tjänster</h4>
+                <ul>
+                    <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                    <li><a href="julbord.html">Julbord</a></li>
+                    <li><a href="catering.html">Catering</a></li>
+                    <li><a href="faq.html">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p>Storgatan 123<br>111 22 Stockholm</p>
+                <p style="margin-top: 12px;">+46 8 123 456 78<br>info@luxdin.se</p>
+            </div>
+            <div class="footer-col">
+                <h4>Öppettider</h4>
+                <p>Måndag: 17:00 - 22:00<br>Tisdag: 17:00 - 22:00<br>Onsdag: 17:00 - 22:00<br>Torsdag: 17:00 - 22:00<br>Fredag: 17:00 - 23:00<br>Lördag: 17:00 - 23:00<br>Söndag: 12:00 - 20:00</p>
+                <p style="margin-top:12px;color:var(--gold);font-size:13px;"><strong>Avvikande:</strong><br>Torsdag 08:e Maj - Stängt</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 LuxDin. Alla rättigheter förbehållna.</span>
+            <button class="version-toggle" onclick="toggleVersion()">Se Modern Version</button>
+        </div>
+    </footer>
+
+    <!-- Modern Pre-Footer (Hidden by default) -->
+    <section class="pre-footer" id="footer-modern" style="display: none;">
+        <div class="pre-footer-content">
+            <div class="pre-footer-logo">LuxDin</div>
+            <p class="pre-footer-tagline">En kulinarisk destination i hjärtat av Stockholm</p>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-grid">
+                <div class="pre-footer-col">
+                    <h4>Besök Oss</h4>
+                    <a href="https://maps.google.com" target="_blank" class="pre-footer-address">Storgatan 123<br>111 22 Stockholm</a>
+                </div>
+                <div class="pre-footer-col">
+                    <h4>Öppettider</h4>
+                    <div class="hours-list">
+                        <div class="hours-row"><span>Måndag</span><span>17:00 - 22:00</span></div>
+                        <div class="hours-row"><span>Tisdag</span><span>17:00 - 22:00</span></div>
+                        <div class="hours-row"><span>Onsdag</span><span>17:00 - 22:00</span></div>
+                        <div class="hours-row"><span>Torsdag</span><span>17:00 - 22:00</span></div>
+                        <div class="hours-row"><span>Fredag</span><span>17:00 - 23:00</span></div>
+                        <div class="hours-row"><span>Lördag</span><span>17:00 - 23:00</span></div>
+                        <div class="hours-row"><span>Söndag</span><span>12:00 - 20:00</span></div>
+                        <div class="hours-row hours-lunch"><span>Lunch (Mån - Fre)</span><span>11:30 - 14:00</span></div>
+                        <div class="hours-row" style="color:#D3A574;margin-top:8px;"><span><strong>Avvikande:</strong></span><span></span></div>
+                        <div class="hours-row" style="color:#D3A574;"><span>Torsdag 08:e Maj</span><span>Stängt</span></div>
+                    </div>
+                </div>
+                <div class="pre-footer-col">
+                    <h4>Kontakt</h4>
+                    <a href="tel:+4681234567" class="pre-footer-link">+46 8 123 456 78</a>
+                    <a href="mailto:info@luxdin.se" class="pre-footer-link">info@luxdin.se</a>
+                    <a href="faq.html" class="pre-footer-link pre-footer-cta">Boka Bord →</a>
+                </div>
+            </div>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-social">
+                <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <nav class="pre-footer-nav">
+                <a href="index.html">Hem</a>
+                <a href="om-oss.html">Om Oss</a>
+                <a href="menu.html">Meny</a>
+                <a href="lunch.html">Lunch</a>
+                <a href="chambre-separee.html">Chambre Séparée</a>
+                <a href="julbord.html">Julbord</a>
+                <a href="catering.html">Catering</a>
+                <a href="faq.html">Kontakt</a>
+            </nav>
+        </div>
+    </section>
+    <footer class="footer-minimal" id="footer-modern-bottom" style="display: none;">
+        <span>&copy; 2026 LuxDin. Alla rättigheter förbehållna.</span>
+        <button class="version-toggle" onclick="toggleVersion()">Se Klassisk Version</button>
+    </footer>
+
+    <script>
+        // Mobile menu
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Version toggle - transforms entire page
+        function toggleVersion() {
+            const body = document.body;
+            const classic = document.getElementById('footer-classic');
+            const modern = document.getElementById('footer-modern');
+            const modernBottom = document.getElementById('footer-modern-bottom');
+
+            if (body.classList.contains('modern-theme')) {
+                body.classList.remove('modern-theme');
+                classic.style.display = 'block';
+                modern.style.display = 'none';
+                modernBottom.style.display = 'none';
+                localStorage.setItem('siteVersion', 'classic');
+            } else {
+                body.classList.add('modern-theme');
+                classic.style.display = 'none';
+                modern.style.display = 'block';
+                modernBottom.style.display = 'flex';
+                localStorage.setItem('siteVersion', 'modern');
+            }
+        }
+
+        // Scroll animations
+        const animatedElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in');
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        animatedElements.forEach(el => animObserver.observe(el));
+
+        // Check saved preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('siteVersion');
+            if (saved === 'modern') {
+                document.body.classList.add('modern-theme');
+                document.getElementById('footer-classic').style.display = 'none';
+                document.getElementById('footer-modern').style.display = 'block';
+                document.getElementById('footer-modern-bottom').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>

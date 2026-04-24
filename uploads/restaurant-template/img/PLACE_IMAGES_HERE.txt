@@ -1,0 +1,11 @@
+Drop your photography into this folder.
+Expected filenames (see index.html):
+  dish-1.jpg … dish-5.jpg      (food gallery, portrait 3:4)
+  interior-1.jpg               (ethos image, portrait)
+  venue-exterior.jpg           (triple row 1)
+  guests-dining.jpg            (triple row 2)
+  kitchen-plating.jpg          (triple row 3)
+  dining-room.jpg              (panorama, wide landscape)
+  team-1.jpg … team-4.jpg      (team portraits, 3:4)
+  event-1.jpg … event-4.jpg    (event card thumbnails, 4:3)
+  hero-placeholder.jpg         (hero background; referenced in CSS)

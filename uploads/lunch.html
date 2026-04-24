@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunch - LuxDin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .menu-page { padding: 40px 0 100px; background: var(--cream); }
+        .menu-container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+        /* Sticky Category Navigation */
+        .menu-nav-wrapper {
+            position: sticky;
+            top: 72px;
+            z-index: 100;
+            background: rgba(251, 248, 244, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(50, 29, 29, 0.08);
+            padding: 8px 24px;
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .menu-nav-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .menu-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .menu-nav a {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--dark);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 100px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            white-space: nowrap;
+        }
+        .menu-nav a:hover { background: rgba(211, 165, 116, 0.15); }
+        .menu-nav a.active {
+            background: var(--gold);
+            color: var(--white);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(211, 165, 116, 0.35);
+        }
+
+        .hero-desc {
+            margin-top: 16px;
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Hero nav */
+        .hero-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .hero-nav a {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--cream) !important;
+        }
+        .hero-nav a:hover { background: rgba(255,255,255,0.25) !important; }
+        .hero-nav a.active {
+            background: var(--cream) !important;
+            color: var(--dark) !important;
+            border-color: var(--cream);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Menu Sections */
+        .menu-section { scroll-margin-top: 140px; padding-top: 20px; }
+
+        .menu-category { margin-bottom: 80px; }
+        .menu-category:last-of-type { margin-bottom: 0; }
+        .menu-category-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(50,29,29,0.1);
+        }
+        .menu-category-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--dark);
+        }
+        .menu-category-header span {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--gold-dark);
+            opacity: 0.8;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(50,29,29,0.08);
+            transition: all 0.3s ease;
+        }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover { transform: translateX(8px); }
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+        .menu-item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+        .menu-item:hover .menu-item-name { color: var(--gold-dark); }
+        .menu-item-dots { flex: 1; border-bottom: 1px dotted rgba(50,29,29,0.25); margin-bottom: 8px; min-width: 40px; }
+        .menu-item-price { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: #A46C32; white-space: nowrap; }
+        .menu-item-description { font-size: 15px; line-height: 1.6; color: var(--dark); opacity: 0.6; max-width: 80%; }
+
+        .menu-footer { text-align: center; margin-top: 80px; padding-top: 48px; border-top: 1px solid rgba(50,29,29,0.1); }
+        .menu-footer p { font-style: italic; opacity: 0.6; margin-bottom: 32px; }
+
+        /* Modern Theme */
+        body.modern-theme .menu-nav-wrapper {
+            background: rgba(12, 15, 24, 0.95) !important;
+            border-bottom-color: rgba(255,255,255,0.1) !important;
+        }
+        body.modern-theme .menu-nav-wrapper .menu-nav a { color: #ffffff !important; }
+        body.modern-theme .menu-nav-wrapper .menu-nav a:hover { background: rgba(255,255,255,0.1) !important; }
+        body.modern-theme .menu-nav-wrapper .menu-nav a.active {
+            background: #ffffff !important;
+            color: #0c0f18 !important;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.2) !important;
+        }
+        body.modern-theme .hero-nav a {
+            background: rgba(255,255,255,0.1) !important;
+            border-color: rgba(255,255,255,0.2) !important;
+            color: #ffffff !important;
+        }
+        body.modern-theme .hero-nav a:hover { background: rgba(255,255,255,0.2) !important; }
+        body.modern-theme .hero-nav a.active {
+            background: #ffffff !important;
+            color: #0c0f18 !important;
+            border-color: #ffffff !important;
+        }
+
+        @media (max-width: 968px) {
+            .page-hero-content p { font-size: 15px !important; padding: 0 20px; }
+            .hero-nav { justify-content: center !important; padding: 0 16px; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-nav-wrapper { top: 52px; padding: 4px 8px; }
+            .menu-nav { justify-content: flex-start; padding: 8px 0; gap: 6px; }
+            .menu-nav a { padding: 8px 14px; font-size: 10px; letter-spacing: 0.05em; }
+            .hero-nav { gap: 6px; margin-top: 24px !important; }
+            .hero-nav a { padding: 8px 12px; font-size: 10px; letter-spacing: 0.05em; }
+            .menu-page { padding: 24px 0 48px; }
+            .menu-category { margin-bottom: 48px; }
+        }
+
+        @media (max-width: 600px) {
+            .menu-nav-wrapper { top: 48px; padding: 2px 4px; }
+            .menu-nav a { padding: 6px 10px; font-size: 9px; }
+            .hero-nav a { padding: 6px 10px; font-size: 9px; }
+            .hero-desc { font-size: 14px !important; padding: 0 8px; }
+            .page-hero-content h1 { font-size: 28px !important; }
+            .page-hero-content .label { font-size: 11px !important; }
+            .menu-item-header { flex-wrap: wrap; }
+            .menu-item-dots { display: none; }
+            .menu-item-name { font-size: 18px; }
+            .menu-item-price { width: 100%; margin-top: 4px; font-size: 16px; }
+            .menu-item-description { max-width: 100%; font-size: 13px; }
+            .menu-category-header h3 { font-size: 26px; }
+            .menu-category-header span { font-size: 12px; }
+            .menu-item { padding: 20px 0; }
+            .menu-item:hover { transform: none; }
+            .menu-container { padding: 0 16px; }
+            .menu-section { padding: 32px 0; scroll-margin-top: 90px; }
+        }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+    <section class="page-hero">
+        <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=800&fit=crop&q=85" alt="Lunch"></div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">LuxDin</a>
+            <ul class="nav-links">
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="menu.html">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="faq.html">Kontakt</a></li>
+            </ul>
+            <a href="index.html#kontakt" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </nav>
+        <div class="page-hero-content fade-in">
+            <span class="label">Mån - Fre 11:30 - 14:00</span>
+            <h1><em>Lunch</em></h1>
+            <p class="hero-desc">Njut av vår dagliga lunchmeny med färska råvaror och säsongens smaker. Alla rätter serveras med sallad, bröd och kaffe.</p>
+            <nav class="menu-nav hero-nav" style="margin-top: 32px; justify-content: center;">
+                <a href="#veckans" class="active">Veckans Meny</a>
+                <a href="#sallader">Sallader</a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Sticky Category Navigation -->
+    <div class="menu-nav-wrapper">
+        <nav class="menu-nav" id="menuNav">
+            <a href="#veckans" class="active">Veckans Meny</a>
+            <a href="#sallader">Sallader</a>
+        </nav>
+    </div>
+
+    <section class="menu-page">
+        <div class="menu-container">
+
+            <!-- Veckans Meny -->
+            <div class="menu-section" id="veckans">
+                <div class="menu-category">
+                    <div class="menu-category-header">
+                        <h3>Veckans Meny</h3>
+                        <span>Weekly Menu</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Måndag — Stekt Lax</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">145 kr</span>
+                        </div>
+                        <p class="menu-item-description">Stekt lax med dillstuvad potatis, citron och rödbetor</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Tisdag — Köttbullar</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">135 kr</span>
+                        </div>
+                        <p class="menu-item-description">Hemlagade köttbullar med potatismos, gräddsås, lingon och pressgurka</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Onsdag — Pasta Carbonara</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">140 kr</span>
+                        </div>
+                        <p class="menu-item-description">Krämig pasta med pancetta, parmesan och äggula. Serveras med vitlöksbröd</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Torsdag — Kycklinggryta</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">145 kr</span>
+                        </div>
+                        <p class="menu-item-description">Krämig kycklinggryta med champinjoner, bacon och ris</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Fredag — Wallenbergare</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">155 kr</span>
+                        </div>
+                        <p class="menu-item-description">Klassisk wallenbergare med potatispuré, gröna ärtor och lingon</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Vegetarisk Rätt</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">135 kr</span>
+                        </div>
+                        <p class="menu-item-description">Dagens vegetariska alternativ — fråga personalen</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sallader -->
+            <div class="menu-section" id="sallader">
+                <div class="menu-category">
+                    <div class="menu-category-header">
+                        <h3>Sallader</h3>
+                        <span>Salads</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Caesarsallad med Kyckling</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">145 kr</span>
+                        </div>
+                        <p class="menu-item-description">Krispig romansallad med grillad kyckling, parmesan, krutonger och caesardressing</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="menu-item-name">Räksallad</span>
+                            <span class="menu-item-dots"></span>
+                            <span class="menu-item-price">155 kr</span>
+                        </div>
+                        <p class="menu-item-description">Fräsch sallad med handskalade räkor, avokado, ägg och Rhode Island-dressing</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-footer">
+                <p>Allergier? Informera oss gärna vid beställning</p>
+                <a href="index.html#kontakt" class="btn btn-dark">Boka Lunch</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer-classic">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-logo">LuxDin</div><p>En kulinarisk destination i hjärtat av Stockholm.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Hem</a></li><li><a href="menu.html">Meny</a></li><li><a href="om-oss.html">Om Oss</a></li></ul></div>
+            <div class="footer-col"><h4>Tjänster</h4><ul><li><a href="chambre-separee.html">Chambre Séparée</a></li><li><a href="julbord.html">Julbord</a></li><li><a href="catering.html">Catering</a></li><li><a href="faq.html">Kontakt</a></li></ul></div>
+            <div class="footer-col"><h4>Kontakt</h4><p>Storgatan 123<br>111 22 Stockholm<br>+46 8 123 456 78</p></div>
+            <div class="footer-col"><h4>Öppettider</h4><p>Måndag: 17:00 - 22:00<br>Tisdag: 17:00 - 22:00<br>Onsdag: 17:00 - 22:00<br>Torsdag: 17:00 - 22:00<br>Fredag: 17:00 - 23:00<br>Lördag: 17:00 - 23:00<br>Söndag: 12:00 - 20:00</p><p style="margin-top:12px;color:var(--gold);font-size:13px;"><strong>Avvikande:</strong><br>Torsdag 08:e Maj - Stängt</p></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Modern Version</button></div>
+    </footer>
+    <section class="pre-footer" id="footer-modern" style="display:none;">
+        <div class="pre-footer-content">
+            <div class="pre-footer-logo">LuxDin</div>
+            <p class="pre-footer-tagline">En kulinarisk destination i hjärtat av Stockholm</p>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-grid">
+                <div class="pre-footer-col"><h4>Besök Oss</h4><a href="https://maps.google.com" target="_blank" class="pre-footer-address">Storgatan 123<br>111 22 Stockholm</a></div>
+                <div class="pre-footer-col"><h4>Öppettider</h4><div class="hours-list"><div class="hours-row"><span>Måndag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Tisdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Onsdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Torsdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Fredag</span><span>17:00 - 23:00</span></div><div class="hours-row"><span>Lördag</span><span>17:00 - 23:00</span></div><div class="hours-row"><span>Söndag</span><span>12:00 - 20:00</span></div><div class="hours-row hours-lunch"><span>Lunch (Mån - Fre)</span><span>11:30 - 14:00</span></div><div class="hours-row" style="color:#D3A574;margin-top:8px;"><span><strong>Avvikande:</strong></span><span></span></div><div class="hours-row" style="color:#D3A574;"><span>Torsdag 08:e Maj</span><span>Stängt</span></div></div></div>
+                <div class="pre-footer-col"><h4>Kontakt</h4><a href="tel:+4681234567" class="pre-footer-link">+46 8 123 456 78</a><a href="mailto:info@luxdin.se" class="pre-footer-link">info@luxdin.se</a><a href="faq.html" class="pre-footer-link pre-footer-cta">Boka Bord →</a></div>
+            </div>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-social">
+                <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <nav class="pre-footer-nav"><a href="index.html">Hem</a><a href="om-oss.html">Om Oss</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a><a href="chambre-separee.html">Chambre Séparée</a><a href="julbord.html">Julbord</a><a href="catering.html">Catering</a><a href="faq.html">Kontakt</a></nav>
+        </div>
+    </section>
+    <footer class="footer-minimal" id="footer-modern-bottom" style="display:none;"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Klassisk Version</button></footer>
+
+    <script>
+        // Mobile menu
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Scroll animations
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => {
+            new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1 }).observe(el);
+        });
+
+        // Navbar scroll & sticky menu nav
+        const menuNavWrapper = document.querySelector('.menu-nav-wrapper');
+        const heroSection = document.querySelector('.page-hero');
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            menuNavWrapper.classList.toggle('visible', window.scrollY > heroBottom - 100);
+        });
+
+        // Menu navigation - IntersectionObserver
+        const sections = document.querySelectorAll('.menu-section');
+        const allNavLinks = document.querySelectorAll('.menu-nav a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    allNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth scroll
+        allNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 140;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            });
+        });
+
+        // Footer toggle
+        function toggleVersion() {
+            const classic = document.getElementById('footer-classic');
+            const modern = document.getElementById('footer-modern');
+            const modernBottom = document.getElementById('footer-modern-bottom');
+            if (classic.style.display === 'none') {
+                classic.style.display = 'block'; modern.style.display = 'none'; modernBottom.style.display = 'none';
+                document.body.classList.remove('modern-theme'); localStorage.setItem('siteVersion', 'classic');
+            } else {
+                classic.style.display = 'none'; modern.style.display = 'block'; modernBottom.style.display = 'flex';
+                document.body.classList.add('modern-theme'); localStorage.setItem('siteVersion', 'modern');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('siteVersion');
+            if (saved === 'modern') {
+                document.body.classList.add('modern-theme');
+                document.getElementById('footer-classic').style.display = 'none';
+                document.getElementById('footer-modern').style.display = 'block';
+                document.getElementById('footer-modern-bottom').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>

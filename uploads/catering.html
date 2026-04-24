@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catering - LuxDin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .hero-desc {
+            margin-top: 16px;
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+        @media (max-width: 600px) {
+            .hero-desc { font-size: 14px !important; padding: 0 8px; }
+        }
+
+        .catering-intro {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 100px 24px 60px;
+        }
+        .catering-intro .label { margin-bottom: 16px; display: block; }
+        .catering-intro p { margin-top: 24px; opacity: 0.7; font-size: 18px; line-height: 1.7; }
+
+        /* Signature Menu Section */
+        .signature-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            max-width: 1440px;
+            margin: 0 auto;
+            min-height: 700px;
+        }
+        .signature-menu-content {
+            padding: 80px;
+            background: var(--cream);
+        }
+        .signature-menu-content .label { margin-bottom: 16px; display: block; }
+        .signature-menu-content h2 { margin-bottom: 32px; }
+
+        /* Category Tabs */
+        .menu-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .menu-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--dark);
+            font-family: var(--sans);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .menu-tab:hover, .menu-tab.active {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        /* Menu List */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(164, 108, 50, 0.2);
+        }
+        .menu-item:first-child { padding-top: 0; }
+        .menu-item-info { flex: 1; padding-right: 24px; }
+        .menu-item-name {
+            font-family: var(--serif);
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .menu-item-desc {
+            font-family: var(--sans);
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        .menu-item-price {
+            font-family: var(--sans);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        /* Menu Image */
+        .signature-menu-image {
+            position: relative;
+            overflow: hidden;
+        }
+        .signature-menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 700px;
+        }
+
+        /* Services Grid */
+        .catering-services {
+            padding: 100px 80px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        .catering-services .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 48px 32px;
+            text-align: center;
+            border: 1px solid rgba(164, 108, 50, 0.15);
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(50, 29, 29, 0.1);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            border-radius: 50%;
+        }
+        .service-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--white);
+            fill: none;
+        }
+        .service-card h3 {
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .service-card p {
+            font-size: 15px;
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 550px;
+        }
+        .contact-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .contact-form-wrap {
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--white);
+        }
+        .contact-form-wrap .label { margin-bottom: 16px; display: block; }
+        .contact-form-wrap h2 { font-family: var(--serif); font-size: 42px; margin-bottom: 32px; }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .catering-intro { padding: 60px 24px 40px; }
+            .signature-menu { grid-template-columns: 1fr; min-height: auto; }
+            .signature-menu-content { padding: 48px 24px; }
+            .signature-menu-image { order: -1; }
+            .signature-menu-image img { min-height: 280px; }
+            .catering-services { padding: 60px 24px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .contact-section { grid-template-columns: 1fr; }
+            .contact-image { height: 260px; }
+            .contact-form-wrap { padding: 48px 24px; }
+        }
+
+        @media (max-width: 600px) {
+            .catering-intro { padding: 40px 16px 32px; }
+            .catering-intro p { font-size: 14px; }
+            .signature-menu-content { padding: 32px 16px; }
+            .signature-menu-content h2 { font-size: 24px; }
+            .signature-menu-image img { min-height: 220px; }
+            .menu-tabs { gap: 6px; }
+            .menu-tab { padding: 8px 14px; font-size: 10px; }
+            .menu-item { padding: 10px 0; }
+            .menu-item-name { font-size: 15px; }
+            .menu-item-price { font-size: 14px; }
+            .menu-item-desc { font-size: 12px; }
+            .catering-services { padding: 40px 16px; }
+            .catering-services h2 { font-size: 24px; }
+            .services-grid { gap: 16px; }
+            .service-card { padding: 20px 16px; }
+            .service-card h3 { font-size: 18px; }
+            .service-card p { font-size: 13px; }
+            .contact-image { height: 200px; }
+            .contact-form-wrap { padding: 28px 16px; }
+            .contact-form-wrap h2 { font-size: 24px; }
+        }
+
+        /* Modern Theme Overrides */
+        body.modern-theme .signature-menu-content {
+            background: #131625 !important;
+        }
+        body.modern-theme .menu-tab {
+            border-color: rgba(255,255,255,0.3) !important;
+            color: #ffffff !important;
+        }
+        body.modern-theme .menu-tab:hover,
+        body.modern-theme .menu-tab.active {
+            background: #ffffff !important;
+            color: #0c0f18 !important;
+        }
+        body.modern-theme .menu-item {
+            border-bottom-color: rgba(255,255,255,0.1) !important;
+        }
+        body.modern-theme .menu-item-name {
+            color: #ffffff !important;
+        }
+        body.modern-theme .menu-item-desc {
+            color: #eeeeee !important;
+        }
+        body.modern-theme .menu-item-price {
+            color: #ffffff !important;
+        }
+        body.modern-theme .service-card {
+            background: #131625 !important;
+            border-color: rgba(255,255,255,0.1) !important;
+        }
+        body.modern-theme .service-card h3 {
+            color: #ffffff !important;
+        }
+        body.modern-theme .service-card p {
+            color: #eeeeee !important;
+        }
+        body.modern-theme .service-icon {
+            background: linear-gradient(135deg, #ffffff 0%, #eeeeee 100%) !important;
+        }
+        body.modern-theme .service-icon svg {
+            stroke: #0c0f18 !important;
+        }
+        body.modern-theme .contact-form-wrap {
+            background: #131625 !important;
+        }
+        body.modern-theme .contact-form-wrap h2,
+        body.modern-theme .contact-form-wrap .label {
+            color: #ffffff !important;
+        }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+    <section class="page-hero">
+        <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=1920&h=800&fit=crop&q=85" alt="Catering"></div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">LuxDin</a>
+            <ul class="nav-links">
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="menu.html">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="faq.html">Kontakt</a></li>
+            </ul>
+            <a href="index.html#kontakt" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </nav>
+        <div class="page-hero-content fade-in">
+            <span class="label">Vart Ni Än Är</span>
+            <h1>LuxDin <em>Catering</em></h1>
+            <p class="hero-desc">Låt oss ta hand om er nästa tillställning. Oavsett om det är ett företags-event, bröllop eller privat fest levererar vi samma kvalitet och elegans som i vår restaurang - direkt till er.</p>
+        </div>
+    </section>
+
+    <!-- Signature Menu Section -->
+    <section class="signature-menu">
+        <div class="signature-menu-content">
+            <span class="label">Catering</span>
+            <h2 class="heading-lg">Vår <em>Meny</em></h2>
+
+            <div class="menu-tabs">
+                <button class="menu-tab active" data-category="all">Alla</button>
+                <button class="menu-tab" data-category="forratter">Förrätter</button>
+                <button class="menu-tab" data-category="huvudratter">Huvudrätter</button>
+                <button class="menu-tab" data-category="desserter">Desserter</button>
+                <button class="menu-tab" data-category="dryck">Dryck</button>
+            </div>
+
+            <div class="menu-list">
+                <div class="menu-item" data-category="forratter">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Gravad Lax</div>
+                        <div class="menu-item-desc">Hantverksmässigt gravad lax med senap-dillsås och krutonger</div>
+                    </div>
+                    <div class="menu-item-price">145 kr/pers</div>
+                </div>
+                <div class="menu-item" data-category="forratter">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Skaldjursterrin</div>
+                        <div class="menu-item-desc">Terrin på hummer och kräftor med citronaioli</div>
+                    </div>
+                    <div class="menu-item-price">185 kr/pers</div>
+                </div>
+                <div class="menu-item" data-category="huvudratter">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Oxfilé Wellington</div>
+                        <div class="menu-item-desc">Klassisk Wellington med tryffelduxelles, serverad med säsongens grönsaker</div>
+                    </div>
+                    <div class="menu-item-price">395 kr/pers</div>
+                </div>
+                <div class="menu-item" data-category="huvudratter">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Helstekt Lammrygg</div>
+                        <div class="menu-item-desc">Örtmarinerad lammrygg med rotfrukter och rosmarinsky</div>
+                    </div>
+                    <div class="menu-item-price">345 kr/pers</div>
+                </div>
+                <div class="menu-item" data-category="desserter">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Chokladfondant</div>
+                        <div class="menu-item-desc">Varm chokladfondant med vaniljglass och bärsorter</div>
+                    </div>
+                    <div class="menu-item-price">125 kr/pers</div>
+                </div>
+                <div class="menu-item" data-category="dryck">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Vinpaket Premium</div>
+                        <div class="menu-item-desc">Handplockade viner matchade till er meny</div>
+                    </div>
+                    <div class="menu-item-price">295 kr/pers</div>
+                </div>
+            </div>
+        </div>
+        <div class="signature-menu-image">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=900&fit=crop&q=85" alt="Catering Mat">
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="catering-services section-cream">
+        <div class="section-header">
+            <span class="label">Tjänster</span>
+            <h2 class="heading-lg">Vad Vi <em>Erbjuder</em></h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Företags-Event</h3>
+                <p>Från mingel och konferenser till afterwork och jubileum. Vi anpassar menyn efter era önskemål och budget.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <h3>Bröllop & Fester</h3>
+                <p>Låt er speciella dag bli oförglömlig med vår exklusiva bröllopscatering och personlig service.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h3>Privata Middagar</h3>
+                <p>Vår kock kommer hem till er och tillagar en utsökt middag medan ni njuter av sällskapet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="kontakt">
+        <div class="contact-image"><img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&h=700&fit=crop&q=85" alt="Restaurant"></div>
+        <div class="contact-form-wrap">
+            <span class="label">Kontakt</span>
+            <h2>Begär <em>Offert</em></h2>
+            <form class="contact-form">
+                <div class="form-row"><input type="text" placeholder="Namn" required><input type="email" placeholder="E-post" required></div>
+                <div class="form-row"><input type="tel" placeholder="Telefon"><input type="number" placeholder="Antal gäster" min="1"></div>
+                <div class="form-row"><input type="text" placeholder="Datum"><input type="text" placeholder="Typ av evenemang"></div>
+                <textarea placeholder="Berätta mer om ert evenemang och önskemål" rows="4"></textarea>
+                <button type="submit" class="btn btn-dark" style="align-self:flex-start;">Skicka Förfrågan</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer-classic">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-logo">LuxDin</div><p>En kulinarisk destination i hjärtat av Stockholm.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Hem</a></li><li><a href="menu.html">Meny</a></li><li><a href="om-oss.html">Om Oss</a></li></ul></div>
+            <div class="footer-col"><h4>Tjänster</h4><ul><li><a href="chambre-separee.html">Chambre Séparée</a></li><li><a href="julbord.html">Julbord</a></li><li><a href="catering.html">Catering</a></li><li><a href="faq.html">Kontakt</a></li></ul></div>
+            <div class="footer-col"><h4>Kontakt</h4><p>Storgatan 123<br>111 22 Stockholm<br>+46 8 123 456 78</p></div>
+            <div class="footer-col"><h4>Öppettider</h4><p>Mån - Tors: 17:00 - 22:00<br>Fre - Lör: 17:00 - 23:00<br>Söndag: 12:00 - 20:00</p></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Modern Version</button></div>
+    </footer>
+    <section class="pre-footer" id="footer-modern" style="display:none;">
+        <div class="pre-footer-content">
+            <div class="pre-footer-logo">LuxDin</div>
+            <p class="pre-footer-tagline">En kulinarisk destination i hjärtat av Stockholm</p>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-grid">
+                <div class="pre-footer-col"><h4>Besök Oss</h4><a href="https://maps.google.com" target="_blank" class="pre-footer-address">Storgatan 123<br>111 22 Stockholm</a></div>
+                <div class="pre-footer-col"><h4>Öppettider</h4><div class="hours-list"><div class="hours-row"><span>Måndag - Torsdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Fredag - Lördag</span><span>17:00 - 23:00</span></div><div class="hours-row"><span>Söndag</span><span>12:00 - 20:00</span></div><div class="hours-row hours-lunch"><span>Lunch (Mån - Fre)</span><span>11:30 - 14:00</span></div></div></div>
+                <div class="pre-footer-col"><h4>Kontakt</h4><a href="tel:+4681234567" class="pre-footer-link">+46 8 123 456 78</a><a href="mailto:info@luxdin.se" class="pre-footer-link">info@luxdin.se</a><a href="faq.html" class="pre-footer-link pre-footer-cta">Boka Bord &rarr;</a></div>
+            </div>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-social">
+                <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <nav class="pre-footer-nav"><a href="index.html">Hem</a><a href="om-oss.html">Om Oss</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a><a href="chambre-separee.html">Chambre Séparée</a><a href="julbord.html">Julbord</a><a href="catering.html">Catering</a><a href="faq.html">Kontakt</a></nav>
+        </div>
+    </section>
+    <footer class="footer-minimal" id="footer-modern-bottom" style="display:none;"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Klassisk Version</button></footer>
+
+    <script>
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() { document.querySelector('.nav-links').classList.toggle('active'); });
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => { new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }); }, { threshold: 0.1 }).observe(el); });
+        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+
+        // Menu tabs functionality
+        const tabs = document.querySelectorAll('.menu-tab');
+        const items = document.querySelectorAll('.menu-item');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+                items.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        function toggleVersion() {
+            const classic = document.getElementById('footer-classic');
+            const modern = document.getElementById('footer-modern');
+            const modernBottom = document.getElementById('footer-modern-bottom');
+            if (classic.style.display === 'none') { classic.style.display = 'block'; modern.style.display = 'none'; modernBottom.style.display = 'none'; document.body.classList.remove('modern-theme'); localStorage.setItem('siteVersion', 'classic'); }
+            else { classic.style.display = 'none'; modern.style.display = 'block'; modernBottom.style.display = 'flex'; document.body.classList.add('modern-theme'); localStorage.setItem('siteVersion', 'modern'); }
+        }
+        document.addEventListener('DOMContentLoaded', function() { const saved = localStorage.getItem('siteVersion'); if (saved === 'modern') { document.body.classList.add('modern-theme'); document.getElementById('footer-classic').style.display = 'none'; document.getElementById('footer-modern').style.display = 'block'; document.getElementById('footer-modern-bottom').style.display = 'flex'; } });
+    </script>
+</body>
+</html>

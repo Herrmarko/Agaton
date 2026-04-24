@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meny — Agaton Ristorante</title>
+<link rel="stylesheet" <link rel="stylesheet" href="style.css?v=13">
+<style>
+.site-header { background: var(--primary); border-bottom: none; }
+.site-nav a { color: rgba(255,255,255,.82); }
+.site-nav a:hover, .site-nav a.active { color: #fff; }
+.nav-burger { color: #fff; }
+.site-header .btn { color: #fff; border-color: rgba(255,255,255,.7); }
+.site-header .btn:hover { background: #fff; color: var(--primary); }
+</style>>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <nav class="site-nav">
+      <a href="index.html">Hem</a>
+      <a href="menu.html" class="active">Meny</a>
+      <a href="lunch.html">Lunch</a>
+      <a href="om-oss.html">Om oss</a>
+      <a href="stora-sallskap.html">Stora Sällskap</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a href="index.html" class="site-header__logo">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton" style="height:34px;width:auto;">
+    </a>
+    <div class="site-header__cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-drawer" id="drawer">
+  <a href="index.html">Hem</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a>
+  <a href="om-oss.html">Om oss</a><a href="stora-sallskap.html">Stora Sällskap</a><a href="kontakt.html">Kontakt</a>
+  <div class="drawer-cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+  <div class="drawer-info">Västerlånggatan 72 · +46 08 20 72 99</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="min-height:55vh;">
+  <div class="hero__bg" style="background-image:url('../luxdin/photos/food-22.jpg')"></div>
+  <div class="hero__content">
+    <img src="../luxdin/agaton_logo.svg" alt="Agaton" class="hero__logo">
+    <p class="hero__sub">À La Carte — Menyn</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-row">
+  <a href="kontakt.html" class="btn btn-maroon">Boka Bord</a>
+  <a href="lunch.html" class="btn btn-maroon">Veckans Lunch</a>
+</div>
+
+<!-- INTRO -->
+<section class="intro-row">
+  <div class="intro-row__icon">✦</div>
+  <h2 class="intro-row__title">Vår Meny</h2>
+  <p class="intro-row__text">
+    Våra rätter växer fram mellan vedugnen, pastarullen och årstiderna. Klassikerna bor här året runt — resten byter vi ut efter vad som är bäst just nu på marknaden.
+  </p>
+</section>
+
+<hr class="divider">
+
+<!-- STICKY TABS -->
+<div class="menu-tabs" id="tabs">
+  <button class="menu-tab active" data-target="antipasti">Antipasti</button>
+  <button class="menu-tab" data-target="pizza">Pizza</button>
+  <button class="menu-tab" data-target="pasta">Pasta</button>
+  <button class="menu-tab" data-target="secondi">Secondi</button>
+  <button class="menu-tab" data-target="dolci">Dolci</button>
+  <button class="menu-tab" data-target="vini">Vini</button>
+</div>
+
+<!-- MENU BODY -->
+<div class="menu-body">
+
+  <section class="menu-section" id="antipasti">
+    <div class="menu-section__head">
+      <div class="menu-section__eyebrow">per cominciare</div>
+      <h2 class="menu-section__title">Antipasti</h2>
+    </div>
+    <div class="menu-item"><div class="menu-item__title">Bruschetta al pomodoro</div><div class="menu-item__price">145 kr</div><div class="menu-item__desc">Rostat surdegsbröd, tomater från Piennolo, basilika och extra vergine från Puglia.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Burrata di Puglia</div><div class="menu-item__price">185 kr</div><div class="menu-item__desc">Krämig burrata, inlagda röda lökar, taggigt bröd och tomatpesto.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Carpaccio di manzo</div><div class="menu-item__price">195 kr</div><div class="menu-item__desc">Tunnskivad nötinnanlår, ruccola, parmigiano-flakes, kapris och citron.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Tagliere del giorno</div><div class="menu-item__price">245 kr</div><div class="menu-item__desc">Dagens urval av italienska charkuterier och ostar med honung och fikonkompott.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Vitello tonnato</div><div class="menu-item__price">175 kr</div><div class="menu-item__desc">Rosa kalvfilé, tonfisk-majonnäs, kapris och salladslök.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Zuppa del giorno</div><div class="menu-item__price">145 kr</div><div class="menu-item__desc">Dagens soppa — fråga värden vad den lagar i dag.</div></div>
+  </section>
+
+  <section class="menu-section" id="pizza">
+    <div class="menu-section__head">
+      <div class="menu-section__eyebrow">al forno a legna</div>
+      <h2 class="menu-section__title">Pizza</h2>
+    </div>
+    <div class="menu-item"><div class="menu-item__title">Margherita</div><div class="menu-item__price">185 kr</div><div class="menu-item__desc">Tomat, fior di latte, färsk basilika och extra vergine.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Marinara</div><div class="menu-item__price">165 kr</div><div class="menu-item__desc">Tomat, vitlök, oregano, olivolja. Utan ost — så som den ursprungligen gjordes.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Diavola</div><div class="menu-item__price">215 kr</div><div class="menu-item__desc">Tomat, mozzarella, kryddig 'nduja och stekt chilipeppar.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Prosciutto e funghi</div><div class="menu-item__price">235 kr</div><div class="menu-item__desc">Tomat, mozzarella, parmaskinka och marinerade champinjoner.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Quattro formaggi</div><div class="menu-item__price">225 kr</div><div class="menu-item__desc">Fior di latte, gorgonzola, pecorino och taleggio.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Tartufo bianco</div><div class="menu-item__price">295 kr</div><div class="menu-item__desc">Fior di latte, vit tryffelpaté, färsk tryffel, parmigiano och svartpeppar.</div></div>
+  </section>
+
+  <section class="menu-section" id="pasta">
+    <div class="menu-section__head">
+      <div class="menu-section__eyebrow">fatta in casa</div>
+      <h2 class="menu-section__title">Pasta</h2>
+    </div>
+    <div class="menu-item"><div class="menu-item__title">Spaghetti Cacio e Pepe</div><div class="menu-item__price">215 kr</div><div class="menu-item__desc">Handgjord spaghetti, pecorino romano och nykvarnad svartpeppar.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Tagliatelle al Ragù</div><div class="menu-item__price">245 kr</div><div class="menu-item__desc">Bred tagliatelle med långkokt köttragu, rödvin och tomat.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Rigatoni alla Carbonara</div><div class="menu-item__price">235 kr</div><div class="menu-item__desc">Guanciale, äggula, pecorino och svartpeppar — som i Roma.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Ravioli di Ricotta</div><div class="menu-item__price">255 kr</div><div class="menu-item__desc">Färsk ravioli med ricotta och spenat, smörbrynt salvia och rivad parmigiano.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Risotto ai Funghi</div><div class="menu-item__price">265 kr</div><div class="menu-item__desc">Krämig carnaroli-risotto med skogssvamp och taleggio.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Linguine alle Vongole</div><div class="menu-item__price">275 kr</div><div class="menu-item__desc">Färska vongole, vitt vin, vitlök, chili och persilja.</div></div>
+  </section>
+
+  <section class="menu-section" id="secondi">
+    <div class="menu-section__head">
+      <div class="menu-section__eyebrow">carne & pesce</div>
+      <h2 class="menu-section__title">Secondi</h2>
+    </div>
+    <div class="menu-item"><div class="menu-item__title">Bistecca alla Fiorentina</div><div class="menu-item__price">485 kr</div><div class="menu-item__desc">400 g grillad oxfilé, rosmarin, grov havssalt och vår egen salsa verde.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Pollo al Forno</div><div class="menu-item__price">295 kr</div><div class="menu-item__desc">Ugnsbakad kyckling med citron, timjan och rostade medelhavsgrönsaker.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Branzino al Sale</div><div class="menu-item__price">365 kr</div><div class="menu-item__desc">Saltbakad havsabborre, bakad citron och friterad kapris. Serveras för två.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Parmigiana di Melanzane</div><div class="menu-item__price">245 kr</div><div class="menu-item__desc">Ugnsbakade auberginer i lager med tomat, basilika och mozzarella. Vegetariskt.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Osso Buco alla Milanese</div><div class="menu-item__price">325 kr</div><div class="menu-item__desc">Långkokt kalvlägg med saffransrisotto och gremolata.</div></div>
+  </section>
+
+  <section class="menu-section" id="dolci">
+    <div class="menu-section__head">
+      <div class="menu-section__eyebrow">per finire</div>
+      <h2 class="menu-section__title">Dolci</h2>
+    </div>
+    <div class="menu-item"><div class="menu-item__title">Tiramisù della Casa</div><div class="menu-item__price">125 kr</div><div class="menu-item__desc">Vår egen tiramisù — savoiardi, mascarpone och espresso.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Panna Cotta ai Frutti di Bosco</div><div class="menu-item__price">115 kr</div><div class="menu-item__desc">Krämig panna cotta med skogsbär och sirap av vanilj.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Cannoli Siciliani</div><div class="menu-item__price">125 kr</div><div class="menu-item__desc">Friterade kanneloner fyllda med sötad ricotta och kanderad frukt.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Affogato al Caffè</div><div class="menu-item__price">95 kr</div><div class="menu-item__desc">Vaniljglass dränkt i en shot färskbryggd espresso.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Formaggi italiani</div><div class="menu-item__price">165 kr</div><div class="menu-item__desc">Utvalda italienska ostar med honung, fikon och kex.</div></div>
+  </section>
+
+  <section class="menu-section" id="vini">
+    <div class="menu-section__head">
+      <div class="menu-section__eyebrow">la cantina</div>
+      <h2 class="menu-section__title">Vini &amp; Bevande</h2>
+    </div>
+    <div class="menu-item"><div class="menu-item__title">Chianti Classico DOCG</div><div class="menu-item__price">125 / 595 kr</div><div class="menu-item__desc">Toscana — rund, bärig sangiovese med toner av körsbär och läder.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Barbera d'Asti</div><div class="menu-item__price">115 / 545 kr</div><div class="menu-item__desc">Piemonte — frisk syra, mörka bär och hint av lakrits.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Vermentino di Sardegna</div><div class="menu-item__price">115 / 525 kr</div><div class="menu-item__desc">Sardinien — citrus, vita blommor och en lätt mineralisk ton.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Prosecco Superiore</div><div class="menu-item__price">125 / 565 kr</div><div class="menu-item__desc">Valdobbiadene — torr, krispig och med fina bubblor.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Aperol Spritz</div><div class="menu-item__price">145 kr</div><div class="menu-item__desc">Klassikern — Aperol, prosecco, sodavatten och apelsin.</div></div>
+    <div class="menu-item"><div class="menu-item__title">Caffè espresso / Cappuccino</div><div class="menu-item__price">45 / 55 kr</div><div class="menu-item__desc">Mörkrostat italienskt kaffe från vår husrostare.</div></div>
+  </section>
+
+  <p style="text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 0;">
+    Fråga oss om allergier eller specialkost — vi anpassar gärna. Alla priser inkl. moms.
+  </p>
+</div>
+
+<section class="contact-band lemon-decor">
+  <div class="contact-band__inner">
+    <div class="contact-band__map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.5!2d18.0684!3d59.3235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f9d8a!2sV%C3%A4sterl%C3%A5nggatan+72!5e0!3m2!1ssv!2sse!4v1" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="contact-band__info">
+      <h3>Västerlånggatan 72, Stockholm</h3>
+      <p>+46 08 20 72 99 · info@restaurangagaton.se</p>
+      <dl>
+        <dt>Middagsservering</dt>
+        <dd>Mån–Tor: 17:00–22:00</dd>
+        <dd>Fre–Lör: 17:00–23:00</dd>
+        <dd>Söndag: Stängt</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton Ristorante">
+      <p>Vedugnspizza, handgjord pasta och ärlig italiensk mat i hjärtat av Gamla Stan — sedan 1999.</p>
+      <div class="site-footer__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="TripAdvisor">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="site-footer__col">
+      <h4>Meny</h4>
+      <ul>
+        <li><a href="menu.html">À La Carte</a></li>
+        <li><a href="lunch.html">Veckans Lunch</a></li>
+        <li><a href="stora-sallskap.html">Stora Sällskap</a></li>
+        <li><a href="kontakt.html">Boka Bord</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Om Agaton</h4>
+      <ul>
+        <li><a href="om-oss.html">Vår Historia</a></li>
+        <li><a href="om-oss.html">Våra Värderingar</a></li>
+        <li><a href="stora-sallskap.html">Privata Event</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Hitta hit</h4>
+      <address>
+        Västerlånggatan 72<br>
+        111 29 Stockholm<br><br>
+        <a href="tel:+46082072099">+46 08 20 72 99</a><br>
+        <a href="mailto:info@restaurangagaton.se">info@restaurangagaton.se</a><br><br>
+        Mån–Tor: 17–22<br>
+        Fre–Lör: 17–23<br>
+        Lunch Mån–Fre: 11–14
+      </address>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© Agaton Ristorante — Mandato di cucinare bene.</span>
+    <span>Gamla Stan, Stockholm · Dal 1999</span>
+  </div>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  drawer.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = '';
+}));
+
+const tabs = Array.from(document.querySelectorAll('.menu-tab'));
+const sections = Array.from(document.querySelectorAll('.menu-section'));
+tabs.forEach(tab => tab.addEventListener('click', () => {
+  const el = document.getElementById(tab.dataset.target);
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 110, behavior: 'smooth' });
+}));
+const setActive = id => tabs.forEach(t => t.classList.toggle('active', t.dataset.target === id));
+new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }), { rootMargin: '-30% 0px -55% 0px' })
+  .observe ? sections.forEach(s => new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) setActive(e.target.id); }), { rootMargin: '-30% 0px -55% 0px' }).observe(s)) : null;
+</script>
+</body>
+</html>

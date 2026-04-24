@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chambre Séparée - LuxDin</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .rooms-intro { max-width: 800px; margin: 0 auto; text-align: center; padding: 100px 24px 80px; }
+        .rooms-intro .label { margin-bottom: 16px; display: block; }
+        .rooms-intro p { margin-top: 24px; opacity: 0.7; font-size: 18px; line-height: 1.7; }
+
+        .room-showcase { padding: 0 80px 100px; max-width: 1440px; margin: 0 auto; }
+        .room-item { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; margin-bottom: 100px; }
+        .room-item:nth-child(even) { grid-template-columns: 1fr 1.2fr; }
+        .room-item:nth-child(even) .room-image { order: 2; }
+        .room-item:last-child { margin-bottom: 0; }
+
+        .room-image { position: relative; cursor: pointer; overflow: hidden; border-radius: 8px; }
+        .room-image img { width: 100%; height: 450px; object-fit: cover; transition: transform 0.5s ease; }
+        .room-image:hover img { transform: scale(1.03); }
+        .room-image::after { content: 'Klicka för att förstora'; position: absolute; bottom: 20px; left: 20px; padding: 10px 20px; background: rgba(251,248,244,0.95); font-size: 13px; letter-spacing: 0.05em; opacity: 0; transition: opacity 0.3s; }
+        .room-image:hover::after { opacity: 1; }
+
+        .room-content .label { margin-bottom: 12px; display: block; }
+        .room-content h3 { font-family: var(--serif); font-size: 42px; font-weight: 500; margin-bottom: 20px; }
+        .room-content .capacity { color: #A46C32; font-size: 15px; margin-bottom: 20px; display: block; }
+        .room-content p { opacity: 0.7; line-height: 1.8; margin-bottom: 32px; }
+
+        /* Lightbox */
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(50,29,29,0.95); z-index: 9999; align-items: center; justify-content: center; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 4px; }
+        .lightbox-close { position: absolute; top: 30px; right: 30px; font-size: 32px; color: var(--cream); cursor: pointer; background: none; border: none; }
+
+        .contact-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 550px; }
+        .contact-image img { width: 100%; height: 100%; object-fit: cover; }
+        .contact-form-wrap { padding: 80px; display: flex; flex-direction: column; justify-content: center; background: var(--white); }
+        .contact-form-wrap .label { margin-bottom: 16px; display: block; }
+        .contact-form-wrap h2 { font-family: var(--serif); font-size: 42px; margin-bottom: 32px; }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+        @media (max-width: 968px) {
+            .room-showcase { padding: 0 24px 60px; }
+            .room-item, .room-item:nth-child(even) { grid-template-columns: 1fr; gap: 32px; }
+            .room-item:nth-child(even) .room-image { order: 0; }
+            .room-image img { height: 300px; }
+            .contact-section { grid-template-columns: 1fr; }
+            .contact-image { height: 280px; }
+            .contact-form-wrap { padding: 48px 24px; }
+        }
+
+        @media (max-width: 600px) {
+            .room-showcase { padding: 0 20px 48px; }
+            .room-item { gap: 24px; }
+            .room-image img { height: 240px; }
+            .room-content h3 { font-size: 24px; }
+            .room-content p { font-size: 14px; }
+            .room-features li { font-size: 13px; }
+            .contact-image { height: 220px; }
+            .contact-form-wrap { padding: 32px 20px; }
+            .contact-form-wrap h2 { font-size: 28px; }
+        }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+    <section class="page-hero">
+        <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=800&fit=crop&q=85" alt="Chambre Séparée"></div>
+        <nav class="navbar">
+            <a href="index.html" class="logo">LuxDin</a>
+            <ul class="nav-links">
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="menu.html">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="faq.html">Kontakt</a></li>
+            </ul>
+            <a href="index.html#kontakt" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </nav>
+        <div class="page-hero-content fade-in">
+            <span class="label">Exklusiva Upplevelser</span>
+            <h1>Chambre <em>Séparée</em></h1>
+        </div>
+    </section>
+
+    <div class="rooms-intro">
+        <span class="label">Privata Rum</span>
+        <h2 class="heading-lg">En Intim <em>Matupplevelse</em></h2>
+        <p>Våra privata matsalar erbjuder den perfekta ramen för speciella tillfällen. Oavsett om det gäller en intim middag, ett affärsmöte eller en större fest, skapar vi en skräddarsydd upplevelse just för er.</p>
+    </div>
+
+    <div class="room-showcase">
+        <div class="room-item">
+            <div class="room-image" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop&q=85" alt="Eleganta Salongen">
+            </div>
+            <div class="room-content">
+                <span class="label">Rum 1</span>
+                <h3>Eleganta Salongen</h3>
+                <span class="capacity">Upp till 12 gäster</span>
+                <p>Vår mest intima matsal, perfekt för mindre sällskap som söker avskildhet och elegans. Rummet präglas av klassisk inredning med moderna accenter och erbjuder en varm, sofistikerad atmosfär.</p>
+                <a href="#kontakt" class="btn btn-dark">Förfrågan</a>
+            </div>
+        </div>
+
+        <div class="room-item">
+            <div class="room-image" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&h=600&fit=crop&q=85" alt="Vinrummet">
+            </div>
+            <div class="room-content">
+                <span class="label">Rum 2</span>
+                <h3>Vinrummet</h3>
+                <span class="capacity">Upp till 20 gäster</span>
+                <p>Omgivet av vår exklusiva vinsamling bjuder detta rum på en unik upplevelse för vinälskare. Idealiskt för vinprovningar, firmamiddagar eller speciella firanden där vinet står i centrum.</p>
+                <a href="#kontakt" class="btn btn-dark">Förfrågan</a>
+            </div>
+        </div>
+
+        <div class="room-item">
+            <div class="room-image" onclick="openLightbox(this)">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop&q=85" alt="Terrassen">
+            </div>
+            <div class="room-content">
+                <span class="label">Rum 3</span>
+                <h3>Terrassen</h3>
+                <span class="capacity">Upp till 30 gäster</span>
+                <p>Vår största privata yta med tillgång till uteservering under de varmare månaderna. Perfekt för större evenemang, bröllop eller företagsfester med utsikt över Stockholms takåsar.</p>
+                <a href="#kontakt" class="btn btn-dark">Förfrågan</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="contact-section" id="kontakt">
+        <div class="contact-image"><img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&h=700&fit=crop&q=85" alt="Restaurant"></div>
+        <div class="contact-form-wrap">
+            <span class="label">Boka Rum</span>
+            <h2>Skicka <em>Förfrågan</em></h2>
+            <form class="contact-form">
+                <div class="form-row"><input type="text" placeholder="Namn" required><input type="email" placeholder="E-post" required></div>
+                <div class="form-row"><input type="tel" placeholder="Telefon"><input type="text" placeholder="Önskat rum"></div>
+                <div class="form-row"><input type="number" placeholder="Antal gäster" min="1"><input type="text" placeholder="Önskat datum"></div>
+                <textarea placeholder="Berätta mer om ert evenemang" rows="4"></textarea>
+                <button type="submit" class="btn btn-dark" style="align-self:flex-start;">Skicka Förfrågan</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer" id="footer-classic">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-logo">LuxDin</div><p>En kulinarisk destination i hjärtat av Stockholm.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Hem</a></li><li><a href="menu.html">Meny</a></li><li><a href="om-oss.html">Om Oss</a></li></ul></div>
+            <div class="footer-col"><h4>Tjänster</h4><ul><li><a href="chambre-separee.html">Chambre Séparée</a></li><li><a href="julbord.html">Julbord</a></li><li><a href="catering.html">Catering</a></li><li><a href="faq.html">Kontakt</a></li></ul></div>
+            <div class="footer-col"><h4>Kontakt</h4><p>Storgatan 123<br>111 22 Stockholm<br>+46 8 123 456 78</p></div>
+            <div class="footer-col"><h4>Öppettider</h4><p>Mån - Tors: 17:00 - 22:00<br>Fre - Lör: 17:00 - 23:00<br>Söndag: 12:00 - 20:00</p></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Modern Version</button></div>
+    </footer>
+    <section class="pre-footer" id="footer-modern" style="display:none;">
+        <div class="pre-footer-content">
+            <div class="pre-footer-logo">LuxDin</div>
+            <p class="pre-footer-tagline">En kulinarisk destination i hjärtat av Stockholm</p>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-grid">
+                <div class="pre-footer-col"><h4>Besök Oss</h4><a href="https://maps.google.com" target="_blank" class="pre-footer-address">Storgatan 123<br>111 22 Stockholm</a></div>
+                <div class="pre-footer-col"><h4>Öppettider</h4><div class="hours-list"><div class="hours-row"><span>Måndag - Torsdag</span><span>17:00 - 22:00</span></div><div class="hours-row"><span>Fredag - Lördag</span><span>17:00 - 23:00</span></div><div class="hours-row"><span>Söndag</span><span>12:00 - 20:00</span></div><div class="hours-row hours-lunch"><span>Lunch (Mån - Fre)</span><span>11:30 - 14:00</span></div></div></div>
+                <div class="pre-footer-col"><h4>Kontakt</h4><a href="tel:+4681234567" class="pre-footer-link">+46 8 123 456 78</a><a href="mailto:info@luxdin.se" class="pre-footer-link">info@luxdin.se</a><a href="faq.html" class="pre-footer-link pre-footer-cta">Boka Bord →</a></div>
+            </div>
+            <div class="pre-footer-divider"></div>
+            <div class="pre-footer-social">
+                <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            </div>
+            <nav class="pre-footer-nav"><a href="index.html">Hem</a><a href="om-oss.html">Om Oss</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a><a href="chambre-separee.html">Chambre Séparée</a><a href="julbord.html">Julbord</a><a href="catering.html">Catering</a><a href="faq.html">Kontakt</a></nav>
+        </div>
+    </section>
+    <footer class="footer-minimal" id="footer-modern-bottom" style="display:none;"><span>&copy; 2026 LuxDin</span><button class="version-toggle" onclick="toggleVersion()">Se Klassisk Version</button></footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() { document.querySelector('.nav-links').classList.toggle('active'); });
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => { new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }); }, { threshold: 0.1 }).observe(el); });
+        window.addEventListener('scroll', () => { document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        function openLightbox(el) { const img = el.querySelector('img'); document.getElementById('lightbox-img').src = img.src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+        document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+        function toggleVersion() {
+            const classic = document.getElementById('footer-classic');
+            const modern = document.getElementById('footer-modern');
+            const modernBottom = document.getElementById('footer-modern-bottom');
+            if (classic.style.display === 'none') { classic.style.display = 'block'; modern.style.display = 'none'; modernBottom.style.display = 'none'; document.body.classList.remove('modern-theme'); localStorage.setItem('siteVersion', 'classic'); }
+            else { classic.style.display = 'none'; modern.style.display = 'block'; modernBottom.style.display = 'flex'; document.body.classList.add('modern-theme'); localStorage.setItem('siteVersion', 'modern'); }
+        }
+        document.addEventListener('DOMContentLoaded', function() { const saved = localStorage.getItem('siteVersion'); if (saved === 'modern') { document.body.classList.add('modern-theme'); document.getElementById('footer-classic').style.display = 'none'; document.getElementById('footer-modern').style.display = 'block'; document.getElementById('footer-modern-bottom').style.display = 'flex'; } });
+    </script>
+</body>
+</html>

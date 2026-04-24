@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meny - Dinely Lyxrestaurang</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>* { scroll-behavior: smooth; }</style>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Dinely</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Hem</a></li>
+                <li><a href="menu.html" class="active">Meny</a></li>
+                <li><a href="lunch.html">Lunch</a></li>
+                <li><a href="chambre-separee.html">Chambre Séparée</a></li>
+                <li><a href="julbord.html">Julbord</a></li>
+                <li><a href="aktuellt.html">Aktuellt</a></li>
+                <li><a href="om-oss.html">Om Oss</a></li>
+                <li><a href="faq.html">Frågor & Svar</a></li>
+            </ul>
+            <a href="#kontakt" class="nav-cta">Boka Bord</a>
+            <button class="mobile-menu-btn">&#9776;</button>
+        </div>
+    </nav>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
+
+    <!-- Menu Hero -->
+    <section class="menu-hero">
+        <div class="menu-hero-content">
+            <span class="section-label">Meny</span>
+            <h1>Vår Meny</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+            <nav class="menu-nav menu-nav-hero" id="menuNavHero">
+                <a href="#forratter" class="menu-nav-link active">Förrätter</a>
+                <a href="#huvudratter" class="menu-nav-link">Huvudrätter</a>
+                <a href="#desserter" class="menu-nav-link">Desserter</a>
+                <a href="#drycker" class="menu-nav-link">Drycker</a>
+            </nav>
+        </div>
+        <div class="menu-hero-image">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=700&fit=crop" alt="Mat">
+        </div>
+    </section>
+
+    <!-- Sticky Menu Navigation -->
+    <div class="menu-nav-wrapper">
+        <nav class="menu-nav" id="menuNav">
+            <a href="#forratter" class="menu-nav-link active">Förrätter</a>
+            <a href="#huvudratter" class="menu-nav-link">Huvudrätter</a>
+            <a href="#desserter" class="menu-nav-link">Desserter</a>
+            <a href="#drycker" class="menu-nav-link">Drycker</a>
+        </nav>
+    </div>
+
+    <!-- Menu Sections -->
+    <section class="menu-category-section" id="forratter">
+        <div class="container">
+            <!-- Förrätter -->
+            <div class="menu-category animate-on-scroll">
+                    <div class="menu-category-header">
+                        <h3 class="category-title">Förrätter</h3>
+                    </div>
+                    <div class="menu-items-text animate-stagger">
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Löjrom med Västerbottensost</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">245 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Gravad Lax</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">185 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Toast Skagen</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">195 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Sparrissoppa</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">145 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Carpaccio på Hjort</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">215 kr</span>
+                        </div>
+                    </div>
+                </div>
+
+    </section>
+
+    <section class="menu-category-section" id="huvudratter">
+        <div class="container">
+                <!-- Huvudrätter -->
+                <div class="menu-category animate-on-scroll" data-category="huvudratter">
+                    <div class="menu-category-header">
+                        <h3 class="category-title">Huvudrätter</h3>
+                    </div>
+                    <div class="menu-items-text">
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Grillad Oxfilé</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">385 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Halstrad Piggvar</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">345 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Ankbröst med Svartvinbärssås</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">325 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Lamm från Gotland</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">365 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Vegetarisk Risotto</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. At vero eos et accusamus.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">265 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Älgfilé med Kantareller</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero tempore soluta.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">395 kr</span>
+                        </div>
+                    </div>
+                </div>
+
+    </section>
+
+    <section class="menu-category-section" id="desserter">
+        <div class="container">
+                <!-- Desserter -->
+                <div class="menu-category" data-category="desserter">
+                    <div class="menu-category-header">
+                        <h3 class="category-title">Desserter</h3>
+                    </div>
+                    <div class="menu-items-text">
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Chokladfondant</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">145 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Crème Brûlée</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">125 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Pannacotta med Bär</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">115 kr</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Osttallrik</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">165 kr</span>
+                        </div>
+                    </div>
+                </div>
+
+    </section>
+
+    <section class="menu-category-section" id="drycker">
+        <div class="container">
+                <!-- Drycker -->
+                <div class="menu-category" data-category="drycker">
+                    <div class="menu-category-header">
+                        <h3 class="category-title">Drycker</h3>
+                    </div>
+                    <div class="menu-items-text">
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Husets Rödvin</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">95 kr / glas</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Husets Vitvin</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">95 kr / glas</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Champagne</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">175 kr / glas</span>
+                        </div>
+                        <div class="menu-item-text">
+                            <div class="menu-item-info">
+                                <h4>Alkoholfria Alternativ</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                            <div class="menu-item-line"></div>
+                            <span class="menu-item-price">65 kr</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- Boka Bord CTA -->
+    <section class="menu-cta">
+        <div class="container center">
+            <a href="index.html#kontakt" class="btn btn-primary">Boka Bord</a>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta" id="kontakt">
+        <div class="contact-cta-bg">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=900&fit=crop" alt="Restaurant" >
+            <div class="contact-cta-overlay"></div>
+        </div>
+        <div class="contact-cta-content">
+            <div class="contact-cta-box animate-scale">
+                <h2>Kontakta Oss</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                <form class="cta-form">
+                    <div class="cta-form-row">
+                        <input type="text" placeholder="NAMN" required>
+                        <input type="email" placeholder="E-POST" required>
+                    </div>
+                    <div class="cta-form-row">
+                        <input type="tel" placeholder="TELEFON">
+                        <input type="text" placeholder="ÄMNE">
+                    </div>
+                    <textarea placeholder="MEDDELANDE" rows="4" required></textarea>
+                    <button type="submit" class="btn btn-dark">SKICKA MEDDELANDE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h3 class="footer-logo">Dinely</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigera</h4>
+                <ul>
+                    <li><a href="index.html">Hem</a></li>
+                    <li><a href="menu.html">Meny</a></li>
+                    <li><a href="index.html#om-oss">Om Oss</a></li>
+                    <li><a href="index.html#kontakt">Kontakta Oss</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p>Storgatan 123<br>111 22 Stockholm</p>
+                <p>+46 8 123 456 78<br>info@dinely.se</p>
+            </div>
+            <div class="footer-col footer-col-hours">
+                <div class="footer-hours-group">
+                    <div class="footer-hours-block">
+                        <h4>Öppettider</h4>
+                        <div class="footer-hours-compact">
+                            <span>Måndag: 17:00 - 22:00</span>
+                            <span>Tisdag: 17:00 - 22:00</span>
+                            <span>Onsdag: 17:00 - 22:00</span>
+                            <span>Torsdag: 17:00 - 22:00</span>
+                            <span>Fredag: 17:00 - 23:00</span>
+                            <span>Lördag: 17:00 - 23:00</span>
+                            <span>Söndag: 12:00 - 20:00</span>
+                        </div>
+                    </div>
+                    <div class="footer-hours-block">
+                        <h4>Avvikande</h4>
+                        <div class="footer-hours-compact">
+                            <span>Sön 5/4: Stängt</span>
+                            <span>Mån 6/4: Stängt</span>
+                            <span>Tis 7/4: 10:00 - 21:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dinely. Alla Rättigheter Förbehållna.</p>
+            <button class="theme-toggle-footer" onclick="toggleTheme()">Se Modern Design</button>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('theme-farang');
+            const btn = document.querySelector('.theme-toggle-footer');
+            if (document.body.classList.contains('theme-farang')) {
+                btn.textContent = 'Se Klassisk Design';
+                localStorage.setItem('theme', 'farang');
+            } else {
+                btn.textContent = 'Se Modern Design';
+                localStorage.setItem('theme', 'classic');
+            }
+        }
+        // Check saved theme
+        if (localStorage.getItem('theme') === 'farang') {
+            document.body.classList.add('theme-farang');
+            document.querySelector('.theme-toggle-footer').textContent = 'Se Klassisk Design';
+        }
+    </script>
+
+    <script>
+        // Show sticky nav after scrolling past hero
+        const menuHero = document.querySelector('.menu-hero');
+        const menuNavWrapper = document.querySelector('.menu-nav-wrapper');
+
+        window.addEventListener('scroll', () => {
+            if (menuHero && menuNavWrapper) {
+                const heroBottom = menuHero.offsetTop + menuHero.offsetHeight;
+                if (window.scrollY > heroBottom - 100) {
+                    menuNavWrapper.classList.add('visible');
+                } else {
+                    menuNavWrapper.classList.remove('visible');
+                }
+            }
+        });
+
+        // Smooth scroll and active state for menu nav
+        const menuSections = document.querySelectorAll('.menu-category');
+        const menuNavLinks = document.querySelectorAll('.menu-nav-link');
+
+        // IntersectionObserver for active state
+        const observerOptions = {
+            root: null,
+            rootMargin: '-30% 0px -50% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.closest('.menu-category-section')?.getAttribute('id') ||
+                               entry.target.getAttribute('data-category');
+                    menuNavLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        menuSections.forEach(section => observer.observe(section));
+
+        // Smooth scroll with offset
+        menuNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const offset = 140;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+    <!-- Scroll Animations -->
+    <script>
+        const animObserverOptions = {
+            root: null,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.15
+        };
+
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, animObserverOptions);
+
+        document.querySelectorAll('.animate-on-scroll, .animate-left, .animate-right, .animate-scale, .animate-stagger').forEach(el => {
+            animationObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

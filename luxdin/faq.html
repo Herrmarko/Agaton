@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kontakt — Agaton Ristorante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agaton.css">
+<script src="agaton-chrome.js?v=5" data-active="contact"></script>
+<style>
+.c-hero{
+  padding: 180px 0 70px; text-align: center; background: var(--cream);
+}
+.c-hero .script{ font-family: var(--script); font-size: 72px; color: var(--brick); display: block; transform: rotate(-4deg); margin-bottom: 10px; }
+.c-hero h1{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(56px, 8vw, 130px); line-height: .95; color: var(--wood); margin-bottom: 22px; letter-spacing: -0.02em; }
+.c-hero p{ max-width: 54ch; margin: 0 auto; font-size: 16.5px; line-height: 1.7; color: var(--ink-soft); }
+
+.contact-grid{
+  padding: 40px 48px 120px; background: var(--cream);
+  max-width: 1240px; margin: 0 auto;
+}
+.grid-2{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: start;
+}
+
+/* LEFT: info */
+.info-block{ padding-top: 14px; }
+.info-eyebrow{ font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--brick); font-weight: 500; margin-bottom: 14px; }
+.info-block h2{ font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(32px, 4vw, 52px); line-height: 1; color: var(--wood); margin-bottom: 18px; letter-spacing: -0.01em; }
+.info-block > p{ font-size: 15px; line-height: 1.7; color: var(--ink-soft); max-width: 46ch; margin-bottom: 42px; }
+
+.info-rows{ display: flex; flex-direction: column; gap: 26px; }
+.info-row{
+  display: grid; grid-template-columns: 140px 1fr; gap: 28px;
+  padding-bottom: 22px; border-bottom: 1px solid var(--line-faint);
+}
+.info-row:last-child{ border-bottom: none; }
+.info-row .lbl{
+  font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 500; padding-top: 4px;
+}
+.info-row .v{ font-family: var(--display); font-size: 20px; line-height: 1.35; color: var(--wood); }
+.info-row .v a{ color: var(--wood); transition: color .3s var(--ease); }
+.info-row .v a:hover{ color: var(--brick); }
+.info-row .v .sub{ display: block; margin-top: 4px; font-family: var(--sans); font-size: 13px; color: var(--ink-soft); letter-spacing: 0; }
+
+/* RIGHT: form */
+.form-card{
+  background: var(--white); border: 1px solid var(--line-faint);
+  padding: 44px; border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  position: sticky; top: 100px;
+}
+.form-card h3{ font-family: var(--display); font-style: italic; font-size: 32px; color: var(--wood); margin-bottom: 8px; }
+.form-card > p{ font-size: 14px; color: var(--ink-soft); margin-bottom: 26px; line-height: 1.6; }
+.form-field{ display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+.form-field label{ font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--brick); font-weight: 500; }
+.form-field input, .form-field select, .form-field textarea{
+  font-family: var(--sans); font-size: 14px; padding: 11px 14px;
+  background: var(--cream); border: 1px solid var(--line-faint);
+  border-radius: var(--r-sm); color: var(--wood); outline: none;
+  transition: border-color .2s var(--ease), background .2s var(--ease);
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+  border-color: var(--brick); background: var(--white);
+}
+.form-field textarea{ min-height: 110px; resize: vertical; }
+.form-2col{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-submit{
+  width: 100%; padding: 14px; background: var(--brick); color: var(--cream);
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; margin-top: 10px;
+  border-radius: var(--r-pill); cursor: pointer;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.form-submit:hover{ background: var(--brick-deep); transform: translateY(-1px); }
+
+/* FAQ */
+.faq-wrap{ padding: 100px 48px; background: var(--cream-2); }
+.faq-inner{ max-width: 820px; margin: 0 auto; }
+.faq-head{ text-align: center; margin-bottom: 44px; }
+.faq-head .script{ font-family: var(--script); font-size: 40px; color: var(--brick); display: block; transform: rotate(-3deg); margin-bottom: 10px; }
+.faq-head h2{ font-family: var(--display); font-style: italic; font-size: clamp(36px, 4vw, 52px); color: var(--wood); }
+
+.faq-list details{ border-bottom: 1px solid var(--line); padding: 22px 0; }
+.faq-list details[open]{ border-bottom-color: var(--brick); }
+.faq-list summary{
+  list-style: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
+  font-family: var(--display); font-size: 22px; color: var(--wood);
+  transition: color .3s var(--ease);
+}
+.faq-list summary::-webkit-details-marker{ display: none; }
+.faq-list summary::after{
+  content: "+"; font-family: var(--display); font-size: 26px; color: var(--brick);
+  transition: transform .3s var(--ease);
+}
+.faq-list details[open] summary::after{ content: "—"; }
+.faq-list summary:hover{ color: var(--brick); }
+.faq-list p{ margin-top: 14px; color: var(--ink-soft); line-height: 1.7; font-size: 15px; max-width: 68ch; }
+
+@media (max-width: 900px){
+  .contact-grid{ padding: 20px 20px 80px; }
+  .grid-2{ grid-template-columns: 1fr; gap: 40px; }
+  .form-card{ position: static; padding: 28px; }
+  .info-row{ grid-template-columns: 1fr; gap: 6px; }
+  .faq-wrap{ padding: 70px 20px; }
+}
+
+@media (max-width: 520px){
+  .c-hero{ padding: 110px 20px 50px; }
+  .c-hero h1{ font-size: clamp(44px, 13vw, 72px); }
+  .contact-grid{ padding: 20px 20px 60px; }
+  .faq{ padding: 60px 20px; }
+  .faq-item{ padding: 18px 0; }
+}
+</style>
+</head>
+<body>
+
+<div id="agaton-nav"></div>
+
+<section class="c-hero">
+  <span class="script">si parla</span>
+  <h1>Kontakt</h1>
+  <p>Ring, mejla eller skicka ett meddelande — vi svarar inom en dag, oftast inom en timme.</p>
+</section>
+
+<section class="contact-grid">
+  <div class="grid-2">
+
+    <!-- INFO -->
+    <div class="info-block">
+      <div class="info-eyebrow">Ristorante Agaton</div>
+      <h2>Vi finns här — kom förbi.</h2>
+      <p>Kvartersristorante mitt i Stockholm sedan 1999. Öppet sent, alltid en plats för en liten pasta och ett glas vin.</p>
+
+      <div class="info-rows">
+        <div class="info-row">
+          <span class="lbl">Adress</span>
+          <span class="v">Västerlånggatan 72<span class="sub">111 29 Stockholm · Gamla Stan</span></span>
+        </div>
+        <div class="info-row">
+          <span class="lbl">Telefon</span>
+          <span class="v"><a href="tel:+4608207299">+46 08 20 72 99</a><span class="sub">Bokning · take away</span></span>
+        </div>
+        <div class="info-row">
+          <span class="lbl">E-post</span>
+          <span class="v"><a href="mailto:info@restaurangagaton.se">info@restaurangagaton.se</a><span class="sub">Frågor · press · events</span></span>
+        </div>
+        <div class="info-row">
+          <span class="lbl">Öppet</span>
+          <span class="v">Mån – Tor · 11 – 23<span class="sub">Fre – Lör 11 – 24 · Sön 13 – 22</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form class="form-card" onsubmit="event.preventDefault(); this.innerHTML='<h3>Tack!</h3><p>Vi återkommer inom en dag.</p>';">
+      <h3>Skicka ett meddelande</h3>
+      <p>Bokning, frågor om menyn eller något annat — skriv här.</p>
+      <div class="form-2col">
+        <div class="form-field"><label>Namn</label><input type="text" required></div>
+        <div class="form-field"><label>Telefon</label><input type="tel"></div>
+      </div>
+      <div class="form-field"><label>E-post</label><input type="email" required></div>
+      <div class="form-field"><label>Ärende</label>
+        <select>
+          <option>Bokning</option>
+          <option>Fråga om menyn</option>
+          <option>Stora sällskap / event</option>
+          <option>Press / samarbete</option>
+          <option>Annat</option>
+        </select>
+      </div>
+      <div class="form-field"><label>Meddelande</label><textarea placeholder="Berätta kort vad det gäller"></textarea></div>
+      <button type="submit" class="form-submit">Skicka</button>
+    </form>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-wrap">
+  <div class="faq-inner">
+    <div class="faq-head">
+      <span class="script">le domande</span>
+      <h2>Snabba svar</h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Kan man boka bord?</summary>
+        <p>Ja — helst online eller via telefon. Vi håller alltid några bord för drop-in så du kan komma förbi utan bokning, men för säkert bord (särskilt fre-lör) rekommenderar vi att boka.</p>
+      </details>
+      <details>
+        <summary>Finns det glutenfria och veganska alternativ?</summary>
+        <p>På nästan alla rätter, ja. Nämn det när du bokar eller säg till personalen — vi löser det i köket.</p>
+      </details>
+      <details>
+        <summary>Tar ni större sällskap?</summary>
+        <p>Absolut. Upp till 16 personer i restaurangen, eller privat i vår Chambre Separée. För 20+ personer hjälper vi med hela restaurangen. <a href="stora-sallskap.html" style="color:var(--brick); text-decoration: underline;">Läs mer</a>.</p>
+      </details>
+      <details>
+        <summary>Kan jag beställa take away?</summary>
+        <p>Ja, ring innan så är det klart när du kommer. Pizza från vedugnen fungerar bäst att äta på plats — men går så klart lika bra att ta med.</p>
+      </details>
+      <details>
+        <summary>Finns parkering?</summary>
+        <p>Ja, betalparkering på gatan utanför samt parkeringsgarage två kvarter bort. Gamla Stan är 3 minuters promenad.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div id="agaton-footer"></div>
+
+</body>
+</html>

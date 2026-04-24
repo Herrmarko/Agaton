@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Veckans Lunch — Agaton Ristorante</title>
+<link rel="stylesheet" <link rel="stylesheet" href="style.css?v=13">
+<style>
+.site-header { background: var(--primary); border-bottom: none; }
+.site-nav a { color: rgba(255,255,255,.82); }
+.site-nav a:hover, .site-nav a.active { color: #fff; }
+.nav-burger { color: #fff; }
+.site-header .btn { color: #fff; border-color: rgba(255,255,255,.7); }
+.site-header .btn:hover { background: #fff; color: var(--primary); }
+</style>>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <nav class="site-nav">
+      <a href="index.html">Hem</a>
+      <a href="menu.html">Meny</a>
+      <a href="lunch.html" class="active">Lunch</a>
+      <a href="om-oss.html">Om oss</a>
+      <a href="stora-sallskap.html">Stora Sällskap</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a href="index.html" class="site-header__logo">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton" style="height:34px;width:auto;">
+    </a>
+    <div class="site-header__cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-drawer" id="drawer">
+  <a href="index.html">Hem</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a>
+  <a href="om-oss.html">Om oss</a><a href="stora-sallskap.html">Stora Sällskap</a><a href="kontakt.html">Kontakt</a>
+  <div class="drawer-cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+  <div class="drawer-info">Västerlånggatan 72 · +46 08 20 72 99</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="min-height:55vh;">
+  <div class="hero__bg" style="background-image:url('../luxdin/photos/food-11.jpg')"></div>
+  <div class="hero__content">
+    <img src="../luxdin/agaton_logo.svg" alt="Agaton" class="hero__logo">
+    <p class="hero__sub">Veckans Lunch — Pranzo di giorno</p>
+  </div>
+</section>
+
+<div class="cta-row">
+  <a href="kontakt.html" class="btn btn-maroon">Boka Bord</a>
+  <a href="menu.html" class="btn btn-maroon">À La Carte</a>
+</div>
+
+<section class="intro-row">
+  <div class="intro-row__icon">✦</div>
+  <h2 class="intro-row__title">Veckans Lunch</h2>
+  <p class="intro-row__text">
+    En varm tallrik italiensk husmanskost mitt på dagen — lagad på det som är färskt i veckan, serverad snabbt nog för en lunchpaus och god nog att tänka på resten av eftermiddagen. 165 kr inkl. sallad, soppa, bröd och kaffe.
+  </p>
+</section>
+
+<hr class="divider">
+
+<!-- DAYS -->
+<div class="lunch-days">
+  <div class="lunch-section__head">
+    <h2 class="s-title">Veckans Meny</h2>
+    <p>Varje dag bjuder vi på två rätter — en vegetarisk och en med kött eller fisk.</p>
+  </div>
+
+  <div class="lunch-day" id="dag-1">
+    <div>
+      <div class="lunch-day__name">Måndag</div>
+      <div class="lunch-day__date">Lunedì</div>
+    </div>
+    <div class="lunch-day__dishes">
+      <div>
+        <div class="lunch-dish__title">Risotto ai Funghi Porcini <span class="lunch-tag lunch-tag-veg">Veg</span></div>
+        <div class="lunch-dish__desc">Krämig carnaroli-risotto med skogssvamp, taleggio och svartpeppar.</div>
+      </div>
+      <div>
+        <div class="lunch-dish__title">Pollo alla Cacciatora <span class="lunch-tag lunch-tag-meat">Kött</span></div>
+        <div class="lunch-dish__desc">Braiserad kyckling med rosmarin, tomat, oliver och kapris. Serveras med polenta.</div>
+      </div>
+    </div>
+    <div class="lunch-day__price">165 kr</div>
+  </div>
+
+  <div class="lunch-day" id="dag-2">
+    <div>
+      <div class="lunch-day__name">Tisdag</div>
+      <div class="lunch-day__date">Martedì</div>
+    </div>
+    <div class="lunch-day__dishes">
+      <div>
+        <div class="lunch-dish__title">Pasta alla Norma <span class="lunch-tag lunch-tag-veg">Veg</span></div>
+        <div class="lunch-dish__desc">Rigatoni med stekt aubergine, tomat, basilika och riven ricotta salata.</div>
+      </div>
+      <div>
+        <div class="lunch-dish__title">Branzino al Forno <span class="lunch-tag lunch-tag-fish">Fisk</span></div>
+        <div class="lunch-dish__desc">Ugnsbakad havsabborre med citron, timjan och rostade medelhavsgrönsaker.</div>
+      </div>
+    </div>
+    <div class="lunch-day__price">165 kr</div>
+  </div>
+
+  <div class="lunch-day" id="dag-3">
+    <div>
+      <div class="lunch-day__name">Onsdag</div>
+      <div class="lunch-day__date">Mercoledì</div>
+    </div>
+    <div class="lunch-day__dishes">
+      <div>
+        <div class="lunch-dish__title">Parmigiana di Melanzane <span class="lunch-tag lunch-tag-veg">Veg</span></div>
+        <div class="lunch-dish__desc">Lagrade auberginer i lager med tomat, basilika och mozzarella. Bakad i vedugn.</div>
+      </div>
+      <div>
+        <div class="lunch-dish__title">Tagliatelle al Ragù <span class="lunch-tag lunch-tag-meat">Kött</span></div>
+        <div class="lunch-dish__desc">Handgjord tagliatelle med långkokt köttragu, rödvin och tomat.</div>
+      </div>
+    </div>
+    <div class="lunch-day__price">165 kr</div>
+  </div>
+
+  <div class="lunch-day" id="dag-4">
+    <div>
+      <div class="lunch-day__name">Torsdag</div>
+      <div class="lunch-day__date">Giovedì</div>
+    </div>
+    <div class="lunch-day__dishes">
+      <div>
+        <div class="lunch-dish__title">Gnocchi al Pesto <span class="lunch-tag lunch-tag-veg">Veg</span></div>
+        <div class="lunch-dish__desc">Handrullade potatisgnocchi med pesto alla genovese, pinjenötter och parmigiano.</div>
+      </div>
+      <div>
+        <div class="lunch-dish__title">Saltimbocca alla Romana <span class="lunch-tag lunch-tag-meat">Kött</span></div>
+        <div class="lunch-dish__desc">Kalvschnitzel med parmaskinka och salvia, vitvinssås och bakad potatis.</div>
+      </div>
+    </div>
+    <div class="lunch-day__price">165 kr</div>
+  </div>
+
+  <div class="lunch-day" id="dag-5">
+    <div>
+      <div class="lunch-day__name">Fredag</div>
+      <div class="lunch-day__date">Venerdì</div>
+    </div>
+    <div class="lunch-day__dishes">
+      <div>
+        <div class="lunch-dish__title">Spaghetti Cacio e Pepe <span class="lunch-tag lunch-tag-veg">Veg</span></div>
+        <div class="lunch-dish__desc">Handgjord spaghetti, pecorino romano och nykvarnad svartpeppar.</div>
+      </div>
+      <div>
+        <div class="lunch-dish__title">Linguine alle Vongole <span class="lunch-tag lunch-tag-fish">Fisk</span></div>
+        <div class="lunch-dish__desc">Färska vongole, vitt vin, vitlök, chili och persilja.</div>
+      </div>
+    </div>
+    <div class="lunch-day__price">165 kr</div>
+  </div>
+</div>
+
+<!-- INCLUDES -->
+<section class="lunch-includes lemon-decor">
+  <div class="lunch-includes__grid">
+    <div class="lunch-inc"><div class="n">I.</div><h4>Sallad &amp; bröd</h4><p>Dagens sallad från buffén och vårt nybakade surdegsbröd med olivolja.</p></div>
+    <div class="lunch-inc"><div class="n">II.</div><h4>Kaffe eller te</h4><p>Espresso, cappuccino eller örtte från huset — alltid inkluderat efter maten.</p></div>
+    <div class="lunch-inc"><div class="n">III.</div><h4>Dagens soppa</h4><p>Skål med dagens italienska soppa — zuppa di pomodoro, minestrone eller ribollita.</p></div>
+    <div class="lunch-inc"><div class="n">IV.</div><h4>Vatten</h4><p>Iskallt kranvatten med citron, ost &amp; oliver på bordet medan ni väntar.</p></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton Ristorante">
+      <p>Vedugnspizza, handgjord pasta och ärlig italiensk mat i hjärtat av Gamla Stan — sedan 1999.</p>
+      <div class="site-footer__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="TripAdvisor">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="site-footer__col">
+      <h4>Meny</h4>
+      <ul>
+        <li><a href="menu.html">À La Carte</a></li>
+        <li><a href="lunch.html">Veckans Lunch</a></li>
+        <li><a href="stora-sallskap.html">Stora Sällskap</a></li>
+        <li><a href="kontakt.html">Boka Bord</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Om Agaton</h4>
+      <ul>
+        <li><a href="om-oss.html">Vår Historia</a></li>
+        <li><a href="om-oss.html">Våra Värderingar</a></li>
+        <li><a href="stora-sallskap.html">Privata Event</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Hitta hit</h4>
+      <address>
+        Västerlånggatan 72<br>
+        111 29 Stockholm<br><br>
+        <a href="tel:+46082072099">+46 08 20 72 99</a><br>
+        <a href="mailto:info@restaurangagaton.se">info@restaurangagaton.se</a><br><br>
+        Mån–Tor: 17–22<br>
+        Fre–Lör: 17–23<br>
+        Lunch Mån–Fre: 11–14
+      </address>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© Agaton Ristorante — Mandato di cucinare bene.</span>
+    <span>Gamla Stan, Stockholm · Dal 1999</span>
+  </div>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  drawer.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = '';
+}));
+</script>
+</body>
+</html>

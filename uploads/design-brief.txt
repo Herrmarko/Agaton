@@ -1,0 +1,135 @@
+# Design-brief: Morena Restaurant – Sydney (Replika-referens)
+
+Källa: https://morenarestaurant.com.au/
+Typ: Elegant restaurangwebbplats (one-pager) med ankarsektioner
+
+=== FÄRGPALETT ===
+- Primär accent (bordeaux/maroon): #9C4044 (rgb(156, 64, 68))
+  → Rubriker, knapptext, footer-bakgrund
+- Header-bakgrund (svart): #000000
+- Sidbakgrund (vit): #FFFFFF
+- Brödtext: #333333
+- Vit text på mörka sektioner: #FFFFFF
+
+=== TYPOGRAFI ===
+- Rubriker (H1/H2/H3): "PP Editorial New" — serif, elegant display-font
+- Brödtext/UI: "Sofia Sans Semi Condensed" — sans-serif, något kondenserad
+- Hero-titel "MORENA": mycket stor (ca 150–180px desktop)
+- H2-storlek: ca 40px desktop
+- Stilkonvention: Alla sektionsrubriker avslutas med punkt (t.ex. "Menu.", "Ethos.")
+
+=== LAYOUTSTRUKTUR (uppifrån och ner) ===
+
+1. HEADER (sticky, svart bakgrund)
+   - Vänster: MORENA-logotyp (vit, serif wordmark)
+   - Mitten: Menyrader — THE VENUE · MENU · FUNCTIONS · PRIVATE DINING · GIFT VOUCHER · WHAT'S ON · CONTACT
+   - Höger: "BOOK NOW"-knapp (vit outline, transparent, vit text)
+
+2. HERO (fullbredd videobakgrund / mörk stämningsfull bild)
+   - Centrerad stor serif-titel: "MORENA"
+   - Undertitel: "No.1 Martin Place, Sydney"
+
+3. CTA-KNAPPAR (två i rad, centrerade)
+   - "BOOK NOW" och "VIEW MENU" — maroon outline, vit fill, maroon text
+
+4. "Traditions & Flavours."-SEKTION (3-kolumn)
+   - Vänster: dekorativ illustrerad ikon (kvinnofigur/ornament i maroon linework)
+   - Mitten: rubrik i maroon serif
+   - Höger: beskrivande paragraf i maroon
+
+5. BILDGALLERI — horisontell remsa med 5 matbilder
+
+6. "Menu."-SEKTION (centrerad) + "VIEW MENU"-knapp
+
+7. "Ethos."-SEKTION (2-kolumn)
+   - Vänster: rubrik + två paragrafer i maroon
+   - Höger: interiörbild i rundad/oval form
+
+8. TRIPLETBILD-RAD (interiör, gäster, matlagning)
+
+9. PANORAMABILD av matsalen
+
+10. "Team."-SEKTION
+    - Centrerad rubrik + beskrivning
+    - Carousel med 4 teamporträtt åt gången (namn+titel overlay nedtill), pilar + paginationsprickar
+
+11. "What's on."-SEKTION
+    - Rubrik + beskrivning + "BOOK NOW"-knapp
+    - 4 kort i rad (vit bakgrund, rundade hörn, subtil skugga):
+      • Sip and Graze — Mån–Fre 16:00–18:00 (S. Pellegrino happy hour)
+      • Executive Lunch — Mån–Fre 12:00–15:00 ($59pp)
+      • Pre-Theatre — Mån–Lör 17:00–18:30
+      • Asado Experience — Lördagar från 17:30
+
+12. KONTAKT (maroon bakgrund #9C4044, vit text)
+    - Vänster: Google Maps-inbäddning
+    - Höger: "No.1 Martin Place, Sydney NSW 2000"
+      Telefon: "+61 2 6305 6820"
+      Öppettider:
+        Coffee Window (Takeaway): Mån–Fre 07:30–11:15
+        Lunch: Mån–Fre 12:00–14:30
+        Snacks: Mån–Fre 15:00–17:00
+        Middag: Mån–Fre 17:00–21:00 och Lör 17:30–21:30
+
+13. FOOTER (vit bakgrund, maroon text, centrerad)
+    - Dekorativ ornament-ikon
+    - "MORENA IS BROUGHT TO YOU BY RENASCENCE GROUP"
+    - Länkar: Contact · Call Us
+    - Sister Venues: Barra Melbourne · Farmer's Daughters · Victoria
+    - Instagram-ikon
+    - Acknowledgement of Country (liten, centrerad text)
+
+=== DESIGNPRINCIPER ===
+- Elegant, förfinad fine-dining-känsla
+- Latinamerikanska värmetoner (burgundy/maroon + varma bildtoner)
+- Mycket vitutrymme mellan sektioner
+- Stora, filmiska bilder
+- Minimalistiska knappar (outline-stil, inga heavy fyllningar)
+- Redaktionell serif-display skapar premium-känsla
+- Maroon kontaktsektion ramar in sidan innan den vita footern
+
+=== TEXT-INNEHÅLL (exakt) ===
+
+Hero:
+  "MORENA"
+  "No.1 Martin Place, Sydney"
+
+Traditions & Flavours:
+  "Morena, located in Martin Place's historic GPO Building, offers an 
+   elevated dining experience from Executive Chef Alejandro Saravia, 
+   showcasing the vibrant flavours and diverse cuisines of Latin America 
+   through authentic ingredients and warm hospitality."
+
+Menu:
+  "The menu highlights dishes from Peru, Colombia, Mexico, Venezuela, 
+   Argentina, and Brazil, complemented by curated wines and Latin-inspired 
+   signature cocktails."
+
+Ethos:
+  "Morena stems from Alejandro Saravia's 15-year mission to elevate 
+   Australia's view of Latin American cuisine while honouring its authentic 
+   flavours, traditions, and cultural roots."
+  "With a focus on seasonal produce, Morena continues his commitment to 
+   working directly with local farmers and producers, while sourcing key 
+   ingredients from Latin America to preserve genuine regional taste."
+
+Team:
+  "Lead by Executive Chef Alejandro Saravia, the team at Morena welcome 
+   you to experience the warm hospitality of Latin America in the heart 
+   of Sydney."
+  Team-medlemmar:
+    - Alejandro Saravia (Executive Chef)
+    - Samuel Riva (Group Head Chef)
+    - Gianni Moretto (Head Chef)
+    - Camilla Ure (Group Venue Manager)
+    - Julien Legat (Venue Manager)
+
+What's on:
+  "Discover what's happening at Morena. Book your experience today!"
+
+Footer:
+  "MORENA IS BROUGHT TO YOU BY RENASCENCE GROUP"
+  "The Renascence Group and Morena acknowledges the traditional owners 
+   of the lands that we live, work and eat on and recognise their ongoing 
+   connection to land, sea and community. We pay respect to elders, past, 
+   present and emerging."

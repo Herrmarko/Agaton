@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stora Sällskap — Agaton Ristorante</title>
+<link rel="stylesheet" <link rel="stylesheet" href="style.css?v=13">
+<style>
+.site-header { background: var(--primary); border-bottom: none; }
+.site-nav a { color: rgba(255,255,255,.82); }
+.site-nav a:hover, .site-nav a.active { color: #fff; }
+.nav-burger { color: #fff; }
+.site-header .btn { color: #fff; border-color: rgba(255,255,255,.7); }
+.site-header .btn:hover { background: #fff; color: var(--primary); }
+</style>>
+<style>
+.ss-intro { max-width: 860px; margin: 4rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.ss-intro h2 { font-family: var(--display); font-style: italic; color: var(--primary); font-size: clamp(2rem,4vw,3rem); margin-bottom: 1.25rem; }
+.ss-intro h2::after { content: "."; }
+.ss-intro p { line-height: 1.8; color: var(--text); margin-bottom: 1rem; }
+.ss-intro-img { aspect-ratio: 4/5; background:#bbb center/cover; overflow:hidden; }
+.ss-intro-img img { width:100%; height:100%; object-fit:cover; }
+@media(max-width:680px){ .ss-intro { grid-template-columns:1fr; } }
+
+/* Form in Morena style */
+.ss-form-section {
+  background: var(--off-white);
+  padding: 5rem 2rem 6rem;
+}
+.ss-form-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start;
+}
+.ss-form-info h2 {
+  font-family: var(--display); font-style: italic;
+  color: var(--primary); font-size: clamp(2rem,4vw,3rem);
+  margin-bottom: .5rem;
+}
+.ss-form-info h2::after { content: "."; }
+.ss-form-info p { font-size: .9rem; line-height: 1.8; color: var(--muted); margin-bottom: 2rem; max-width: 44ch; }
+.ss-info-rows { display: flex; flex-direction: column; gap: 1.25rem; }
+.ss-info-row { display: grid; grid-template-columns: 90px 1fr; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.ss-info-row:last-child { border-bottom: none; }
+.ss-info-row .lbl { font-size: .68rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); padding-top: .25rem; }
+.ss-info-row .v { font-family: var(--display); font-style: italic; font-size: 1.15rem; color: var(--black); line-height: 1.3; }
+.ss-info-row .v a { color: var(--black); transition: color .2s; }
+.ss-info-row .v a:hover { color: var(--primary); }
+
+.ss-form {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 2.5rem;
+}
+.ss-form h3 { font-family: var(--display); font-style: italic; color: var(--primary); font-size: 1.6rem; margin-bottom: .4rem; }
+.ss-form h3::after { content: "."; }
+.ss-form > p { font-size: .82rem; color: var(--muted); margin-bottom: 1.75rem; line-height: 1.6; }
+.ss-field { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+.ss-field label { font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--primary); font-weight: 500; }
+.ss-field input, .ss-field select, .ss-field textarea {
+  width: 100%; padding: .75rem 1rem;
+  font-family: var(--body); font-size: .95rem;
+  border: 1px solid var(--line); background: var(--off-white); color: var(--black);
+  transition: border-color .2s;
+}
+.ss-field input:focus, .ss-field select:focus, .ss-field textarea:focus { outline: none; border-color: var(--primary); }
+.ss-field textarea { min-height: 110px; resize: vertical; }
+.ss-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ss-submit {
+  width: 100%; padding: 1rem;
+  background: var(--black); color: #fff;
+  font-family: var(--body); font-size: .78rem; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  border: none; cursor: pointer; margin-top: .5rem;
+  transition: background .2s;
+}
+.ss-submit:hover { background: var(--primary); }
+@media(max-width:780px){ .ss-form-inner { grid-template-columns:1fr; gap:2.5rem; } .ss-row { grid-template-columns:1fr; } }
+.packages__grid { max-width: var(--maxw); margin: 2.5rem auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.pkg { border: 1px solid var(--line); background: #fff; padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: .75rem; }
+.pkg__eyebrow { font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.pkg__title { font-family: var(--display); font-style: italic; color: var(--primary); font-size: 1.75rem; }
+.pkg__title::after { content: "."; }
+.pkg__price { font-weight: 600; font-size: .95rem; color: var(--black); }
+.pkg__desc { font-size: .9rem; line-height: 1.7; color: var(--muted); flex: 1; }
+.pkg__cta { margin-top: 1rem; }
+@media(max-width:780px){ .packages__grid { grid-template-columns:1fr; } }
+
+.stats { background: var(--primary); color: #fff; padding: 4rem 2rem; }
+.stats__grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; text-align: center; }
+.stat__num { font-family: var(--display); font-style: italic; font-size: clamp(2.5rem,5vw,4rem); line-height: 1; }
+.stat__label { font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; margin-top: .75rem; opacity: .8; }
+@media(max-width:680px){ .stats__grid { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <nav class="site-nav">
+      <a href="index.html">Hem</a>
+      <a href="menu.html">Meny</a>
+      <a href="lunch.html">Lunch</a>
+      <a href="om-oss.html">Om oss</a>
+      <a href="stora-sallskap.html" class="active">Stora Sällskap</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a href="index.html" class="site-header__logo">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton" style="height:34px;width:auto;">
+    </a>
+    <div class="site-header__cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-drawer" id="drawer">
+  <a href="index.html">Hem</a><a href="menu.html">Meny</a><a href="lunch.html">Lunch</a>
+  <a href="om-oss.html">Om oss</a><a href="stora-sallskap.html">Stora Sällskap</a><a href="kontakt.html">Kontakt</a>
+  <div class="drawer-cta"><a href="kontakt.html" class="btn btn-light">Boka Nu</a></div>
+  <div class="drawer-info">Västerlånggatan 72 · +46 08 20 72 99</div>
+</nav>
+
+<section class="hero" style="min-height:55vh;">
+  <div class="hero__bg" style="background-image:url('../luxdin/photos/interior-05.jpg')"></div>
+  <div class="hero__content">
+    <img src="../luxdin/agaton_logo.svg" alt="Agaton" class="hero__logo">
+    <p class="hero__sub">För stora sällskap &amp; privata evenemang</p>
+  </div>
+</section>
+
+<div class="cta-row">
+  <a href="kontakt.html" class="btn btn-maroon">Skicka Förfrågan</a>
+  <a href="menu.html" class="btn btn-maroon">Se Menyn</a>
+</div>
+
+<section class="intro-row">
+  <div class="intro-row__icon">✦</div>
+  <h2 class="intro-row__title">Stora Sällskap</h2>
+  <p class="intro-row__text">
+    Firar ni något stort? Agaton tar emot sällskap upp till 60 gäster och skapar en kväll ni aldrig glömmer. Vi skräddarsyr meny, upplägg och upplevelse efter era önskemål — allt från ett jubileum till ett företagsevent.
+  </p>
+</section>
+
+<hr class="divider">
+
+
+
+
+
+
+
+<!-- MENU 3 PIATTI -->
+<section class="menu3" style="background:var(--off-white);padding:5rem 2rem;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div style="font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;">per i nostri ospiti</div>
+      <h2 class="s-title">Menu 3 Piatti</h2>
+      <p style="color:var(--muted);margin:.75rem auto 0;max-width:50ch;font-size:.95rem;line-height:1.7;">Våra middagsspaket för stora sällskap. Alla menyer inkluderar bröd, olivolja och cafè efter måltiden.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+
+      <!-- MENU A -->
+      <div style="background:#fff;padding:3rem 2.5rem;border:1px solid var(--line);">
+        <div style="font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Menu A</div>
+        <h3 style="font-family:var(--display);font-style:italic;color:var(--primary);font-size:2rem;line-height:1;margin-bottom:.4rem;">La Classica<span style="color:var(--primary);">.</span></h3>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:2rem;">495 kr / person</p>
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:.4rem;margin-bottom:.75rem;">Antipasto</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--black);">Bruschetta al pomodoro</p>
+            <p style="font-size:.85rem;color:var(--muted);margin-top:.25rem;">Rostat surdegsbröd, tomater, basilika och extra vergine.</p>
+          </div>
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:.4rem;margin-bottom:.75rem;">Primo</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--black);">Tagliatelle al Ragù <span style="font-family:var(--body);font-size:.85rem;font-style:normal;color:var(--muted);">eller</span> Risotto ai Funghi</p>
+            <p style="font-size:.85rem;color:var(--muted);margin-top:.25rem;">Långkokt köttragu eller skogssvampsrisotto.</p>
+          </div>
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:.4rem;margin-bottom:.75rem;">Dolce</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--black);">Tiramisù della Casa</p>
+            <p style="font-size:.85rem;color:var(--muted);margin-top:.25rem;">Savoiardi, mascarpone och espresso.</p>
+          </div>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="kontakt.html" class="btn btn-maroon">Boka</a>
+        </div>
+      </div>
+
+      <!-- MENU B -->
+      <div style="background:var(--primary);padding:3rem 2.5rem;position:relative;overflow:hidden;">
+        <img src="lemon-decor.svg" alt="" aria-hidden="true" style="position:absolute;bottom:-10px;right:-20px;width:55%;opacity:.15;pointer-events:none;">
+        <div style="font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem;">Menu B</div>
+        <h3 style="font-family:var(--display);font-style:italic;color:#fff;font-size:2rem;line-height:1;margin-bottom:.4rem;">La Grande.</h3>
+        <p style="font-size:.85rem;color:rgba(255,255,255,.65);margin-bottom:2rem;">695 kr / person</p>
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:.4rem;margin-bottom:.75rem;">Antipasto</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:#fff;">Burrata di Puglia</p>
+            <p style="font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.25rem;">Krämig burrata, inlagda lökar och tomatpesto.</p>
+          </div>
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:.4rem;margin-bottom:.75rem;">Primo</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:#fff;">Ravioli di Ricotta <span style="font-family:var(--body);font-size:.85rem;font-style:normal;color:rgba(255,255,255,.55);">eller</span> Linguine alle Vongole</p>
+            <p style="font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.25rem;">Färsk ravioli med ricotta eller linguine med vongole.</p>
+          </div>
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:.4rem;margin-bottom:.75rem;">Secondo</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:#fff;">Bistecca alla Fiorentina <span style="font-family:var(--body);font-size:.85rem;font-style:normal;color:rgba(255,255,255,.55);">eller</span> Branzino al Sale</p>
+            <p style="font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.25rem;">Grillad oxfilé eller saltbakad havsabborre.</p>
+          </div>
+          <div>
+            <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:.4rem;margin-bottom:.75rem;">Dolce</div>
+            <p style="font-family:var(--display);font-style:italic;font-size:1.1rem;color:#fff;">Panna Cotta ai Frutti di Bosco</p>
+            <p style="font-size:.85rem;color:rgba(255,255,255,.65);margin-top:.25rem;">Krämig panna cotta med skogsbär och vaniljsirap.</p>
+          </div>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="kontakt.html" class="btn btn-light">Boka</a>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:1.5rem;line-height:1.7;">Vinpaket kan läggas till från 295 kr / person. Alla menyer inkl. moms. Minst 10 personer.</p>
+  </div>
+</section>
+
+<div class="triple">
+  <div class="triple__item"><img src="../luxdin/photos/food-17.jpg" alt=""></div>
+  <div class="triple__item"><img src="../luxdin/photos/interior-10.jpg" alt=""></div>
+  <div class="triple__item"><img src="../luxdin/photos/food-22.jpg" alt=""></div>
+</div>
+
+<section class="ss-form-section">
+  <div class="ss-form-inner">
+    <div class="ss-form-info">
+      <h2>Skicka en förfrågan</h2>
+      <p>Berätta om ert sällskap och vad ni drömmer om — vi återkommer inom kort med ett skräddarsytt uppslag.</p>
+      <div class="ss-info-rows">
+        <div class="ss-info-row"><div class="lbl">Adress</div><div class="v">Västerlånggatan 72<br><small style="font-size:.85rem;font-style:normal;">111 29 Stockholm</small></div></div>
+        <div class="ss-info-row"><div class="lbl">Telefon</div><div class="v"><a href="tel:+46082072099">+46 08 20 72 99</a></div></div>
+        <div class="ss-info-row"><div class="lbl">E-post</div><div class="v"><a href="mailto:event@restaurangagaton.se">event@restaurangagaton.se</a></div></div>
+        <div class="ss-info-row"><div class="lbl">Svarstid</div><div class="v">Inom 24 h<br><small style="font-size:.85rem;font-style:normal;">Mån–Lör 10–22</small></div></div>
+      </div>
+    </div>
+    <form class="ss-form" onsubmit="event.preventDefault();alert('Tack! Vi återkommer så snart vi kan.');">
+      <h3>Stor kväll</h3>
+      <p>Vi svarar på din förfrågan inom 24 timmar, alla dagar 10–22.</p>
+      <div class="ss-row">
+        <div class="ss-field"><label>Namn *</label><input type="text" placeholder="Ditt namn" required></div>
+        <div class="ss-field"><label>E-post *</label><input type="email" placeholder="du@exempel.se" required></div>
+      </div>
+      <div class="ss-row">
+        <div class="ss-field"><label>Telefon</label><input type="tel" placeholder="070 123 45 67"></div>
+        <div class="ss-field"><label>Antal gäster *</label>
+          <select required><option value="">Välj antal</option><option>8–16 gäster</option><option>16–30 gäster</option><option>30–60 gäster</option><option>60+ gäster</option></select>
+        </div>
+      </div>
+      <div class="ss-row">
+        <div class="ss-field"><label>Menyval</label>
+          <select><option value="">Ingen preferens</option><option>Menu Uno — 525 kr/pers</option><option>Menu Due — 625 kr/pers</option><option>Skräddarsydd meny</option></select>
+        </div>
+        <div class="ss-field"><label>Önskat datum</label><input type="date"></div>
+      </div>
+      <div class="ss-field"><label>Önskemål &amp; allergier</label>
+        <textarea placeholder="Berätta vad ni drömmer om — tema, mat, dryck, särskilda önskemål, allergier…"></textarea>
+      </div>
+      <button type="submit" class="ss-submit">Skicka Förfrågan</button>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">
+      <img src="../luxdin/agaton_logo.svg" alt="Agaton Ristorante">
+      <p>Vedugnspizza, handgjord pasta och ärlig italiensk mat i hjärtat av Gamla Stan — sedan 1999.</p>
+      <div class="site-footer__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="TripAdvisor">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="site-footer__col">
+      <h4>Meny</h4>
+      <ul>
+        <li><a href="menu.html">À La Carte</a></li>
+        <li><a href="lunch.html">Veckans Lunch</a></li>
+        <li><a href="stora-sallskap.html">Stora Sällskap</a></li>
+        <li><a href="kontakt.html">Boka Bord</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Om Agaton</h4>
+      <ul>
+        <li><a href="om-oss.html">Vår Historia</a></li>
+        <li><a href="om-oss.html">Våra Värderingar</a></li>
+        <li><a href="stora-sallskap.html">Privata Event</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Hitta hit</h4>
+      <address>
+        Västerlånggatan 72<br>
+        111 29 Stockholm<br><br>
+        <a href="tel:+46082072099">+46 08 20 72 99</a><br>
+        <a href="mailto:info@restaurangagaton.se">info@restaurangagaton.se</a><br><br>
+        Mån–Tor: 17–22<br>
+        Fre–Lör: 17–23<br>
+        Lunch Mån–Fre: 11–14
+      </address>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© Agaton Ristorante — Mandato di cucinare bene.</span>
+    <span>Gamla Stan, Stockholm · Dal 1999</span>
+  </div>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => { const open = drawer.classList.toggle('open'); burger.classList.toggle('open', open); document.body.style.overflow = open ? 'hidden' : ''; });
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { drawer.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow = ''; }));
+</script>
+</body>
+</html>

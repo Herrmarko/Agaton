@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bildbibliotek — Agaton</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:#1a0f0f;color:#f0e8dc;min-height:100vh;}
+
+/* HEADER */
+.hdr{
+  background:#0d0806;
+  padding:20px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky;top:0;z-index:50;
+}
+.hdr h1{font-size:1.1rem;letter-spacing:.06em;color:#f0e8dc;}
+.hdr p{font-size:.8rem;color:rgba(255,255,255,.45);font-family:sans-serif;}
+
+/* FILTER TABS */
+.filters{
+  display:flex;gap:0;padding:0 32px;
+  background:#0d0806;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.filter-btn{
+  background:none;border:none;cursor:pointer;
+  font-family:sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  padding:14px 20px;
+  border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.filter-btn:hover{color:#f0e8dc;}
+.filter-btn.active{color:#f0e8dc;border-bottom-color:#9C4044;}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:3px;
+  padding:3px;
+}
+.card{
+  position:relative;aspect-ratio:1/1;overflow:hidden;
+  cursor:pointer;group:true;
+  background:#0d0806;
+}
+.card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s ease,opacity .3s;
+  display:block;
+}
+.card:hover img{transform:scale(1.05);}
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(transparent 40%,rgba(0,0,0,.85));
+  opacity:0;transition:opacity .3s;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:16px;
+}
+.card:hover .card-overlay{opacity:1;}
+.card-name{
+  font-family:sans-serif;font-size:.72rem;letter-spacing:.12em;
+  color:rgba(255,255,255,.7);margin-bottom:8px;
+}
+.card-copy{
+  background:#9C4044;color:#fff;
+  border:none;cursor:pointer;
+  font-family:sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 14px;
+  transition:background .2s;
+  width:100%;
+}
+.card-copy:hover{background:#7B2D35;}
+.card-copy.copied{background:#3a7a3a;}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(0,0,0,.92);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:20px;
+}
+.lightbox.open{display:flex;}
+.lightbox img{
+  max-width:80vw;max-height:75vh;
+  object-fit:contain;
+  border:1px solid rgba(255,255,255,.1);
+}
+.lightbox-info{text-align:center;}
+.lightbox-info h3{font-size:1.2rem;margin-bottom:6px;}
+.lightbox-info code{
+  font-family:monospace;font-size:.82rem;
+  background:rgba(255,255,255,.08);
+  padding:6px 14px;border-radius:4px;
+  color:#f0c090;display:inline-block;
+  cursor:pointer;user-select:all;
+}
+.lightbox-info code:hover{background:rgba(255,255,255,.15);}
+.lightbox-close{
+  position:fixed;top:20px;right:24px;
+  background:none;border:1px solid rgba(255,255,255,.3);
+  color:#fff;font-size:1.2rem;width:40px;height:40px;
+  cursor:pointer;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.lightbox-close:hover{background:rgba(255,255,255,.1);}
+.lightbox-nav{
+  display:flex;gap:16px;
+}
+.lightbox-nav button{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:#fff;padding:10px 24px;cursor:pointer;
+  font-family:sans-serif;font-size:.78rem;letter-spacing:.1em;
+  transition:background .2s;
+}
+.lightbox-nav button:hover{background:rgba(255,255,255,.16);}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+  background:#3a7a3a;color:#fff;
+  font-family:sans-serif;font-size:.82rem;letter-spacing:.08em;
+  padding:12px 24px;border-radius:4px;
+  opacity:0;transition:opacity .3s;pointer-events:none;
+  z-index:200;
+}
+.toast.show{opacity:1;}
+
+/* SECTION LABEL */
+.section-label{
+  grid-column:1/-1;
+  font-family:sans-serif;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  padding:20px 8px 6px;
+  border-top:1px solid rgba(255,255,255,.06);
+  margin-top:4px;
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>Agatons Bildbibliotek</h1>
+  <p>Klicka på en bild för att se filnamnet · Hovra för att kopiera sökvägen</p>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Alla</button>
+  <button class="filter-btn" data-filter="food">Mat</button>
+  <button class="filter-btn" data-filter="interior">Interiör</button>
+  <button class="filter-btn" data-filter="team">Team</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lb-close">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="">
+  <div class="lightbox-info">
+    <h3 id="lb-name"></h3>
+    <code id="lb-path" title="Klicka för att kopiera"></code>
+  </div>
+  <div class="lightbox-nav">
+    <button id="lb-prev">← Föregående</button>
+    <button id="lb-next">Nästa →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">Kopierat!</div>
+
+<script>
+const photos = [
+  'food-01','food-02','food-03','food-04','food-05','food-07','food-08','food-09',
+  'food-10','food-11','food-12','food-13','food-14','food-15','food-16','food-17',
+  'food-18','food-19','food-20','food-21','food-22','food-23','food-25','food-26',
+  'food-27','food-28','food-29','food-30','food-31','food-32','food-33','food-34','food-35',
+  'interior-01','interior-02','interior-03','interior-04','interior-05','interior-06',
+  'interior-07','interior-08','interior-09','interior-10','interior-11','interior-12',
+  'team-01','team-02','team-03','team-04'
+];
+
+const grid = document.getElementById('grid');
+let currentIdx = 0;
+let filtered = [...photos];
+
+function getCategory(name) {
+  if (name.startsWith('food')) return 'food';
+  if (name.startsWith('interior')) return 'interior';
+  if (name.startsWith('team')) return 'team';
+  return 'other';
+}
+
+function getPath(name) {
+  return `photos/${name}.jpg`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function copyPath(path) {
+  navigator.clipboard.writeText(path).then(() => showToast('Kopierat: ' + path));
+}
+
+function renderGrid(filter = 'all') {
+  filtered = photos.filter(p => filter === 'all' || getCategory(p) === filter);
+  grid.innerHTML = '';
+
+  const groups = {};
+  filtered.forEach(p => {
+    const cat = getCategory(p);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(p);
+  });
+
+  const labels = { food: 'Mat & Dryck', interior: 'Interiör & Restaurang', team: 'Team' };
+
+  const order = ['food','interior','team'];
+  order.forEach(cat => {
+    if (!groups[cat]) return;
+    if (filter === 'all') {
+      const lbl = document.createElement('div');
+      lbl.className = 'section-label';
+      lbl.textContent = labels[cat];
+      grid.appendChild(lbl);
+    }
+    groups[cat].forEach(name => {
+      const path = getPath(name);
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.name = name;
+      card.dataset.cat = cat;
+      card.innerHTML = `
+        <img src="${path}" alt="${name}" loading="lazy">
+        <div class="card-overlay">
+          <div class="card-name">${name}.jpg</div>
+          <button class="card-copy" data-path="${path}">Kopiera sökväg</button>
+        </div>
+      `;
+      card.addEventListener('click', e => {
+        if (e.target.classList.contains('card-copy')) return;
+        currentIdx = filtered.indexOf(name);
+        openLightbox(name);
+      });
+      card.querySelector('.card-copy').addEventListener('click', e => {
+        e.stopPropagation();
+        copyPath(path);
+        const btn = e.target;
+        btn.textContent = '✓ Kopierat';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Kopiera sökväg'; btn.classList.remove('copied'); }, 2000);
+      });
+      grid.appendChild(card);
+    });
+  });
+}
+
+function openLightbox(name) {
+  const path = getPath(name);
+  document.getElementById('lb-img').src = path;
+  document.getElementById('lb-name').textContent = name + '.jpg';
+  const lbPath = document.getElementById('lb-path');
+  lbPath.textContent = path;
+  lbPath.onclick = () => copyPath(path);
+  document.getElementById('lightbox').classList.add('open');
+}
+
+document.getElementById('lb-close').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+});
+document.getElementById('lb-prev').addEventListener('click', () => {
+  currentIdx = (currentIdx - 1 + filtered.length) % filtered.length;
+  openLightbox(filtered[currentIdx]);
+});
+document.getElementById('lb-next').addEventListener('click', () => {
+  currentIdx = (currentIdx + 1) % filtered.length;
+  openLightbox(filtered[currentIdx]);
+});
+
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') lb.classList.remove('open');
+  if (e.key === 'ArrowLeft') document.getElementById('lb-prev').click();
+  if (e.key === 'ArrowRight') document.getElementById('lb-next').click();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid(btn.dataset.filter);
+  });
+});
+
+renderGrid();
+</script>
+</body>
+</html>

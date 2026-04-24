@@ -3,1052 +3,210 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Agaton — Ristorante Italiano</title>
+<title>Agaton — Välj design</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="agaton.css">
-<script src="agaton-chrome.js?v=2" data-active="home"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Barlow+Condensed:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ---------- Page-specific ---------- */
-
-/* ============ HERO ============ */
-.hero{
-  position: relative;
-  min-height: 100vh;
-  background: var(--wood);
-  color: var(--cream);
-  overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.hero-bg{
-  position: absolute; inset: 0;
-  z-index: 0;
-}
-.hero-bg img{
-  width:100%; height:100%; object-fit:cover;
-  filter: brightness(.55) saturate(1.05);
-}
-.hero-bg::after{
-  content:""; position: absolute; inset:0;
-  background:
-    linear-gradient(180deg, rgba(46,26,16,.55) 0%, rgba(46,26,16,.2) 35%, rgba(46,26,16,.5) 70%, rgba(46,26,16,.92) 100%);
-}
-.hero-inner{
-  position: relative; z-index: 2;
-  flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 0 48px 72px;
-  max-width: 1600px; margin: 0 auto; width: 100%;
-}
-.hero-eyebrow{
-  display:flex; align-items:center; gap:14px;
-  font-size:11px; letter-spacing:.34em; text-transform:uppercase;
-  color: var(--cream-3);
-  margin-bottom: 28px;
-}
-.hero-eyebrow::before{ content:""; width:40px; height:1px; background: currentColor; }
-.hero-eyebrow .dot{ width:5px; height:5px; border-radius:50%; background: var(--brick); }
-
-.hero-title{
-  font-family: var(--display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(88px, 16vw, 260px);
-  line-height: .88;
-  letter-spacing: -0.025em;
-  color: var(--cream);
-}
-.hero-title .script-tag{
-  display: block;
-  font-family: var(--script);
-  font-style: normal;
-  font-size: clamp(44px, 5.6vw, 84px);
-  color: var(--candle);
-  margin-bottom: 8px;
-  margin-left: 6px;
-  transform: rotate(-4deg);
-  text-shadow: 0 4px 24px rgba(0,0,0,.45), 0 1px 0 rgba(0,0,0,.25);
-  line-height: 1;
-  opacity: 1;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:'Barlow Condensed',sans-serif;
+  background:#0d0806;
+  color:#f0e8dc;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  min-height:100vh;
+  padding:2rem;
 }
 
-.hero-bottom{
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px;
-  margin-top: 56px;
-  align-items: end;
+.logo{
+  margin-bottom:3rem;
+  text-align:center;
 }
-.hero-lede{
-  max-width: 40ch;
-  font-size: 16px; line-height: 1.7;
-  color: color-mix(in oklab, var(--cream) 85%, transparent);
+.logo img { height:52px;width:auto; }
+
+h1{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1.4rem,3vw,2rem);
+  color:rgba(255,255,255,.55);
+  font-weight:400;
+  text-align:center;
+  margin-bottom:.75rem;
+  letter-spacing:.01em;
 }
-.hero-meta{
-  display:flex; flex-direction:column; gap: 14px;
-  font-family: var(--sans); font-size: 12px;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--cream-3);
+.subtitle{
+  font-size:.78rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  text-align:center;
+  margin-bottom:4rem;
 }
-.hero-meta strong{
+
+.cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+  width:100%;
+  max-width:860px;
+}
+
+.card{
+  position:relative;
+  text-decoration:none;
+  overflow:hidden;
+  aspect-ratio:4/5;
   display:block;
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: 17px;
-  letter-spacing: 0; text-transform: none;
-  color: var(--cream);
-  margin-top: 4px;
 }
-.hero-ctas{ display:flex; flex-direction:column; gap: 12px; align-items: flex-start; justify-self: end; }
-.hero-ctas .btn{ min-width: 240px; justify-content: space-between; }
-
-/* removed hero-scroll */
-
-/* Vintage stamps on hero */
-.hero-stamps{
-  position: absolute; top: 120px; right: 48px;
-  display:flex; flex-direction: column; gap: 12px; align-items: flex-end;
-  z-index: 3;
+.card img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  filter:brightness(.55) saturate(.9);
+  transition:filter .5s ease,transform .6s ease;
 }
-.hero-stamp{
-  font-family: var(--display); font-style: italic;
-  font-size: 12px; letter-spacing: .1em;
-  color: var(--cream-3);
-  padding: 6px 14px;
-  border: 1px solid color-mix(in oklab, var(--cream) 40%, transparent);
-  border-radius: var(--r-pill);
-  backdrop-filter: blur(4px);
+.card:hover img{
+  filter:brightness(.45) saturate(1.1);
+  transform:scale(1.04);
 }
-
-/* ============ Marquee / ticker ============ */
-.ticker{
-  background: var(--brick);
-  color: var(--cream);
-  overflow: hidden;
-  border-top: 1px solid color-mix(in oklab, var(--cream) 15%, transparent);
-  border-bottom: 1px solid color-mix(in oklab, var(--cream) 15%, transparent);
-  padding: 18px 0;
+.card-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:2.5rem 2rem;
+  background:linear-gradient(transparent 30%,rgba(0,0,0,.75));
 }
-.ticker-track{
-  display: flex; gap: 64px;
-  animation: tickerSlide 42s linear infinite;
-  white-space: nowrap;
-  font-family: var(--display); font-style: italic;
-  font-size: 28px; font-weight: 400;
-  letter-spacing: .01em;
+.card-label{
+  font-size:.68rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  margin-bottom:.6rem;
 }
-.ticker-track span{ display:inline-flex; align-items:center; gap: 64px; }
-.ticker-track span::after{
-  content: "★"; color: var(--candle); font-size: 18px;
+.card-title{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:#fff;
+  line-height:1;
+  margin-bottom:.75rem;
 }
-@keyframes tickerSlide{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
-
-/* ============ Intro / Benvenuti ============ */
-.intro{
-  padding: 140px 0 120px;
-  background: var(--cream);
-  position: relative;
+.card-desc{
+  font-size:.8rem;
+  color:rgba(255,255,255,.6);
+  line-height:1.6;
+  margin-bottom:1.5rem;
+  max-width:28ch;
 }
-.intro-grid{
-  display: grid; grid-template-columns: 1fr 1.2fr; gap: 90px;
-  align-items: start;
+.card-btn{
+  display:inline-flex;
+  align-items:center;gap:.75rem;
+  font-size:.72rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.4);
+  padding:.75rem 1.5rem;
+  transition:background .25s,border-color .25s;
+  width:fit-content;
 }
-.intro-copy .script{
-  display: block; margin-bottom: 10px;
-  font-size: 88px;
-  color: var(--brick);
-  transform: rotate(-4deg);
-  margin-left: -6px;
+.card:hover .card-btn{
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.7);
 }
-.intro-copy h2{
-  font-family: var(--display);
-  font-weight: 400; font-style: italic;
-  font-size: clamp(56px, 7vw, 108px);
-  line-height: .98;
-  letter-spacing: -0.015em;
-  color: var(--wood);
-  margin-bottom: 36px;
+.card-btn svg{
+  transition:transform .3s ease;
 }
-.intro-copy h2 .bold{
-  font-style: normal; font-weight: 600; color: var(--brick);
-}
-.intro-copy p{
-  font-size: 17px; line-height: 1.75; color: var(--ink-soft);
-  max-width: 50ch; margin-bottom: 20px;
-}
-.intro-copy .sig{
-  margin-top: 40px;
-  font-family: var(--script); color: var(--brick);
-  font-size: 44px; line-height: .8;
-}
-.intro-copy .sig + .tiny{ margin-top: 6px; color: var(--ink-faint); }
-
-.intro-photos{
-  position: relative;
-  height: 640px;
-}
-.intro-photos .photo{
-  position: absolute; box-shadow: var(--shadow-lg);
-}
-.intro-photos .p1{
-  width: 62%; aspect-ratio: 3/4;
-  top: 0; right: 0;
-}
-.intro-photos .p2{
-  width: 48%; aspect-ratio: 4/5;
-  bottom: 0; left: 0;
-  border: 10px solid var(--cream);
-}
-.intro-photos .stamp-wrap{
-  position: absolute; bottom: 110px; right: -30px;
-  width: 140px; height: 140px;
-  display: grid; place-items: center;
-  background: var(--cream);
-  border-radius: 50%;
-  box-shadow: var(--shadow-md);
-  transform: rotate(-8deg);
-  z-index: 3;
+.card:hover .card-btn svg{
+  transform:translateX(4px);
 }
 
-/* ============ Menu preview (facelift) ============ */
-.menu-preview{
-  padding: 140px 0 160px;
-  background: var(--wood);
-  color: var(--cream);
-  position: relative;
-  overflow: hidden;
-}
-.menu-preview::before{
-  content: "MENÙ"; position: absolute; top: -40px; left: -40px;
-  font-family: var(--display); font-style: italic;
-  font-size: clamp(240px, 28vw, 480px); font-weight: 500;
-  color: color-mix(in oklab, var(--cream) 4.5%, transparent);
-  line-height: .85; letter-spacing: -0.05em;
-  pointer-events: none; z-index: 0;
-}
-.menu-preview .container{ position: relative; z-index: 2; }
+/* Trattoria card accent */
+.card--trattoria .card-title{ color:#f2c66a; }
+/* Klassisk card accent */
+.card--klassisk .card-title{ color:#e8cfc8; }
 
-.mp-grid{
-  display: grid;
-  grid-template-columns: 1fr 0.95fr;
-  gap: 120px;
-  align-items: center;
+.divider-label{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  background:#0d0806;
+  width:40px;height:40px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:.9rem;
+  color:rgba(255,255,255,.4);
+  pointer-events:none;
 }
 
-.mp-left{ max-width: 580px; }
-.mp-script{
-  font-family: var(--script); color: var(--candle);
-  font-size: 56px; display: block; margin-bottom: 10px;
-  transform: rotate(-4deg); line-height: 1;
-}
-.mp-left h2{
-  font-family: var(--display); font-style: italic; font-weight: 400;
-  font-size: clamp(60px, 7.2vw, 116px);
-  line-height: .95; color: var(--cream);
-  letter-spacing: -0.02em;
-  margin-bottom: 36px;
-}
-.mp-left h2 em{
-  color: var(--candle);
-  font-style: italic;
-}
-.mp-lead{
-  color: color-mix(in oklab, var(--cream) 75%, transparent);
-  font-size: 17px; line-height: 1.7; max-width: 46ch;
-  margin-bottom: 52px;
+.cards-wrap{
+  position:relative;
+  width:100%;max-width:860px;
 }
 
-.mp-taste{
-  list-style: none; padding: 0; margin: 0 0 52px;
-  border-top: 1px solid color-mix(in oklab, var(--cream) 14%, transparent);
-}
-.mp-taste li{
-  display: grid;
-  grid-template-columns: minmax(0,1fr) auto;
-  grid-template-areas:
-    "title leader price"
-    "desc  desc   desc";
-  column-gap: 18px;
-  padding: 22px 0 24px;
-  border-bottom: 1px solid color-mix(in oklab, var(--cream) 10%, transparent);
-  align-items: baseline;
-}
-.mp-taste-title{
-  grid-area: title;
-  font-family: var(--display); font-weight: 500;
-  font-size: 22px; color: var(--cream); line-height: 1.2;
-  letter-spacing: -0.003em;
-}
-.mp-taste-leader{
-  grid-area: leader;
-  height: 1px; align-self: center;
-  background-image: radial-gradient(circle, color-mix(in oklab, var(--cream) 28%, transparent) 1px, transparent 1.2px);
-  background-size: 5px 5px; background-repeat: repeat-x;
-  min-width: 40px;
-}
-.mp-taste-price{
-  grid-area: price;
-  font-family: var(--sans); font-weight: 500; font-size: 14px;
-  color: var(--candle); white-space: nowrap; letter-spacing: .02em;
-}
-.mp-taste-desc{
-  grid-area: desc; margin-top: 8px;
-  font-size: 13.5px; line-height: 1.65;
-  color: color-mix(in oklab, var(--cream) 60%, transparent);
-  max-width: 56ch;
+.bottom-note{
+  margin-top:2.5rem;
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.2);
+  text-align:center;
 }
 
-/* Category pills */
-.mp-cats{
-  display: flex; flex-wrap: wrap; gap: 10px 14px;
-  margin-bottom: 52px;
-  padding: 36px 0 0;
-  border-top: 1px solid color-mix(in oklab, var(--cream) 14%, transparent);
-}
-.mp-cat{
-  font-family: var(--display); font-style: italic;
-  font-size: 22px; color: color-mix(in oklab, var(--cream) 78%, transparent);
-  transition: color .25s var(--ease);
-  cursor: default;
-}
-.mp-cat:not(:last-child)::after{ content: "·"; margin-left: 14px; opacity: .35; font-style: normal; }
-.mp-cat:hover{ color: var(--candle); }
-
-.mp-ctas{
-  display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
-}
-.btn-candle{
-  background: var(--candle); color: var(--wood);
-  border: none; padding: 18px 38px; border-radius: var(--r-pill);
-  font-family: var(--sans); font-size: 13px; font-weight: 600;
-  letter-spacing: .18em; text-transform: uppercase; cursor: pointer;
-  transition: background .3s var(--ease), transform .3s var(--ease);
-  text-decoration: none; display: inline-block;
-}
-.btn-candle:hover{
-  background: color-mix(in oklab, var(--candle) 88%, white);
-  transform: translateY(-2px);
-}
-.mp-link{
-  font-family: var(--display); font-style: italic;
-  font-size: 17px; color: color-mix(in oklab, var(--cream) 80%, transparent);
-  text-decoration: none; letter-spacing: -0.002em;
-  transition: color .3s var(--ease);
-}
-.mp-link:hover{ color: var(--candle); }
-
-/* Right column: layered photos + stamp */
-.mp-right{
-  position: relative;
-  min-height: 640px;
-}
-.mp-photo-main{
-  position: absolute; top: 0; right: 0;
-  width: 88%; aspect-ratio: 4/5;
-  border-radius: 2px; overflow: hidden;
-  box-shadow: 0 30px 80px -20px rgba(0,0,0,.55), 0 10px 30px -10px rgba(0,0,0,.4);
-}
-.mp-photo-main img{ width:100%; height:100%; object-fit: cover; display: block; }
-.mp-photo-small{
-  position: absolute; bottom: -40px; left: 0;
-  width: 52%; aspect-ratio: 1/1;
-  border-radius: 2px; overflow: hidden;
-  border: 10px solid var(--wood);
-  box-shadow: 0 20px 50px -15px rgba(0,0,0,.6);
-  z-index: 2;
-}
-.mp-photo-small img{ width:100%; height:100%; object-fit: cover; display: block; }
-
-.mp-stamp{
-  position: absolute; top: 30px; left: -34px;
-  width: 128px; height: 128px; border-radius: 50%;
-  background: var(--brick); color: var(--cream);
-  display: grid; place-items: center;
-  box-shadow: 0 14px 36px -10px rgba(0,0,0,.55);
-  transform: rotate(-12deg);
-  z-index: 3;
-  animation: stampFloat 8s var(--ease) infinite;
-}
-@keyframes stampFloat{ 0%,100%{ transform: rotate(-12deg) translateY(0); } 50%{ transform: rotate(-10deg) translateY(-5px); } }
-.mp-stamp::before{
-  content: ""; position: absolute; inset: 6px;
-  border-radius: 50%; border: 1px dashed color-mix(in oklab, var(--cream) 50%, transparent);
-}
-.mp-stamp-inner{
-  text-align: center; line-height: 1;
-}
-.mp-stamp-top, .mp-stamp-bot{
-  display: block; font-family: var(--sans); font-size: 9px;
-  font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--cream) 85%, transparent);
-}
-.mp-stamp-top{ margin-bottom: 6px; }
-.mp-stamp-bot{ margin-top: 6px; }
-.mp-stamp-mid{
-  display: block; font-family: var(--display); font-style: italic;
-  font-size: 22px; color: var(--cream); letter-spacing: -0.01em;
-}
-
-@media (max-width: 1100px){
-  .mp-grid{ gap: 80px; }
-  .mp-right{ min-height: 540px; }
-}
-@media (max-width: 900px){
-  .menu-preview{ padding: 90px 0 110px; }
-  .mp-grid{ grid-template-columns: 1fr; gap: 80px; }
-  .mp-right{ min-height: 500px; max-width: 480px; margin: 0 auto; }
-  .mp-left h2{ font-size: clamp(48px, 11vw, 80px); }
-  .mp-stamp{ width: 100px; height: 100px; top: 20px; left: -20px; }
-  .mp-stamp-mid{ font-size: 18px; }
-}
-
-/* ============ Signature (full-bleed photo strip) ============ */
-.signature{
-  padding: 0; background: var(--cream);
-}
-.sig-strip{
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 0; height: 280px;
-}
-.sig-strip .photo{
-  aspect-ratio: auto; height: 100%;
-  border-radius: 0;
-  position: relative;
-}
-.sig-strip .photo::after{
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(46,26,16,.7));
-  pointer-events: none;
-}
-.sig-strip .photo .cap{
-  position: absolute; bottom: 18px; left: 22px; right: 22px; z-index: 2;
-  color: var(--cream);
-  font-family: var(--display); font-style: italic;
-  font-size: 22px; line-height: 1;
-}
-.sig-strip .photo .cap .num{
-  font-family: var(--sans); font-style: normal;
-  font-size: 10px; letter-spacing: .3em;
-  opacity: .7; margin-bottom: 4px;
-  display: block;
-}
-
-/* ============ Experience split ============ */
-.experience{
-  padding: 140px 0;
-  background: var(--cream-2);
-}
-.exp-grid{
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  align-items: center;
-}
-.exp-head{ max-width: 48ch; margin: 0 auto 80px; text-align: center; }
-.exp-head h2{
-  font-family: var(--display); font-style: italic; font-weight: 400;
-  font-size: clamp(48px, 6vw, 96px);
-  line-height: 1; color: var(--wood);
-}
-.exp-head .script{ display: block; color: var(--brick); font-size: 48px; margin-bottom: 10px; }
-.exp-cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
-.exp-card{
-  background: var(--cream);
-  border-radius: var(--r-md);
-  overflow: hidden;
-  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
-}
-.exp-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-md); }
-.exp-card .photo-wide{ aspect-ratio: 4/3; border-radius: 0; }
-.exp-card-body{ padding: 28px 26px 32px; }
-.exp-card .tiny{ color: var(--brick); margin-bottom: 10px; letter-spacing: .24em; }
-.exp-card h3{
-  font-family: var(--display); font-weight: 500;
-  font-size: 28px; line-height: 1.1; margin-bottom: 10px;
-  color: var(--wood);
-}
-.exp-card p{ font-size: 14.5px; line-height: 1.65; color: var(--ink-soft); }
-.exp-card a.link{
-  display: inline-flex; align-items:center; gap: 8px;
-  margin-top: 16px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--brick); font-weight: 500;
-  transition: gap .3s var(--ease);
-}
-.exp-card a.link:hover{ gap: 14px; }
-.exp-card a.link::after{ content: "→"; }
-
-/* ============ Gallery (masonry-ish) ============ */
-.gallery{
-  padding: 140px 0;
-  background: var(--cream);
-}
-.gallery-head{ text-align: center; margin-bottom: 70px; }
-.gallery-head h2{
-  font-family: var(--display); font-style: italic; font-weight: 400;
-  font-size: clamp(48px, 6vw, 92px);
-  color: var(--wood);
-}
-.gallery-head .script{ display:block; color: var(--brick); font-size: 44px; margin-bottom: 10px; }
-
-.gallery-grid{
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 110px;
-  gap: 16px;
-}
-.gallery-grid .photo{ border-radius: var(--r-md); }
-.g-a{ grid-column: span 4; grid-row: span 4; }
-.g-b{ grid-column: span 4; grid-row: span 3; }
-.g-c{ grid-column: span 4; grid-row: span 4; }
-.g-d{ grid-column: span 4; grid-row: span 3; }
-.g-e{ grid-column: span 4; grid-row: span 4; }
-.g-f{ grid-column: span 4; grid-row: span 3; }
-.g-g{ grid-column: span 6; grid-row: span 4; }
-.g-h{ grid-column: span 6; grid-row: span 4; }
-
-/* ============ Quote / Press ============ */
-.press{
-  padding: 120px 0;
-  background: var(--wood);
-  color: var(--cream);
-  text-align: center;
-  position: relative; overflow: hidden;
-}
-.press::before{
-  content: "“"; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
-  font-family: var(--display); font-size: 560px;
-  color: color-mix(in oklab, var(--brick) 60%, transparent);
-  line-height: 1; opacity: .35;
-  pointer-events: none;
-}
-.press-quote{
-  font-family: var(--display); font-style: italic; font-weight: 400;
-  font-size: clamp(28px, 3.6vw, 54px);
-  line-height: 1.25; max-width: 22ch;
-  margin: 0 auto; position: relative; z-index: 2;
-  color: var(--cream);
-}
-.press-source{
-  margin-top: 36px;
-  font-family: var(--sans); font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--candle);
-}
-
-/* ============ Booking strip ============ */
-.booking{
-  padding: 140px 0;
-  background: var(--brick);
-  color: var(--cream);
-  position: relative;
-  overflow: hidden;
-}
-.booking-grid{
-  display: grid; grid-template-columns: 1fr 1fr; gap: 90px;
-  align-items: center;
-}
-.booking h2{
-  font-family: var(--display); font-style: italic; font-weight: 400;
-  font-size: clamp(54px, 7vw, 108px);
-  line-height: .95;
-  color: var(--cream);
-}
-.booking h2 .script-inline{
-  font-family: var(--script); font-style: normal;
-  color: var(--candle); font-size: .9em; display: block; line-height: .8; margin-bottom: 10px;
-}
-.booking p{
-  color: color-mix(in oklab, var(--cream) 82%, transparent);
-  max-width: 44ch; font-size: 17px; line-height: 1.7;
-  margin-top: 32px;
-}
-.booking-form{
-  background: var(--cream);
-  color: var(--wood);
-  border-radius: var(--r-md);
-  padding: 40px;
-  box-shadow: var(--shadow-lg);
-}
-.booking-form h3{
-  font-family: var(--display); font-weight: 500; font-size: 28px;
-  margin-bottom: 4px;
-}
-.booking-form .small{ margin-bottom: 28px; color: var(--ink-faint); }
-.form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-.form-row.single{ grid-template-columns: 1fr; }
-.form-field label{
-  display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--ink-faint); margin-bottom: 6px;
-}
-.form-field input, .form-field select{
-  width: 100%; padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  background: var(--white);
-  font-family: var(--sans); font-size: 14px;
-  color: var(--wood);
-  transition: border-color .3s var(--ease), background .3s var(--ease);
-}
-.form-field input:focus, .form-field select:focus{
-  outline: none; border-color: var(--brick); background: var(--cream);
-}
-.form-submit{
-  width: 100%; padding: 16px 0;
-  background: var(--wood); color: var(--cream);
-  font-family: var(--sans); font-size: 13px; font-weight: 500;
-  letter-spacing: .18em; text-transform: uppercase;
-  border-radius: var(--r-pill);
-  margin-top: 8px; cursor: pointer;
-  transition: background .3s var(--ease), transform .3s var(--ease);
-}
-.form-submit:hover{ background: var(--wood-2); transform: translateY(-1px); }
-
-/* ============ Footer ============ */
-.footer{
-  padding: 100px 48px 36px;
-  background: var(--wood);
-}
-.footer-top{
-  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 64px;
-  padding-bottom: 72px; border-bottom: 1px solid color-mix(in oklab, var(--cream) 12%, transparent);
-  max-width: 1600px; margin: 0 auto;
-}
-.footer-brand .brand-mark{ font-size: 48px; color: var(--cream); }
-.footer-brand .brand-sub{ font-size: 10px; color: var(--cream-3); letter-spacing: .32em; margin-top: 8px; }
-.footer-brand p{ color: color-mix(in oklab, var(--cream) 70%, transparent); font-size: 14px; line-height: 1.7; margin-top: 22px; max-width: 34ch; }
-
-.footer-col h4{
-  font-family: var(--sans); font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--cream-3); margin-bottom: 22px; font-weight: 500;
-}
-.footer-col ul{ list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.footer-col a{
-  color: color-mix(in oklab, var(--cream) 82%, transparent);
-  font-size: 15px; transition: color .3s var(--ease);
-}
-.footer-col a:hover{ color: var(--candle); }
-.footer-col p{ color: color-mix(in oklab, var(--cream) 72%, transparent); font-size: 14px; line-height: 1.75; }
-
-.footer-bottom{
-  max-width: 1600px; margin: 36px auto 0;
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 12px; color: color-mix(in oklab, var(--cream) 55%, transparent);
-  letter-spacing: .08em;
-}
-
-/* Hamburger + drawer (mobil) */
-.nav-burger{
-  display: none; flex-direction: column; justify-content: center; align-items: center;
-  gap: 5px; width: 44px; height: 44px; background: transparent; border: none;
-  cursor: pointer; padding: 4px; margin-left: auto;
-}
-.nav-burger span{
-  display: block; width: 24px; height: 2px; background: currentColor;
-  border-radius: 2px; transition: transform .3s ease, opacity .3s ease;
-  transform-origin: center;
-}
-.nav-burger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
-.nav-burger.open span:nth-child(2){ opacity: 0; }
-.nav-burger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
-.nav-drawer{
-  position: fixed; inset: 0; z-index: 90;
-  background: var(--wood); transform: translateX(100%);
-  transition: transform .38s cubic-bezier(.4,0,.2,1);
-  display: flex; flex-direction: column; overflow-y: auto;
-}
-.nav-drawer.open{ transform: translateX(0); }
-.nav-drawer-inner{
-  display: flex; flex-direction: column;
-  padding: 100px 32px 60px; min-height: 100%; gap: 0;
-}
-.nav-drawer-links{
-  display: flex; flex-direction: column; gap: 0;
-  border-top: 1px solid color-mix(in oklab, var(--cream) 12%, transparent);
-  margin-bottom: 40px;
-}
-.nav-drawer-link{
-  font-family: var(--display); font-style: italic; font-weight: 400;
-  font-size: 38px; color: var(--cream); text-decoration: none; line-height: 1;
-  padding: 22px 0;
-  border-bottom: 1px solid color-mix(in oklab, var(--cream) 10%, transparent);
-  transition: color .2s ease; display: block;
-}
-.nav-drawer-link:hover, .nav-drawer-link.active{ color: var(--candle); }
-.nav-drawer-ctas{ display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px; }
-.nav-drawer-info{ margin-top: auto; font-size: 13px; line-height: 1.8; color: color-mix(in oklab, var(--cream) 55%, transparent); }
-@media (max-width: 900px){
-  .nav-burger{ display: flex; }
-  .nav-ctas{ display: none; }
-  .nav-links{ display: none; }
-}
-  .hero-ctas{ justify-self: start; }
-  .hero-scroll, .hero-stamps{ display: none; }
-  .intro-grid, .exp-grid, .booking-grid, .menu-grid{ grid-template-columns: 1fr; gap: 48px; }
-  .exp-cards{ grid-template-columns: 1fr; }
-  .footer-top{ grid-template-columns: 1fr 1fr; gap: 40px; }
-}
-@media (max-width: 700px){
-  .hero-inner{ padding: 0 20px 48px; }
-  .sig-strip{ grid-template-columns: repeat(2, 1fr); height: auto; }
-  .sig-strip .photo{ height: 220px; }
-  .gallery-grid{ grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; }
-  .gallery-grid > *{ grid-column: span 1 !important; grid-row: span 2 !important; }
-  .footer-top{ grid-template-columns: 1fr; }
-  .booking-form{ padding: 28px; }
-  .form-row{ grid-template-columns: 1fr; }
-}
-@media (max-width: 520px){
-  .intro-grid{ grid-template-columns: 1fr; gap: 40px; }
-  .intro-photos{ height: 400px; }
-  .intro-photos .p1{ width: 70%; }
-  .intro-photos .p2{ width: 55%; }
-  .intro-photos .stamp-wrap{ right: 0; width: 110px; height: 110px; }
-  .mp-grid{ grid-template-columns: 1fr; gap: 48px; }
-  .mp-right{ min-height: 380px; max-width: 100%; }
-  .mp-photo-small{ display: none; }
-  .mp-stamp{ width: 90px; height: 90px; left: -10px; }
-  .mp-left h2{ font-size: clamp(44px, 12vw, 72px); }
-  .booking-grid{ grid-template-columns: 1fr; gap: 40px; }
-  .booking-form{ padding: 24px 16px; }
-  .booking h2{ font-size: clamp(44px, 12vw, 72px); }
-  .intro-copy h2{ font-size: clamp(36px, 10vw, 56px); }
+@media(max-width:600px){
+  .cards{grid-template-columns:1fr;}
+  .card{aspect-ratio:3/2;}
+  .divider-label{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- ============ NAVBAR ============ -->
-<nav class="navbar on-dark" id="navbar">
-  <a href="Agaton.html" class="brand">
-    <img src="agaton_logo_dark.svg" class="brand-logo brand-logo-light" alt="Agaton" width="96" height="46">
-    <img src="agaton_logo.svg" class="brand-logo brand-logo-dark" alt="Agaton" width="96" height="46">
-  </a>
-  <div class="nav-links">
-    <a href="Agaton.html" class="nav-link active">Hem</a>
-    <a href="menu.html" class="nav-link">Meny</a>
-    <a href="lunch.html" class="nav-link">Lunch</a>
-    <a href="om-oss.html" class="nav-link">Om oss</a>
-    <a href="stora-sallskap.html" class="nav-link">Stora Sällskap</a>
-    <a href="faq.html" class="nav-link">Kontakt</a>
-  </div>
-  <div class="nav-ctas">
-    <a href="menu.html" class="nav-cta nav-cta-ghost">Se menyn</a>
-    <a href="#booking" class="nav-cta">Boka bord</a>
-  </div>
-  <button class="nav-burger" id="nav-burger" aria-label="Öppna meny">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="nav-drawer" id="nav-drawer">
-  <div class="nav-drawer-inner">
-    <div class="nav-drawer-links">
-      <a href="Agaton.html" class="nav-drawer-link active">Hem</a>
-      <a href="menu.html" class="nav-drawer-link">Meny</a>
-      <a href="lunch.html" class="nav-drawer-link">Lunch</a>
-      <a href="om-oss.html" class="nav-drawer-link">Om oss</a>
-      <a href="stora-sallskap.html" class="nav-drawer-link">Stora Sällskap</a>
-      <a href="faq.html" class="nav-drawer-link">Kontakt</a>
-    </div>
-    <div class="nav-drawer-ctas">
-      <a href="#booking" class="btn btn-brick btn-lg" style="text-align:center;">Boka bord</a>
-      <a href="menu.html" class="nav-drawer-link" style="text-align:center; margin-top:8px; font-size:18px;">Se menyn</a>
-    </div>
-    <div class="nav-drawer-info">
-      <p>Västerlånggatan 72, Stockholm</p>
-      <p>+46 08 20 72 99</p>
-    </div>
-  </div>
+<div class="logo">
+  <img src="luxdin/agaton_logo.svg" alt="Agaton Ristorante">
 </div>
 
-<script>
-(function(){
-  const burger = document.getElementById('nav-burger');
-  const drawer = document.getElementById('nav-drawer');
-  burger?.addEventListener('click', () => {
-    const open = drawer.classList.toggle('open');
-    burger.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  drawer?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      drawer.classList.remove('open');
-      burger.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-})();
-</script>
+<h1>Välj din design</h1>
+<p class="subtitle">Två versioner — klicka för att utforska</p>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero-bg">
-    <img src="photos/interior-01.jpg" alt="Agatons matsal">
-  </div>
+<div class="cards-wrap">
+  <div class="cards">
 
-  <div class="hero-inner">
-    <div class="hero-eyebrow">
-      <span class="dot"></span> Trattoria · Pizzeria · Bar
-    </div>
-    <h1 class="hero-title">
-      <span class="script-tag">benvenuti da</span>
-      Agaton
-    </h1>
-
-    <div class="hero-bottom">
-      <p class="hero-lede">
-        Vedugnspizza, handgjord pasta och ett glas vin som smakar av eftermiddagssol i Toscana — på Västerlånggatan sedan 1999.
-      </p>
-
-      <div class="hero-meta">
-        <div>
-          Öppet ikväll
-          <strong>17 – 23</strong>
-        </div>
-        <div>
-          Adress
-          <strong>Västerlånggatan 72, Stockholm</strong>
+    <a href="luxdin/Agaton.html" class="card card--trattoria" target="_blank">
+      <img src="luxdin/photos/interior-01.jpg" alt="Trattoria">
+      <div class="card-content">
+        <div class="card-label">Version A</div>
+        <div class="card-title">Trattoria</div>
+        <div class="card-desc">Varm, rustik känsla med guld och terrakottarött. Klassisk trattoria-estetik.</div>
+        <div class="card-btn">
+          Öppna
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
       </div>
+    </a>
 
-      <div class="hero-ctas">
-        <a href="#booking" class="btn btn-brick btn-lg">Boka bord</a>
-        <a href="menu.html" class="btn btn-ghost-light">Se menyn</a>
+    <a href="agaton-morena/index.html" class="card card--klassisk" target="_blank">
+      <img src="luxdin/photos/interior-02.jpg" alt="Klassisk">
+      <div class="card-content">
+        <div class="card-label">Version B</div>
+        <div class="card-title">Klassisk</div>
+        <div class="card-desc">Modern fine-dining känsla med vinrött och ren typografi. Elegant och avskalad.</div>
+        <div class="card-btn">
+          Öppna
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
       </div>
-    </div>
-  </div>
+    </a>
 
-  <div class="hero-scroll" style="display:none"></div>
-</section>
-
-<!-- ============ TICKER ============ -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span>Pizza al forno a legna</span>
-    <span>Pasta fatta in casa</span>
-    <span>Carne · Pesce · Vegetariano</span>
-    <span>Vini italiani</span>
-    <span>Dolci della casa</span>
-    <span>Caffè espresso</span>
-    <span>Pizza al forno a legna</span>
-    <span>Pasta fatta in casa</span>
-    <span>Carne · Pesce · Vegetariano</span>
-    <span>Vini italiani</span>
-    <span>Dolci della casa</span>
-    <span>Caffè espresso</span>
   </div>
+  <div class="divider-label">eller</div>
 </div>
 
-<!-- ============ INTRO / Benvenuti ============ -->
-<section class="intro">
-  <div class="container">
-    <div class="intro-grid">
-      <div class="intro-copy reveal">
-        <span class="script">Benvenuti</span>
-        <h2>En bit av <span class="bold">Italien</span> i Gamla Stan.</h2>
-        <p>
-          Mitt på Västerlånggatan, i ett hus som stått här i ett halvt årtusende, har Agaton serverat ärlig italiensk mat sedan 1999. Före det var det en modebutik — och innan dess mycket annat. Vi har bara tagit vid.
-        </p>
-        <p>
-          Tänk flaxande ljus mot kullersten, en skiva nybakat bröd med olivolja, och en värd som hellre säger <em>"kom igen"</em> än "har ni bokat?".
-        </p>
-        <div class="sig">Famiglia Agaton</div>
-        <div class="tiny">— Värdar i Gamla Stan sedan 1999</div>
-      </div>
-
-      <div class="intro-photos reveal reveal-delay-2">
-        <div class="photo p1">
-          <img src="photos/interior-07.jpg" alt="Matsal med tegelvalv" loading="lazy">
-        </div>
-        <div class="photo p2">
-          <img src="photos/food-01.jpg" alt="Kocken bakar pizza" loading="lazy">
-        </div>
-        <div class="stamp-wrap">
-          <div class="stamp">
-            <span class="stamp-num">25</span>
-            <span class="stamp-label">år på Västerlånggatan</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ MENU PREVIEW ============ -->
-<section class="menu-preview" id="menu-preview">
-  <div class="container">
-    <div class="mp-grid">
-      <div class="mp-left reveal">
-        <span class="script mp-script">Dal menù</span>
-        <h2>Smaker från <em>Italien</em></h2>
-        <p class="mp-lead">
-          Handgjord pasta, vedugnspizza och noggrant utvalda viner från Toscana till Sicilien. Klassikerna bor här året runt — resten byter vi ut efter säsongen.
-        </p>
-
-        <div class="mp-cats">
-          <div class="mp-cat">Antipasti</div>
-          <div class="mp-cat">Pizza</div>
-          <div class="mp-cat">Pasta</div>
-          <div class="mp-cat">Secondi</div>
-          <div class="mp-cat">Dolci</div>
-          <div class="mp-cat">Vini</div>
-        </div>
-
-        <div class="mp-ctas">
-          <a href="menu.html" class="btn btn-candle btn-lg">Se hela menyn</a>
-          <a href="lunch.html" class="mp-link">eller Veckans lunch →</a>
-        </div>
-      </div>
-
-      <div class="mp-right reveal reveal-delay-1">
-        <div class="mp-photo-main"><img src="photos/food-10.jpg" alt="Vedugnspizza med mozzarella"></div>
-        <div class="mp-photo-small"><img src="photos/food-15.jpg" alt="Handgjord pasta"></div>
-        <div class="mp-stamp">
-          <div class="mp-stamp-inner">
-            <span class="mp-stamp-top">Dal 1999</span>
-            <span class="mp-stamp-mid">Agaton</span>
-            <span class="mp-stamp-bot">Gamla Stan</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BOOKING ============ -->
-<section class="booking" id="booking">
-  <div class="container">
-    <div class="booking-grid">
-      <div class="reveal">
-        <h2>
-          <span class="script-inline">scrivici —</span>
-          Hör av dig till oss
-        </h2>
-        <p>
-          Boka bord direkt på <strong>+46 08 20 72 99</strong>, eller skicka ett meddelande så återkommer vi inom kort. Frågor om meny, allergier, sällskap eller privata event — vi hjälper till på svenska <em>eller</em> italienska.
-        </p>
-
-        <div style="display:flex; gap: 48px; margin-top: 48px; flex-wrap: wrap;">
-          <div>
-            <div class="tiny" style="color: color-mix(in oklab, var(--cream) 55%, transparent); margin-bottom: 8px; letter-spacing: .16em; text-transform: uppercase; font-size: 11px;">Öppettider</div>
-            <div style="font-family: var(--display); font-size: 17px; line-height: 1.85;">
-              Måndag · 17 – 22<br>
-              Tisdag · 17 – 22<br>
-              Onsdag · 17 – 22<br>
-              Torsdag · 17 – 23<br>
-              Fredag · 17 – 00<br>
-              Lördag · 17 – 00<br>
-              Söndag · stängt
-            </div>
-          </div>
-          <div>
-            <div class="tiny" style="color: color-mix(in oklab, var(--cream) 55%, transparent); margin-bottom: 8px; letter-spacing: .16em; text-transform: uppercase; font-size: 11px;">Kontakt</div>
-            <div style="font-family: var(--display); font-size: 17px; line-height: 1.85;">
-              Västerlånggatan 72<br>
-              111 29 Stockholm<br><br>
-              +46 08 20 72 99<br>
-              info@restaurangagaton.se
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <form class="booking-form reveal reveal-delay-2" onsubmit="event.preventDefault(); alert('Tack! Vi återkommer så snart vi kan.');">
-        <h3>Kontakta oss</h3>
-        <p class="small">Vi svarar på din förfrågan inom en timme, alla dagar mellan 10 – 22.</p>
-
-        <div class="form-row">
-          <div class="form-field">
-            <label>Namn</label>
-            <input type="text" placeholder="Ditt namn" required>
-          </div>
-          <div class="form-field">
-            <label>E-post</label>
-            <input type="email" placeholder="du@exempel.se" required>
-          </div>
-        </div>
-
-        <div class="form-row single">
-          <div class="form-field">
-            <label>Telefon <span style="color:var(--ink-faint); font-weight: 400;">(valfritt)</span></label>
-            <input type="tel" placeholder="070 123 45 67">
-          </div>
-        </div>
-
-        <div class="form-row single">
-          <div class="form-field">
-            <label>Meddelande</label>
-            <textarea rows="5" placeholder="Vad kan vi hjälpa dig med?" required style="width:100%; font-family: inherit; font-size: 15px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--cream); color: var(--wood); resize: vertical; min-height: 120px;"></textarea>
-          </div>
-        </div>
-
-        <button type="submit" class="form-submit">Skicka meddelande</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="agaton_logo.svg" alt="Agaton Ristorante e Pizzeria" width="140" height="66" style="display:block; margin-bottom: 18px;">
-      <p>Vedugnspizza, handgjord pasta och ärlig italiensk mat. I Gamla Stan sedan 1999.</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Besök oss</h4>
-      <p>
-        Västerlånggatan 72<br>
-        111 29 Stockholm<br><br>
-        +46 08 20 72 99<br>
-        info@restaurangagaton.se
-      </p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Meny & Boka</h4>
-      <ul>
-        <li><a href="menu.html">À la carte</a></li>
-        <li><a href="lunch.html">Veckans lunch</a></li>
-        <li><a href="catering.html">Catering</a></li>
-        <li><a href="chambre-separee.html">Privat matsal</a></li>
-        <li><a href="#booking">Boka bord</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Följ oss</h4>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="stora-sallskap.html">Stora Sällskap</a></li>
-        <li><a href="faq.html">Vanliga frågor</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <span>© Agaton Ristorante — Mandato di cucinare bene.</span>
-    <span>Illustrazioni · placeholder-text markerad XX</span>
-  </div>
-</footer>
-
-<!-- ============ JS ============ -->
-<script>
-  // ===== Navbar scroll state =====
-  const nav = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 60) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // ===== Reveal on scroll =====
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-</script>
+<p class="bottom-note">Agaton Ristorante &nbsp;·&nbsp; Västerlånggatan 72, Stockholm</p>
 
 </body>
 </html>

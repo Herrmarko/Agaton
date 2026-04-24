@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Menù — Agaton Ristorante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Style+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="agaton.css">
+<script src="agaton-chrome.js?v=5" data-active="menu"></script>
+<style>
+/* ============ SPLIT HERO ============ */
+.m-hero{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 92vh;
+  background: var(--cream);
+}
+.m-hero-left{
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 140px 8vw 80px 8vw;
+}
+.m-hero-eyebrow{
+  font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--brick); font-weight: 500; margin-bottom: 28px;
+}
+.m-hero-left h1{
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(64px, 7.2vw, 128px); line-height: .95;
+  color: var(--wood); letter-spacing: -0.02em;
+  margin-bottom: 30px;
+}
+.m-hero-lede{
+  font-size: 16px; line-height: 1.75; color: var(--ink-soft);
+  max-width: 44ch; margin-bottom: 56px;
+}
+
+/* Tabs inside hero */
+.m-tabs{
+  display: flex; flex-wrap: wrap; gap: 24px;
+  padding-top: 40px; border-top: 1px solid var(--line);
+}
+.m-tab{
+  background: transparent; border: none; padding: 0 0 10px 0;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ink-faint); cursor: pointer;
+  position: relative; transition: color .3s var(--ease);
+}
+.m-tab::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1.5px; background: var(--brick);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s var(--ease);
+}
+.m-tab:hover{ color: var(--wood); }
+.m-tab.active{ color: var(--wood); }
+.m-tab.active::after{ transform: scaleX(1); }
+
+.m-hero-right{
+  position: relative; overflow: hidden;
+  background: var(--wood);
+  z-index: 0;
+}
+.m-hero-right img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* ============ STICKY TABBAR (on scroll) ============ */
+.m-tabbar{
+  position: fixed;
+  top: 68px; left: 0; right: 0;
+  z-index: 40;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  display: flex; justify-content: center; gap: 48px;
+  padding: 0 24px;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-100%);
+  transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.m-tabbar.visible{
+  opacity: 1; pointer-events: auto;
+  transform: translateY(0);
+}
+.m-tabbar .m-tab{
+  padding: 18px 0;
+  font-size: 11px; letter-spacing: .22em;
+}
+.m-tabbar .m-tab::after{
+  bottom: 0;
+}
+
+/* ============ SECTIONS ============ */
+.m-sections{
+  background: var(--white);
+  padding: 80px 24px 140px;
+}
+.m-section{
+  max-width: 1080px; margin: 0 auto 40px;
+  background: var(--cream);
+  padding: 70px 80px 80px;
+  border-radius: 2px;
+  scroll-margin-top: 140px;
+}
+.m-section-head{
+  text-align: center; margin-bottom: 56px;
+}
+.m-section-head h2{
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(36px, 4vw, 54px); color: var(--wood);
+  letter-spacing: -0.01em;
+}
+.m-section-head .script{
+  font-family: var(--script); font-size: 32px;
+  color: var(--brick); display: block;
+  transform: rotate(-3deg); margin-bottom: 10px;
+}
+
+/* Menu item — dotted leader row */
+.m-item{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "title leader price"
+    "desc  desc   desc";
+  column-gap: 18px;
+  padding: 16px 0 20px;
+  align-items: baseline;
+}
+.m-item + .m-item{ border-top: 1px solid color-mix(in oklab, var(--wood) 8%, transparent); }
+.m-item-title{
+  grid-area: title;
+  font-family: var(--display); font-weight: 500;
+  font-size: 21px; color: var(--wood);
+  line-height: 1.25;
+  letter-spacing: -0.002em;
+}
+.m-item-leader{
+  grid-area: leader;
+  height: 1px;
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--wood) 35%, transparent) 1px, transparent 1.2px);
+  background-size: 5px 5px;
+  background-repeat: repeat-x;
+  background-position: 0 center;
+  align-self: center;
+  min-width: 60px;
+  opacity: .55;
+}
+.m-item-price{
+  grid-area: price;
+  font-family: var(--sans); font-size: 14px; font-weight: 500;
+  color: var(--wood-2); white-space: nowrap;
+  letter-spacing: .02em;
+}
+.m-item-desc{
+  grid-area: desc;
+  font-size: 13.5px; line-height: 1.6; color: var(--ink-soft);
+  max-width: 64ch; margin-top: 6px;
+}
+
+/* Footer note (allergens / klassad vin osv) */
+.m-note{
+  text-align: center; padding: 50px 24px 100px;
+  background: var(--white);
+  font-size: 12.5px; color: var(--ink-faint);
+  max-width: 56ch; margin: 0 auto;
+  line-height: 1.7;
+}
+.m-note em{ font-family: var(--display); font-style: italic; color: var(--brick); }
+
+/* Responsive */
+@media (max-width: 960px){
+  .m-hero{ grid-template-columns: 1fr; min-height: auto; }
+  .m-hero-left{ padding: 100px 24px 48px; }
+  .m-hero-right{ aspect-ratio: 4/3; min-height: 260px; }
+  .m-tabs{ gap: 16px 20px; }
+  .m-tabbar{ gap: 20px; overflow-x: auto; justify-content: flex-start; padding: 0 20px; }
+  .m-tabbar::-webkit-scrollbar{ display: none; }
+  .m-section{ padding: 48px 20px 56px; }
+  .m-section-head{ margin-bottom: 32px; }
+  .m-item{ grid-template-columns: 1fr auto; grid-template-areas: "title price" "desc desc"; }
+  .m-item-leader{ display: none; }
+  .m-sections{ padding: 60px 10px 80px; }
+}
+@media (max-width: 520px){
+  .m-hero-left h1{ font-size: clamp(52px, 14vw, 80px); }
+  .m-tabbar{ gap: 16px; }
+  .m-section{ padding: 36px 16px 44px; }
+  .m-section-head h2{ font-size: clamp(28px, 8vw, 42px); }
+  .m-item-title{ font-size: 18px; }
+}
+</style>
+</head>
+<body data-force-scrolled="true">
+
+<div id="agaton-nav" data-force-scrolled="true"></div>
+
+<!-- ============ SPLIT HERO ============ -->
+<section class="m-hero">
+  <div class="m-hero-left">
+    <div class="m-hero-eyebrow">Menù</div>
+    <h1>Vår Meny</h1>
+    <p class="m-hero-lede">
+      Våra rätter växer fram mellan vedugnen, pastarullen och årstiderna. Klassikerna bor här året runt — resten byter vi ut efter vad som är bäst just nu på marknaden.
+    </p>
+    <div class="m-tabs" data-tabs>
+      <button class="m-tab active" data-target="antipasti">Antipasti</button>
+      <button class="m-tab" data-target="pizza">Pizza</button>
+      <button class="m-tab" data-target="pasta">Risotto &amp; Pasta</button>
+      <button class="m-tab" data-target="secondi">Secondi</button>
+      <button class="m-tab" data-target="dolci">Dolci</button>
+      <button class="m-tab" data-target="vini">Vini</button>
+    </div>
+  </div>
+  <div class="m-hero-right">
+    <img src="photos/food-10.jpg" alt="Vedugnspizza med mozzarella och basilika">
+  </div>
+</section>
+
+<!-- Sticky duplicate tabs once hero is gone -->
+<div class="m-tabbar" data-tabs>
+  <button class="m-tab active" data-target="antipasti">Antipasti</button>
+  <button class="m-tab" data-target="pizza">Pizza</button>
+  <button class="m-tab" data-target="pasta">Risotto &amp; Pasta</button>
+  <button class="m-tab" data-target="secondi">Secondi</button>
+  <button class="m-tab" data-target="dolci">Dolci</button>
+  <button class="m-tab" data-target="vini">Vini</button>
+</div>
+
+<!-- ============ SECTIONS ============ -->
+<div class="m-sections">
+
+  <section class="m-section" id="antipasti">
+    <div class="m-section-head">
+      <span class="script">per cominciare</span>
+      <h2>Antipasti</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Carciofi fritti</div><div class="m-item-leader"></div><div class="m-item-price">159 kr</div><div class="m-item-desc">Friterad kronärtskockshjärta, pecorino, tryffelcremé.</div></div>
+    <div class="m-item"><div class="m-item-title">Bruschetta con prosciutto</div><div class="m-item-leader"></div><div class="m-item-price">170 kr</div><div class="m-item-desc">Grillat lantbröd, marinerade tomater, kronärtskockscremé, San Daniele prosciutto, basilika.</div></div>
+    <div class="m-item"><div class="m-item-title">Carpaccio di manzo</div><div class="m-item-leader"></div><div class="m-item-price">219 kr</div><div class="m-item-desc">Oxfilé, ruccola, soltorkade tomater, parmesan, pinjenötter, tryffelcremé.</div></div>
+    <div class="m-item"><div class="m-item-title">Burrata classica</div><div class="m-item-leader"></div><div class="m-item-price">175 kr</div><div class="m-item-desc">Bakade cocktailtomater, marinerade oliver, rotfruktschips, grön pesto, burrata.</div></div>
+    <div class="m-item"><div class="m-item-title">Arancini cacio e pepe con nduja</div><div class="m-item-leader"></div><div class="m-item-price">165 kr</div><div class="m-item-desc">Friterade risbollar med nduja, taleggio, pepparcremé, pecorino.</div></div>
+    <div class="m-item"><div class="m-item-title">Antipasto misto</div><div class="m-item-leader"></div><div class="m-item-price">325 kr</div><div class="m-item-desc">Urval av italienska charkuterier &amp; ostar, parmesan, cornichoner, marinerade oliver.</div></div>
+    <div class="m-item"><div class="m-item-title">Pane all'aglio</div><div class="m-item-leader"></div><div class="m-item-price">66 kr</div><div class="m-item-desc">Grillat lantbröd, vitlökssmör.</div></div>
+    <div class="m-item"><div class="m-item-title">Olive marinate</div><div class="m-item-leader"></div><div class="m-item-price">85 kr</div><div class="m-item-desc">Marinerade oliver.</div></div>
+  </section>
+
+  <section class="m-section" id="pizza">
+    <div class="m-section-head">
+      <span class="script">al forno a legna</span>
+      <h2>Pizza</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Capricciosa</div><div class="m-item-leader"></div><div class="m-item-price">188 kr</div><div class="m-item-desc">Tomatsås, fior di latte, prosciutto cotto, portobello, basilika.</div></div>
+    <div class="m-item"><div class="m-item-title">Diavola</div><div class="m-item-leader"></div><div class="m-item-price">220 kr</div><div class="m-item-desc">Tomatsås, fior di latte, nduja, lök, salami spianata calabra, basilika.</div></div>
+    <div class="m-item"><div class="m-item-title">Bufalino</div><div class="m-item-leader"></div><div class="m-item-price">210 kr</div><div class="m-item-desc">Tomatsås, fior di latte, körsbärstomater, buffelmozzarella, citron gremolata, basilika.</div></div>
+    <div class="m-item"><div class="m-item-title">Quattro Stagioni</div><div class="m-item-leader"></div><div class="m-item-price">215 kr</div><div class="m-item-desc">Tomatsås, fior di latte, portabello, prosciutto cotto, scampi, oliver, kronärtskocka, persilja.</div></div>
+    <div class="m-item"><div class="m-item-title">Quattro formaggi</div><div class="m-item-leader"></div><div class="m-item-price">220 kr</div><div class="m-item-desc">Tomatsås, fyra ostar, honung, rosmarin, svartpeppar.</div></div>
+    <div class="m-item"><div class="m-item-title">Crudo</div><div class="m-item-leader"></div><div class="m-item-price">225 kr</div><div class="m-item-desc">Tomatsås, fior di latte, körsbärstomater, ruccola, parmesan, San Daniele prosciutto, pinjenötter.</div></div>
+    <div class="m-item"><div class="m-item-title">Tartuffo</div><div class="m-item-leader"></div><div class="m-item-price">235 kr</div><div class="m-item-desc">Tomatsås, fior di latte, körsbärstomater, tryffelsalami, ruccola, spenat, pinjenötter, parmesan, tryffelcremé.</div></div>
+    <div class="m-item"><div class="m-item-title">Pollo</div><div class="m-item-leader"></div><div class="m-item-price">240 kr</div><div class="m-item-desc">Basilika mascarpone, fior di latte, marinerad kyckling, friterad kronärtskocka, pinjenötter, ruccola, parmesan, örtaioli.</div></div>
+    <div class="m-item"><div class="m-item-title">Pescatore</div><div class="m-item-leader"></div><div class="m-item-price">245 kr</div><div class="m-item-desc">Tomatsås, fior di latte, citron- och chilimarinerad scampi, räkor, kräftor, persilja, peperoncini, citron.</div></div>
+    <div class="m-item"><div class="m-item-title">Vegetariana</div><div class="m-item-leader"></div><div class="m-item-price">215 kr</div><div class="m-item-desc">Tomatsås, fior di latte, grillad paprika, grillad zucchini, rostad kronärtskocka, vitlök, basilika, parmesan. Vegansk möjlig.</div></div>
+    <p style="font-size:12px;color:var(--ink-faint);margin-top:16px;">Glutenfri pizza +30 kr. Saknar du en klassiker? Fråga din servitör.</p>
+  </section>
+
+  <section class="m-section" id="pasta">
+    <div class="m-section-head">
+      <span class="script">riso e pasta</span>
+      <h2>Risotto &amp; Pasta</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Sedanini Agaton</div><div class="m-item-leader"></div><div class="m-item-price">285 kr</div><div class="m-item-desc">Agatons klassiska oxfilépasta, säsongens svamp, taleggio, kalvsky, färska örter, rött vin, grädde, parmesan.</div></div>
+    <div class="m-item"><div class="m-item-title">Pappardelle al Saltimboca</div><div class="m-item-leader"></div><div class="m-item-price">298 kr</div><div class="m-item-desc">Kalvfilé, prosciutto, marsalavin, brynt salviasmör, färska örter, rött vin, grädde, parmesan.</div></div>
+    <div class="m-item"><div class="m-item-title">Linguine ai frutti di mare</div><div class="m-item-leader"></div><div class="m-item-price">325 kr</div><div class="m-item-desc">Argentinsk rödräka, scampi, musslor, bläckfisk, vitt vin, vitlök, chili, tomatsås, färska örter.</div></div>
+    <div class="m-item"><div class="m-item-title">Linguine agli scampi</div><div class="m-item-leader"></div><div class="m-item-price">275 kr</div><div class="m-item-desc">Scampi, vitt vin, chili, persilja, citron, smör, cocktailtomater.</div></div>
+    <div class="m-item"><div class="m-item-title">Risotto ai funghi</div><div class="m-item-leader"></div><div class="m-item-price">275 kr</div><div class="m-item-desc">Portobello &amp; ostronskivling, tryffel, vitt vin, parmesan, färska örter, grönkålschips.</div></div>
+    <div class="m-item"><div class="m-item-title">Linguine alla Carbonara</div><div class="m-item-leader"></div><div class="m-item-price">245 kr</div><div class="m-item-desc">Knaperstekt pancetta, grädde, lök, ägg, pecorino, svartpeppar.</div></div>
+    <div class="m-item"><div class="m-item-title">Arrabiata con burrata</div><div class="m-item-leader"></div><div class="m-item-price">265 kr</div><div class="m-item-desc">Tomatsås, säsongens grönsaker, chili, burrata. Går även att få vegansk.</div></div>
+  </section>
+
+  <section class="m-section" id="secondi">
+    <div class="m-section-head">
+      <span class="script">carne &amp; pesce</span>
+      <h2>Secondi</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Insalata Caesare</div><div class="m-item-leader"></div><div class="m-item-price">245 kr</div><div class="m-item-desc">Grillad marinerad kyckling, knaperstekt bacon, örtkrutonger, parmesan, caesardressing.</div></div>
+    <div class="m-item"><div class="m-item-title">Salmerino</div><div class="m-item-leader"></div><div class="m-item-price">355 kr</div><div class="m-item-desc">Halstrad fjällröding, skaldjursrisotto, gremolata, syrad romanesco.</div></div>
+    <div class="m-item"><div class="m-item-title">Branzino</div><div class="m-item-leader"></div><div class="m-item-price">345 kr</div><div class="m-item-desc">Havsabborre, smörsås, körvel, gräslök, tomat, bakad potatis, picklad fänkål.</div></div>
+    <div class="m-item"><div class="m-item-title">Filetto di agnello</div><div class="m-item-leader"></div><div class="m-item-price">365 kr</div><div class="m-item-desc">Rosmarin- och vitlöksmarinerad lammfilé, svamprisotto, rödvinsreduktion, rostad kronärtskocka.</div></div>
+    <div class="m-item"><div class="m-item-title">Tagliata di manzo</div><div class="m-item-leader"></div><div class="m-item-price">395 kr</div><div class="m-item-desc">Grillad entrecôte, ruccola, parmesan, balsamico, friterad potatis, vitlökssmör.</div></div>
+    <div class="m-item"><div class="m-item-title">Filetto di manzo al pepe</div><div class="m-item-leader"></div><div class="m-item-price">395 kr</div><div class="m-item-desc">Pepparstek på oxfilé, grönpepparsås, parmesangratinerad potatiskaka, grillad sparris.</div></div>
+  </section>
+
+  <section class="m-section" id="dolci">
+    <div class="m-section-head">
+      <span class="script">per finire</span>
+      <h2>Dolci</h2>
+    </div>
+    <div class="m-item"><div class="m-item-title">Tiramisù</div><div class="m-item-leader"></div><div class="m-item-price">128 kr</div><div class="m-item-desc">Klassisk italiensk tiramisù på vårt vis.</div></div>
+    <div class="m-item"><div class="m-item-title">Pannacotta al nocciola</div><div class="m-item-leader"></div><div class="m-item-price">125 kr</div><div class="m-item-desc">Choklad och mandel pannacotta, mascarponekräm.</div></div>
+    <div class="m-item"><div class="m-item-title">Creme Brûlé</div><div class="m-item-leader"></div><div class="m-item-price">125 kr</div><div class="m-item-desc">Klassisk franskt bränt socker med krämig vaniljkräm.</div></div>
+    <div class="m-item"><div class="m-item-title">Sorbetto</div><div class="m-item-leader"></div><div class="m-item-price">105 kr</div><div class="m-item-desc">Olika smaker — fråga personalen för dagens sorbet.</div></div>
+    <div class="m-item"><div class="m-item-title">Tartufo al cioccolato</div><div class="m-item-leader"></div><div class="m-item-price">95 kr</div><div class="m-item-desc">Hemlagade chokladtryfflar.</div></div>
+  </section>
+
+  <section class="m-section" id="vini">
+    <div class="m-section-head">
+      <span class="script">la cantina</span>
+      <h2>Vini &amp; Bevande</h2>
+    </div>
+
+    <!-- SPUMANTI -->
+    <div class="m-item" style="border-top:1px solid color-mix(in oklab,var(--wood) 8%,transparent);"><div class="m-item-title" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);">Spumanti &amp; Champagne</div><div class="m-item-leader"></div><div class="m-item-price" style="font-size:11px;color:var(--ink-faint);">glas / flaska</div></div>
+    <div class="m-item"><div class="m-item-title">Prosecco Millesimato NV</div><div class="m-item-leader"></div><div class="m-item-price">150 / 610 kr</div><div class="m-item-desc">Italia.</div></div>
+    <div class="m-item"><div class="m-item-title">Blanc de Blancs Metodo Classico, Rotari 2018</div><div class="m-item-leader"></div><div class="m-item-price">185 / 850 kr</div><div class="m-item-desc">Italia.</div></div>
+    <div class="m-item"><div class="m-item-title">Moscato d’Asti, Tintero 2023</div><div class="m-item-leader"></div><div class="m-item-price">130 / 610 kr</div><div class="m-item-desc">Italia.</div></div>
+    <div class="m-item"><div class="m-item-title">Brut Réserve, Gonet Sulcova NV</div><div class="m-item-leader"></div><div class="m-item-price">895 kr</div><div class="m-item-desc">Champagne, Francia.</div></div>
+    <div class="m-item"><div class="m-item-title">Launois Special Club, Pére &amp; Fils 2010</div><div class="m-item-leader"></div><div class="m-item-price">2 395 kr</div><div class="m-item-desc">Champagne, Francia.</div></div>
+    <div class="m-item"><div class="m-item-title">Dom Pérignon, Moët &amp; Chandon 2010</div><div class="m-item-leader"></div><div class="m-item-price">3 995 kr</div><div class="m-item-desc">Champagne, Francia.</div></div>
+
+    <!-- BIANCHI -->
+    <div class="m-item" style="margin-top:24px;border-top:1px solid color-mix(in oklab,var(--wood) 8%,transparent);"><div class="m-item-title" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);">Vini Bianchi</div><div class="m-item-leader"></div><div class="m-item-price" style="font-size:11px;color:var(--ink-faint);">glas / flaska</div></div>
+    <div class="m-item"><div class="m-item-title">Langhe Chardonnay DOC 2023, Salvano</div><div class="m-item-leader"></div><div class="m-item-price">175 / 875 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Sauvignon Blanc DOC 2024, Andrea Carpi</div><div class="m-item-leader"></div><div class="m-item-price">170 / 775 kr</div><div class="m-item-desc">Friuli.</div></div>
+    <div class="m-item"><div class="m-item-title">Riesling DOC 2024, Pratello</div><div class="m-item-leader"></div><div class="m-item-price">145 / 825 kr</div><div class="m-item-desc">Veneto.</div></div>
+    <div class="m-item"><div class="m-item-title">Le Creete Lugana DOC 2024, Ottella</div><div class="m-item-leader"></div><div class="m-item-price">150 / 895 kr</div><div class="m-item-desc">Veneto.</div></div>
+    <div class="m-item"><div class="m-item-title">Papeo Vermentino Bolgheri Bianco DOC 2022</div><div class="m-item-leader"></div><div class="m-item-price">165 / 995 kr</div><div class="m-item-desc">Terre del Marchesato, Toscana.</div></div>
+    <div class="m-item"><div class="m-item-title">Selvabianca Vernaccia di San Gimignano DOCG 2023</div><div class="m-item-leader"></div><div class="m-item-price">175 / 795 kr</div><div class="m-item-desc">Santa Chiara, Toscana.</div></div>
+    <div class="m-item"><div class="m-item-title">Terre di Mario Bianco IGT NV</div><div class="m-item-leader"></div><div class="m-item-price">675 kr</div><div class="m-item-desc">Terre di Mario, Abruzzo.</div></div>
+    <div class="m-item"><div class="m-item-title">Agatons husvitt</div><div class="m-item-leader"></div><div class="m-item-price">130 / 695 kr</div><div class="m-item-desc">Terre di Sicilia, Cantine Birgi.</div></div>
+
+    <!-- ROSATI -->
+    <div class="m-item" style="margin-top:24px;border-top:1px solid color-mix(in oklab,var(--wood) 8%,transparent);"><div class="m-item-title" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);">Vini Rosati</div><div class="m-item-leader"></div><div class="m-item-price" style="font-size:11px;color:var(--ink-faint);">glas / flaska</div></div>
+    <div class="m-item"><div class="m-item-title">Pinot Grigio, La Vigna Di Riva 2023</div><div class="m-item-leader"></div><div class="m-item-price">150 / 795 kr</div><div class="m-item-desc">Italia.</div></div>
+    <div class="m-item"><div class="m-item-title">Cremisi Toscana Rosato, Santa Chiara 2024</div><div class="m-item-leader"></div><div class="m-item-price">150 / 695 kr</div><div class="m-item-desc">Toscana.</div></div>
+
+    <!-- ROSSI -->
+    <div class="m-item" style="margin-top:24px;border-top:1px solid color-mix(in oklab,var(--wood) 8%,transparent);"><div class="m-item-title" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);">Vini Rossi</div><div class="m-item-leader"></div><div class="m-item-price" style="font-size:11px;color:var(--ink-faint);">glas / flaska</div></div>
+    <div class="m-item"><div class="m-item-title">Barbera d’Alba DOC 2022, Salvano</div><div class="m-item-leader"></div><div class="m-item-price">175 / 825 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Nebbiolo d’Alba DOC 2021, Salvano</div><div class="m-item-leader"></div><div class="m-item-price">180 / 850 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Barbera d’Asti DOCG 2022, Tenuta il Falchetto</div><div class="m-item-leader"></div><div class="m-item-price">170 / 950 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Barbaresco Riserva DOCG 2015, Cocito</div><div class="m-item-leader"></div><div class="m-item-price">195 / 1 395 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Barolo DOCG 2018, Franco Molino</div><div class="m-item-leader"></div><div class="m-item-price">145 / 975 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Barolo DOCG 2015, Aurelio Settimo</div><div class="m-item-leader"></div><div class="m-item-price">160 / 1 695 kr</div><div class="m-item-desc">Piemonte.</div></div>
+    <div class="m-item"><div class="m-item-title">Valpolicella Ripasso Classico Superiore DOC 2023</div><div class="m-item-leader"></div><div class="m-item-price">150 / 795 kr</div><div class="m-item-desc">Corte Armano, Veneto.</div></div>
+    <div class="m-item"><div class="m-item-title">Amarone della Valpolicella Classico DOCG 2021</div><div class="m-item-leader"></div><div class="m-item-price">175 / 855 kr</div><div class="m-item-desc">Villa Canestrari, Veneto.</div></div>
+    <div class="m-item"><div class="m-item-title">Amarone della Valpolicella DOC 2009</div><div class="m-item-leader"></div><div class="m-item-price">975 kr</div><div class="m-item-desc">Giuseppe Quintarelli, Veneto.</div></div>
+    <div class="m-item"><div class="m-item-title">Pinot Nero DOC 2019, Roberto Lucarelli</div><div class="m-item-leader"></div><div class="m-item-price">1 595 kr</div><div class="m-item-desc">Marche.</div></div>
+    <div class="m-item"><div class="m-item-title">Chianti Classico DOCG 2023, Castello di Meleto</div><div class="m-item-leader"></div><div class="m-item-price">175 / 925 kr</div><div class="m-item-desc">Toscana.</div></div>
+    <div class="m-item"><div class="m-item-title">Chianti Classico Riserva DOCG 2020, Castello di Meleto</div><div class="m-item-leader"></div><div class="m-item-price">1 195 kr</div><div class="m-item-desc">Toscana.</div></div>
+    <div class="m-item"><div class="m-item-title">Brunello di Montalcino DOCG 2018</div><div class="m-item-leader"></div><div class="m-item-price">1 595 kr</div><div class="m-item-desc">Il Paradiso di Frassina, Toscana.</div></div>
+    <div class="m-item"><div class="m-item-title">Sassicaia IGT 2021, Tenuta San Guido</div><div class="m-item-leader"></div><div class="m-item-price">4 995 kr</div><div class="m-item-desc">Toscana.</div></div>
+    <div class="m-item"><div class="m-item-title">Montepulciano d’Abruzzo DOCG 2020, Mazzarosa</div><div class="m-item-leader"></div><div class="m-item-price">750 kr</div><div class="m-item-desc">Abruzzo.</div></div>
+    <div class="m-item"><div class="m-item-title">Agatons husvin</div><div class="m-item-leader"></div><div class="m-item-price">130 / 675 kr</div><div class="m-item-desc">Terre di Sicilia, Cantine Birgi.</div></div>
+
+    <!-- ALKOHOLFRITT -->
+    <div class="m-item" style="margin-top:24px;border-top:1px solid color-mix(in oklab,var(--wood) 8%,transparent);"><div class="m-item-title" style="font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);">Alkoholfritt Vin</div><div class="m-item-leader"></div><div class="m-item-price" style="font-size:11px;color:var(--ink-faint);">glas / flaska</div></div>
+    <div class="m-item"><div class="m-item-title">Vintense Chardonnay, Vin de France</div><div class="m-item-leader"></div><div class="m-item-price">115 / 495 kr</div><div class="m-item-desc">Alkoholfritt vitt vin.</div></div>
+    <div class="m-item"><div class="m-item-title">Vintense Merlot, Vin de France</div><div class="m-item-leader"></div><div class="m-item-price">115 / 495 kr</div><div class="m-item-desc">Alkoholfritt rött vin.</div></div>
+  </section>
+
+</div>
+
+<div class="m-note">
+  Fråga oss gärna om <em>allergier</em> eller <em>specialkost</em> — vi gör vårt bästa för att anpassa. Alla priser inkluderar moms.
+</div>
+
+<div id="agaton-footer"></div>
+
+<script>
+  const hero = document.querySelector('.m-hero');
+  const tabbar = document.querySelector('.m-tabbar');
+  const allTabs = Array.from(document.querySelectorAll('.m-tab'));
+  const sections = Array.from(document.querySelectorAll('.m-section'));
+
+  // Show sticky tabbar when scrolled past hero
+  window.addEventListener('scroll', () => {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    if (window.scrollY > heroBottom - 100) {
+      tabbar.classList.add('visible');
+    } else {
+      tabbar.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  // Click: smooth scroll with offset
+  allTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.target;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const offset = 72;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  // Active state on scroll via IntersectionObserver
+  const setActive = (id) => {
+    allTabs.forEach(t => t.classList.toggle('active', t.dataset.target === id));
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) setActive(e.target.id);
+    });
+  }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
